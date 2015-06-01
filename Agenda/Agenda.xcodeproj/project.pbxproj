@@ -14,6 +14,14 @@
 		153B759F1B1CD43C00EC5070 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 153B759E1B1CD43C00EC5070 /* Images.xcassets */; };
 		153B75A21B1CD43C00EC5070 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 153B75A01B1CD43C00EC5070 /* LaunchScreen.xib */; };
 		153B75AE1B1CD43C00EC5070 /* AgendaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153B75AD1B1CD43C00EC5070 /* AgendaTests.swift */; };
+		153B75B81B1CE61500EC5070 /* Materia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153B75B71B1CE61500EC5070 /* Materia.swift */; };
+		153B75BA1B1CE61600EC5070 /* Atividade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153B75B91B1CE61600EC5070 /* Atividade.swift */; };
+		153B75BD1B1CE77500EC5070 /* MateriasTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153B75BC1B1CE77500EC5070 /* MateriasTableViewController.swift */; };
+		153B75BF1B1CE82900EC5070 /* AddMateriaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153B75BE1B1CE82900EC5070 /* AddMateriaViewController.swift */; };
+		153B75C11B1CE84F00EC5070 /* MateriaManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153B75C01B1CE84F00EC5070 /* MateriaManager.swift */; };
+		153B75C31B1CE86200EC5070 /* TarefaManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153B75C21B1CE86200EC5070 /* TarefaManager.swift */; };
+		153B75C51B1CF60B00EC5070 /* TarefaTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153B75C41B1CF60B00EC5070 /* TarefaTableViewController.swift */; };
+		153B75C71B1CF6A900EC5070 /* AddTarefaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153B75C61B1CF6A900EC5070 /* AddTarefaViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +46,14 @@
 		153B75A71B1CD43C00EC5070 /* AgendaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AgendaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		153B75AC1B1CD43C00EC5070 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		153B75AD1B1CD43C00EC5070 /* AgendaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgendaTests.swift; sourceTree = "<group>"; };
+		153B75B71B1CE61500EC5070 /* Materia.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Materia.swift; sourceTree = "<group>"; };
+		153B75B91B1CE61600EC5070 /* Atividade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Atividade.swift; sourceTree = "<group>"; };
+		153B75BC1B1CE77500EC5070 /* MateriasTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MateriasTableViewController.swift; sourceTree = "<group>"; };
+		153B75BE1B1CE82900EC5070 /* AddMateriaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddMateriaViewController.swift; sourceTree = "<group>"; };
+		153B75C01B1CE84F00EC5070 /* MateriaManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MateriaManager.swift; sourceTree = "<group>"; };
+		153B75C21B1CE86200EC5070 /* TarefaManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TarefaManager.swift; sourceTree = "<group>"; };
+		153B75C41B1CF60B00EC5070 /* TarefaTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TarefaTableViewController.swift; sourceTree = "<group>"; };
+		153B75C61B1CF6A900EC5070 /* AddTarefaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTarefaViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +95,7 @@
 		153B75911B1CD43C00EC5070 /* Agenda */ = {
 			isa = PBXGroup;
 			children = (
+				153B75BB1B1CE61B00EC5070 /* Entidades */,
 				153B75941B1CD43C00EC5070 /* AppDelegate.swift */,
 				153B75991B1CD43C00EC5070 /* ViewController.swift */,
 				153B759B1B1CD43C00EC5070 /* Main.storyboard */,
@@ -86,6 +103,12 @@
 				153B75A01B1CD43C00EC5070 /* LaunchScreen.xib */,
 				153B75961B1CD43C00EC5070 /* Agenda.xcdatamodeld */,
 				153B75921B1CD43C00EC5070 /* Supporting Files */,
+				153B75BC1B1CE77500EC5070 /* MateriasTableViewController.swift */,
+				153B75BE1B1CE82900EC5070 /* AddMateriaViewController.swift */,
+				153B75C01B1CE84F00EC5070 /* MateriaManager.swift */,
+				153B75C21B1CE86200EC5070 /* TarefaManager.swift */,
+				153B75C41B1CF60B00EC5070 /* TarefaTableViewController.swift */,
+				153B75C61B1CF6A900EC5070 /* AddTarefaViewController.swift */,
 			);
 			path = Agenda;
 			sourceTree = "<group>";
@@ -113,6 +136,15 @@
 				153B75AC1B1CD43C00EC5070 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		153B75BB1B1CE61B00EC5070 /* Entidades */ = {
+			isa = PBXGroup;
+			children = (
+				153B75B91B1CE61600EC5070 /* Atividade.swift */,
+				153B75B71B1CE61500EC5070 /* Materia.swift */,
+			);
+			name = Entidades;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -215,9 +247,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				153B75C31B1CE86200EC5070 /* TarefaManager.swift in Sources */,
 				153B759A1B1CD43C00EC5070 /* ViewController.swift in Sources */,
 				153B75951B1CD43C00EC5070 /* AppDelegate.swift in Sources */,
+				153B75BF1B1CE82900EC5070 /* AddMateriaViewController.swift in Sources */,
+				153B75C71B1CF6A900EC5070 /* AddTarefaViewController.swift in Sources */,
 				153B75981B1CD43C00EC5070 /* Agenda.xcdatamodeld in Sources */,
+				153B75BD1B1CE77500EC5070 /* MateriasTableViewController.swift in Sources */,
+				153B75C51B1CF60B00EC5070 /* TarefaTableViewController.swift in Sources */,
+				153B75C11B1CE84F00EC5070 /* MateriaManager.swift in Sources */,
+				153B75BA1B1CE61600EC5070 /* Atividade.swift in Sources */,
+				153B75B81B1CE61500EC5070 /* Materia.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
