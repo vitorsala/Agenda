@@ -22,6 +22,7 @@
 		153B75C31B1CE86200EC5070 /* TarefaManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153B75C21B1CE86200EC5070 /* TarefaManager.swift */; };
 		153B75C51B1CF60B00EC5070 /* TarefaTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153B75C41B1CF60B00EC5070 /* TarefaTableViewController.swift */; };
 		153B75C71B1CF6A900EC5070 /* AddTarefaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153B75C61B1CF6A900EC5070 /* AddTarefaViewController.swift */; };
+		4E6C9E261B1D03F8000C4CFA /* TarefasCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6C9E251B1D03F8000C4CFA /* TarefasCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,7 @@
 		153B75C21B1CE86200EC5070 /* TarefaManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TarefaManager.swift; sourceTree = "<group>"; };
 		153B75C41B1CF60B00EC5070 /* TarefaTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TarefaTableViewController.swift; sourceTree = "<group>"; };
 		153B75C61B1CF6A900EC5070 /* AddTarefaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTarefaViewController.swift; sourceTree = "<group>"; };
+		4E6C9E251B1D03F8000C4CFA /* TarefasCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TarefasCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 				153B75C21B1CE86200EC5070 /* TarefaManager.swift */,
 				153B75C41B1CF60B00EC5070 /* TarefaTableViewController.swift */,
 				153B75C61B1CF6A900EC5070 /* AddTarefaViewController.swift */,
+				4E6C9E251B1D03F8000C4CFA /* TarefasCell.swift */,
 			);
 			path = Agenda;
 			sourceTree = "<group>";
@@ -253,6 +256,7 @@
 				153B75BF1B1CE82900EC5070 /* AddMateriaViewController.swift in Sources */,
 				153B75C71B1CF6A900EC5070 /* AddTarefaViewController.swift in Sources */,
 				153B75981B1CD43C00EC5070 /* Agenda.xcdatamodeld in Sources */,
+				4E6C9E261B1D03F8000C4CFA /* TarefasCell.swift in Sources */,
 				153B75BD1B1CE77500EC5070 /* MateriasTableViewController.swift in Sources */,
 				153B75C51B1CF60B00EC5070 /* TarefaTableViewController.swift in Sources */,
 				153B75C11B1CE84F00EC5070 /* MateriaManager.swift in Sources */,
@@ -455,6 +459,7 @@
 				153B75B31B1CD43C00EC5070 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		153B75B41B1CD43C00EC5070 /* Build configuration list for PBXNativeTarget "AgendaTests" */ = {
 			isa = XCConfigurationList;
@@ -463,6 +468,7 @@
 				153B75B61B1CD43C00EC5070 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

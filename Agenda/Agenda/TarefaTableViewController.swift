@@ -43,10 +43,15 @@ class TarefaTableViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: nil)
-        cell.textLabel?.text = (self.tarefas.objectAtIndex(indexPath.row) as! Atividade).nomeAtiv
+        //let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: nil)
+        let cell = tableView.dequeueReusableCellWithIdentifier("tarefaCelula") as! TarefasCell
+        cell.nome?.text = (self.tarefas.objectAtIndex(indexPath.row) as! Atividade).nomeAtiv
         
-        cell.detailTextLabel?.text = "\((self.tarefas.objectAtIndex(indexPath.row) as! Atividade).nota)"
+//        cell.detailTextLabel?.text = "\((self.tarefas.objectAtIndex(indexPath.row) as! Atividade).nota)"
+        
+        let dateFormatter = NSDateFormatter();
+        dateFormatter.dateFormat = "dd/MM/yyyy - HH:mm";
+        cell.data?.text = dateFormatter.stringFromDate((self.tarefas.objectAtIndex(indexPath.row) as! Atividade).dataEntrega);
         
         return cell
     }
