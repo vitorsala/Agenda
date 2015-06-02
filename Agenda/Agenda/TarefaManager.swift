@@ -19,11 +19,14 @@ class TarefaManager: NSObject{
         return appDelegate.managedObjectContext!
         }()
     
-    func insertNewTarefa(nome:String, disc:Materia, data:NSDate){
+    
+    //TIPO 0 = PROVA   TIPO 1 = TRABALHO
+    func insertNewTarefa(nome:String, disc:Materia, data:NSDate, tipo:Int){
         let newTarefa = NSEntityDescription.insertNewObjectForEntityForName(TarefaManager.entityName, inManagedObjectContext: managedObjectContext) as! Atividade
         newTarefa.nomeAtiv = nome
         newTarefa.disciplina = disc
         newTarefa.dataEntrega = data
+        newTarefa.tipoAtiv = tipo
         self.save()
     }
     

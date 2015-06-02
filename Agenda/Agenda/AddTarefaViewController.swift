@@ -12,6 +12,8 @@ import EventKit
 class AddTarefaViewController: UIViewController {
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var datePicker: UIDatePicker!
+    @IBOutlet weak var tipoSelector: UISegmentedControl!
+    
     
     var materia:Materia!
     let em:EventManager = EventManager.sharedInstance;
@@ -43,7 +45,7 @@ class AddTarefaViewController: UIViewController {
     @IBAction func salvar(sender: AnyObject) {
         //MAIS REGEXES
         
-        TarefaManager.sharedInstance.insertNewTarefa(textField.text, disc: materia, data: datePicker.date)
+        TarefaManager.sharedInstance.insertNewTarefa(textField.text, disc: materia, data: datePicker.date, tipo: self.tipoSelector.selectedSegmentIndex)
         
         
         if(em.verificaPermissao()){

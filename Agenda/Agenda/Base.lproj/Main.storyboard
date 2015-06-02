@@ -243,8 +243,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Nome da tarefa" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FTh-Us-abH">
-                                <rect key="frame" x="279" y="113" width="119" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nome da tarefa" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FTh-Us-abH">
+                                <rect key="frame" x="241" y="169" width="118.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -255,34 +255,50 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="btu-Gb-cTX">
-                                <rect key="frame" x="279" y="184" width="97" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="Syg-xA-oJX">
                                 <rect key="frame" x="0.0" y="341" width="600" height="162"/>
                                 <date key="date" timeIntervalSinceReferenceDate="454882928.76541603">
                                     <!--2015-06-01 20:22:08 +0000-->
                                 </date>
                             </datePicker>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="YGX-Xx-yJu">
+                                <rect key="frame" x="234" y="112" width="133" height="29"/>
+                                <segments>
+                                    <segment title="Prova"/>
+                                    <segment title="Trabalho"/>
+                                </segments>
+                            </segmentedControl>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="btu-Gb-cTX">
+                                <rect key="frame" x="252" y="211" width="97" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="PHg-mR-jyR"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Hja-w3-gNT" firstAttribute="top" secondItem="Syg-xA-oJX" secondAttribute="bottom" constant="53" id="6Aw-cv-39e"/>
                             <constraint firstItem="FTh-Us-abH" firstAttribute="top" secondItem="2A7-a8-9Vv" secondAttribute="bottom" constant="43" id="6dc-tt-I1I"/>
                             <constraint firstAttribute="trailing" secondItem="Syg-xA-oJX" secondAttribute="trailing" id="7zV-xF-684"/>
+                            <constraint firstItem="FTh-Us-abH" firstAttribute="top" secondItem="2A7-a8-9Vv" secondAttribute="bottom" constant="105" id="Cig-wm-laa"/>
                             <constraint firstItem="btu-Gb-cTX" firstAttribute="centerX" secondItem="Qvg-Sq-MmW" secondAttribute="centerX" id="DdY-nH-R1Y"/>
                             <constraint firstItem="Syg-xA-oJX" firstAttribute="leading" secondItem="uAF-il-69E" secondAttribute="leading" id="IvH-T6-2Pq"/>
+                            <constraint firstAttribute="centerX" secondItem="YGX-Xx-yJu" secondAttribute="centerX" id="KR0-5B-Dny"/>
                             <constraint firstItem="btu-Gb-cTX" firstAttribute="top" secondItem="FTh-Us-abH" secondAttribute="bottom" constant="57" id="Kvw-qO-Ljb"/>
                             <constraint firstItem="btu-Gb-cTX" firstAttribute="trailing" secondItem="FTh-Us-abH" secondAttribute="trailing" id="Pqt-lA-Th8"/>
                             <constraint firstItem="Qvg-Sq-MmW" firstAttribute="top" secondItem="btu-Gb-cTX" secondAttribute="bottom" constant="78" id="TSI-Ed-cSi"/>
                             <constraint firstItem="Syg-xA-oJX" firstAttribute="centerX" secondItem="Qvg-Sq-MmW" secondAttribute="centerX" id="Vbt-6n-mRJ"/>
+                            <constraint firstAttribute="centerX" secondItem="FTh-Us-abH" secondAttribute="centerX" id="X4r-90-dVu"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Syg-xA-oJX" secondAttribute="trailing" constant="-16" id="bmb-pE-XJ5"/>
                             <constraint firstItem="Syg-xA-oJX" firstAttribute="leading" secondItem="uAF-il-69E" secondAttribute="leadingMargin" constant="-16" id="ija-lN-YZh"/>
+                            <constraint firstItem="FTh-Us-abH" firstAttribute="top" secondItem="YGX-Xx-yJu" secondAttribute="bottom" constant="29" id="kWb-3b-lFg"/>
                             <constraint firstItem="Syg-xA-oJX" firstAttribute="top" secondItem="Qvg-Sq-MmW" secondAttribute="bottom" constant="14" id="tPt-pn-46D"/>
+                            <constraint firstItem="btu-Gb-cTX" firstAttribute="top" secondItem="FTh-Us-abH" secondAttribute="bottom" constant="41" id="trN-va-EO5"/>
                             <constraint firstItem="FTh-Us-abH" firstAttribute="leading" secondItem="btu-Gb-cTX" secondAttribute="leading" id="xxk-5C-jWw"/>
                             <constraint firstItem="Syg-xA-oJX" firstAttribute="top" secondItem="Qvg-Sq-MmW" secondAttribute="bottom" constant="54" id="yG0-Kr-t5N"/>
+                            <constraint firstAttribute="centerX" secondItem="btu-Gb-cTX" secondAttribute="centerX" id="zhL-7h-aIz"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -327,6 +343,7 @@
                     <connections>
                         <outlet property="datePicker" destination="Syg-xA-oJX" id="XkK-dU-G7H"/>
                         <outlet property="textField" destination="btu-Gb-cTX" id="8XG-in-9LP"/>
+                        <outlet property="tipoSelector" destination="YGX-Xx-yJu" id="t2c-fx-yJq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HD2-rn-OlK" userLabel="First Responder" sceneMemberID="firstResponder"/>

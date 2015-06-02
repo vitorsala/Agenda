@@ -10,6 +10,8 @@ import UIKit
 
 class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    
+    //0 - FUTURAS;   1 - RECENTES
     @IBOutlet weak var segmentControl: UISegmentedControl!
     @IBOutlet weak var tableView: UITableView!
     var atividades:NSMutableArray!
@@ -51,14 +53,26 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: nil)
+        let cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: nil)
         //let cell = tableView.dequeueReusableCellWithIdentifier("tarefaCelula") as! TarefasCell
         
-        cell.textLabel?.text = (atividades.objectAtIndex(indexPath.row) as! Atividade).nomeAtiv
+        let ativ = atividades.objectAtIndex(indexPath.row) as! Atividade
+        
+        if self.segmentControl.selectedSegmentIndex == 1 {
+            //se for trabalho
+            if ativ.tipoAtiv == 1 {
+                //se o trabalho nao tiver sido entregue, e seu prazo ja tiver passado
+                if ativ.entregue == 0 {
+                    cell.backgroundColor = UIColor.redColor()
+                }
+            }
+        }
+        
+        cell.textLabel?.text = ativ.nomeAtiv
         
         let dateFormatter = NSDateFormatter();
         dateFormatter.dateFormat = "dd/MM/yyyy - HH:mm";
-        cell.detailTextLabel?.text = dateFormatter.stringFromDate((self.atividades.objectAtIndex(indexPath.row) as! Atividade).dataEntrega);
+        cell.detailTextLabel?.text = dateFormatter.stringFromDate(ativ.dataEntrega);
         
         return cell
     }
