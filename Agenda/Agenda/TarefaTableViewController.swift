@@ -16,6 +16,8 @@ class TarefaTableViewController: UIViewController, UITableViewDataSource, UITabl
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.navigationItem.title = materia.nomeMateria
 
         tarefas = NSMutableArray(array: TarefaManager.sharedInstance.fetchTarefasForMateria(self.materia))
         
