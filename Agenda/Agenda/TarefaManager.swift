@@ -66,6 +66,54 @@ class TarefaManager: NSObject{
         return Array<Atividade>()
     }
     
+    func fetchTarefasFuturas() -> Array<Atividade> {
+        let fetchRequest = NSFetchRequest(entityName: TarefaManager.entityName)
+        var error: NSError?
+        let predicate = NSPredicate(format: "dataEntrega >= %@", NSDate())
+        fetchRequest.predicate = predicate
+        let fetchedResults = managedObjectContext.executeFetchRequest(fetchRequest, error: &error) as? [NSManagedObject]
+        
+        if let results = fetchedResults as? [Atividade] {
+            return results
+        } else {
+            println("Erro ao buscar tarefas.")
+        }
+        
+        return Array<Atividade>()
+    }
+    
+    func fetchTarefasPassadas() -> Array<Atividade> {
+        let fetchRequest = NSFetchRequest(entityName: TarefaManager.entityName)
+        var error: NSError?
+        let predicate = NSPredicate(format: "dataEntrega <= %@", NSDate())
+        fetchRequest.predicate = predicate
+        let fetchedResults = managedObjectContext.executeFetchRequest(fetchRequest, error: &error) as? [NSManagedObject]
+        
+        if let results = fetchedResults as? [Atividade] {
+            return results
+        } else {
+            println("Erro ao buscar tarefas.")
+        }
+        
+        return Array<Atividade>()
+    }
+    
+    func fetchTarefasBetweenDates(firstDate:NSDate, lastDate:NSDate) -> Array<Atividade> {
+        let fetchRequest = NSFetchRequest(entityName: TarefaManager.entityName)
+        var error: NSError?
+        let predicate = NSPredicate(format: "(dataEntrega >= %@) AND (dataEntrega <= %@)", firstDate, lastDate)
+        fetchRequest.predicate = predicate
+        let fetchedResults = managedObjectContext.executeFetchRequest(fetchRequest, error: &error) as? [NSManagedObject]
+        
+        if let results = fetchedResults as? [Atividade] {
+            return results
+        } else {
+            println("Erro ao buscar tarefas.")
+        }
+        
+        return Array<Atividade>()
+    }
+    
     
     //BE VERY CAREFUL AROUND THIS PLEASE
     func deleteAllTarefas(){
