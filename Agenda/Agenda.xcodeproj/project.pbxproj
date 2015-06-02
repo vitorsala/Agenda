@@ -14,6 +14,8 @@
 		153B759F1B1CD43C00EC5070 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 153B759E1B1CD43C00EC5070 /* Images.xcassets */; };
 		153B75A21B1CD43C00EC5070 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 153B75A01B1CD43C00EC5070 /* LaunchScreen.xib */; };
 		153B75AE1B1CD43C00EC5070 /* AgendaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153B75AD1B1CD43C00EC5070 /* AgendaTests.swift */; };
+		EBDF21881B1E0E0C0087166F /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBDF21871B1E0E0C0087166F /* CloudKit.framework */; };
+		EBDF218B1B1E125F0087166F /* CloudKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBDF218A1B1E125F0087166F /* CloudKitManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +40,9 @@
 		153B75A71B1CD43C00EC5070 /* AgendaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AgendaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		153B75AC1B1CD43C00EC5070 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		153B75AD1B1CD43C00EC5070 /* AgendaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgendaTests.swift; sourceTree = "<group>"; };
+		EBDF21861B1E0DFF0087166F /* Agenda.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Agenda.entitlements; sourceTree = "<group>"; };
+		EBDF21871B1E0E0C0087166F /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		EBDF218A1B1E125F0087166F /* CloudKitManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudKitManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EBDF21881B1E0E0C0087166F /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,6 +67,7 @@
 		153B75861B1CD43C00EC5070 = {
 			isa = PBXGroup;
 			children = (
+				EBDF21871B1E0E0C0087166F /* CloudKit.framework */,
 				153B75911B1CD43C00EC5070 /* Agenda */,
 				153B75AA1B1CD43C00EC5070 /* AgendaTests */,
 				153B75901B1CD43C00EC5070 /* Products */,
@@ -79,6 +86,8 @@
 		153B75911B1CD43C00EC5070 /* Agenda */ = {
 			isa = PBXGroup;
 			children = (
+				EBDF21891B1E12490087166F /* CloudKit */,
+				EBDF21861B1E0DFF0087166F /* Agenda.entitlements */,
 				153B75941B1CD43C00EC5070 /* AppDelegate.swift */,
 				153B75991B1CD43C00EC5070 /* ViewController.swift */,
 				153B759B1B1CD43C00EC5070 /* Main.storyboard */,
@@ -113,6 +122,14 @@
 				153B75AC1B1CD43C00EC5070 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		EBDF21891B1E12490087166F /* CloudKit */ = {
+			isa = PBXGroup;
+			children = (
+				EBDF218A1B1E125F0087166F /* CloudKitManager.swift */,
+			);
+			name = CloudKit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -164,6 +181,12 @@
 				TargetAttributes = {
 					153B758E1B1CD43C00EC5070 = {
 						CreatedOnToolsVersion = 6.3.2;
+						DevelopmentTeam = KY9XTC3U67;
+						SystemCapabilities = {
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 					153B75A61B1CD43C00EC5070 = {
 						CreatedOnToolsVersion = 6.3.2;
@@ -217,6 +240,7 @@
 			files = (
 				153B759A1B1CD43C00EC5070 /* ViewController.swift in Sources */,
 				153B75951B1CD43C00EC5070 /* AppDelegate.swift in Sources */,
+				EBDF218B1B1E125F0087166F /* CloudKitManager.swift in Sources */,
 				153B75981B1CD43C00EC5070 /* Agenda.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -346,9 +370,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Agenda/Agenda.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Agenda/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -356,9 +384,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Agenda/Agenda.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Agenda/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
@@ -415,6 +447,7 @@
 				153B75B31B1CD43C00EC5070 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		153B75B41B1CD43C00EC5070 /* Build configuration list for PBXNativeTarget "AgendaTests" */ = {
 			isa = XCConfigurationList;
@@ -423,6 +456,7 @@
 				153B75B61B1CD43C00EC5070 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
