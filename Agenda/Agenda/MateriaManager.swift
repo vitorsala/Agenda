@@ -48,7 +48,6 @@ class MateriaManager: NSObject{
         return Array<Materia>()
     }
     
-    
     //BE VERY CAREFUL AROUND THIS PLEASE
     func deleteAllMaterias(){
         //THINK ABOUT WHAT YOU ARE DOING

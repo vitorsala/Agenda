@@ -114,6 +114,30 @@ class TarefaManager: NSObject{
         return Array<Atividade>()
     }
     
+    func getMediaSimples(materia:Materia) -> Float {
+        var media:Float = 0.0
+        
+        let fetchRequest = NSFetchRequest(entityName: TarefaManager.entityName)
+        var error: NSError?
+        let predicate = NSPredicate(format: "disciplina == %@", materia)
+        fetchRequest.predicate = predicate
+        let fetchedResults = managedObjectContext.executeFetchRequest(fetchRequest, error: &error) as? [NSManagedObject]
+        
+        if let results = fetchedResults as? [Atividade] {
+            if results.count < 1{
+                return -1
+            }
+            for ativ in results {
+                media = media + ativ.nota.floatValue
+            }
+            return media/Float(results.count)
+        } else {
+            println("Erro ao buscar tarefas.")
+        }
+        
+        return media
+    }
+    
     
     //BE VERY CAREFUL AROUND THIS PLEASE
     func deleteAllTarefas(){

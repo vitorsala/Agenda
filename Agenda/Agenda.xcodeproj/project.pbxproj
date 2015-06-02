@@ -23,6 +23,8 @@
 		153B75C51B1CF60B00EC5070 /* TarefaTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153B75C41B1CF60B00EC5070 /* TarefaTableViewController.swift */; };
 		153B75C71B1CF6A900EC5070 /* AddTarefaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153B75C61B1CF6A900EC5070 /* AddTarefaViewController.swift */; };
 		153B75CB1B1E2B9300EC5070 /* AgendaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153B75CA1B1E2B9300EC5070 /* AgendaViewController.swift */; };
+		153B75CD1B1E44B100EC5070 /* RelatorioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153B75CC1B1E44B100EC5070 /* RelatorioViewController.swift */; };
+		153B75CF1B1E474400EC5070 /* NotasMateriaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153B75CE1B1E474400EC5070 /* NotasMateriaViewController.swift */; };
 		4E6C9E261B1D03F8000C4CFA /* TarefasCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6C9E251B1D03F8000C4CFA /* TarefasCell.swift */; };
 		4EFFD8131B1E53DF00580BBF /* EventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFFD8121B1E53DF00580BBF /* EventManager.swift */; };
 		EBDF21881B1E0E0C0087166F /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBDF21871B1E0E0C0087166F /* CloudKit.framework */; };
@@ -60,6 +62,8 @@
 		153B75C41B1CF60B00EC5070 /* TarefaTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TarefaTableViewController.swift; sourceTree = "<group>"; };
 		153B75C61B1CF6A900EC5070 /* AddTarefaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTarefaViewController.swift; sourceTree = "<group>"; };
 		153B75CA1B1E2B9300EC5070 /* AgendaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgendaViewController.swift; sourceTree = "<group>"; };
+		153B75CC1B1E44B100EC5070 /* RelatorioViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RelatorioViewController.swift; sourceTree = "<group>"; };
+		153B75CE1B1E474400EC5070 /* NotasMateriaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotasMateriaViewController.swift; sourceTree = "<group>"; };
 		4E6C9E251B1D03F8000C4CFA /* TarefasCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TarefasCell.swift; sourceTree = "<group>"; };
 		4EFFD8121B1E53DF00580BBF /* EventManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventManager.swift; sourceTree = "<group>"; };
 		EBDF21861B1E0DFF0087166F /* Agenda.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Agenda.entitlements; sourceTree = "<group>"; };
@@ -127,6 +131,8 @@
 				153B75C61B1CF6A900EC5070 /* AddTarefaViewController.swift */,
 				4E6C9E251B1D03F8000C4CFA /* TarefasCell.swift */,
 				153B75CA1B1E2B9300EC5070 /* AgendaViewController.swift */,
+				153B75CC1B1E44B100EC5070 /* RelatorioViewController.swift */,
+				153B75CE1B1E474400EC5070 /* NotasMateriaViewController.swift */,
 			);
 			path = Agenda;
 			sourceTree = "<group>";
@@ -292,6 +298,7 @@
 				153B75CB1B1E2B9300EC5070 /* AgendaViewController.swift in Sources */,
 				153B759A1B1CD43C00EC5070 /* ViewController.swift in Sources */,
 				153B75951B1CD43C00EC5070 /* AppDelegate.swift in Sources */,
+				153B75CF1B1E474400EC5070 /* NotasMateriaViewController.swift in Sources */,
 				EBDF218E1B1E36670087166F /* CloudKitManager.swift in Sources */,
 				153B75BF1B1CE82900EC5070 /* AddMateriaViewController.swift in Sources */,
 				153B75C71B1CF6A900EC5070 /* AddTarefaViewController.swift in Sources */,
@@ -302,6 +309,7 @@
 				153B75C11B1CE84F00EC5070 /* MateriaManager.swift in Sources */,
 				153B75BA1B1CE61600EC5070 /* Atividade.swift in Sources */,
 				153B75B81B1CE61500EC5070 /* Materia.swift in Sources */,
+				153B75CD1B1E44B100EC5070 /* RelatorioViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
