@@ -7,17 +7,32 @@
 //
 
 import UIKit
+import EventKit
 
 class AddTarefaViewController: UIViewController {
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var datePicker: UIDatePicker!
     
     var materia:Materia!
-
+    let em:EventManager = EventManager.sharedInstance;
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        //Se o usuário não permitiu que usassem o calendário anteriormente, pergunta de novo lol.
+        if(!em.verificaPermissao()){
+            em.eventStore.requestAccessToEntityType(EKEntityTypeEvent, completion:
+                {[weak self] (granted: Bool, error: NSError!) -> Void in
+                    if granted {
+                        println("porra ligo");
+                    } else {
+                        println("Access denied")
+                    }
+                })
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -29,6 +44,12 @@ class AddTarefaViewController: UIViewController {
         //MAIS REGEXES
         
         TarefaManager.sharedInstance.insertNewTarefa(textField.text, disc: materia, data: datePicker.date)
+        
+        
+        if(em.verificaPermissao()){
+            em.insertEvent(datePicker.date, nome: textField.text)
+        }
+        
         textField.text = ""
         
         //POPUP E TAL
