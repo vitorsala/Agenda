@@ -76,6 +76,12 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         return cell
     }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let statusVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("StatusVC") as! StatusTarefaViewController
+        statusVC.tarefa = self.atividades.objectAtIndex(indexPath.row) as! Atividade
+        self.navigationController?.pushViewController(statusVC, animated: true)
+    }
 
     /*
     // MARK: - Navigation
