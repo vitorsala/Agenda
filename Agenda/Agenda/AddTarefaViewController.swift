@@ -20,7 +20,7 @@ class AddTarefaViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        em.criaCalendario();
         // Do any additional setup after loading the view.
         
         //Se o usuário não permitiu que usassem o calendário anteriormente, pergunta de novo lol.

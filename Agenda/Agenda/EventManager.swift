@@ -20,6 +20,45 @@ class EventManager: NSObject {
         eventStore = EKEventStore();
     }
     
+    func criaCalendario(){
+        var jaCriado = false;
+        let calendars = eventStore.calendarsForEntityType(EKEntityTypeEvent)
+            as! [EKCalendar]
+        
+        for calendar in calendars {
+            
+            //Calendário padrão do dispositivo se chama "Calendar". Talvez seja interessante criar um calendário só pro app.
+            if calendar.title == "AgendApp" {
+                jaCriado = true;
+                break;
+            }
+        }
+        
+        if(jaCriado){
+            println("Calendário AgendApp já existe");
+        } else {
+            let calendario = EKCalendar(forEntityType: EKEntityTypeEvent, eventStore: eventStore);
+            calendario.title = "AgendApp";
+            
+            for source in eventStore.sources(){
+                //let currentSourceType = source.sourceType as EKSourceType;
+                if (source.sourceType.value == EKSourceTypeLocal.value){
+                    calendario.source = source as! EKSource;
+                }
+            }
+            
+            var error : NSError?;
+            eventStore.saveCalendar(calendario, commit: true, error: &error);
+            
+            if(error != nil){
+                println("Deu ruim");
+            } else {
+                println("Pora ligo");
+            }
+        }
+        
+    }
+    
     //Deve dar pra deixar isso mais bonito.
     func verificaPermissao()->Bool{
         switch EKEventStore.authorizationStatusForEntityType(EKEntityTypeEvent) {
@@ -45,7 +84,7 @@ class EventManager: NSObject {
         for calendar in calendars {
 
             //Calendário padrão do dispositivo se chama "Calendar". Talvez seja interessante criar um calendário só pro app.
-            if calendar.title == "Calendar" {
+            if calendar.title == "AgendApp" {
 
 
                 //endDate padrão de uma hora mais tarde do start.
