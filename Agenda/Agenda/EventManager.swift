@@ -37,7 +37,7 @@ class EventManager: NSObject {
         }
     }
     
-    func insertEvent(dataAtividade: NSDate, nome: String) {
+    func insertEvent(dataAtividade: NSDate, nome: String, materia: String) {
 
         let calendars = eventStore.calendarsForEntityType(EKEntityTypeEvent)
             as! [EKCalendar]
@@ -57,7 +57,7 @@ class EventManager: NSObject {
                 event.title = nome;
                 event.startDate = dataAtividade
                 event.endDate = endDate
-                
+                event.notes = materia;
                 // Salvando o evento no calendario.
                 var error: NSError?
                 let result = eventStore.saveEvent(event, span: EKSpanThisEvent, error: &error)

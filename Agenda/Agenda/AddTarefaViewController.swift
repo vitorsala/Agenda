@@ -47,7 +47,7 @@ class AddTarefaViewController: UIViewController {
         
         
         if(em.verificaPermissao()){
-            em.insertEvent(datePicker.date, nome: textField.text)
+            em.insertEvent(datePicker.date, nome: textField.text, materia: materia.nomeMateria);
         }
         
         textField.text = ""
