@@ -78,8 +78,17 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let ativ = self.atividades.objectAtIndex(indexPath.row) as! Atividade
+        //se for atividade futura
+        if self.segmentControl.selectedSegmentIndex == 0 {
+            //se for prova
+            if ativ.tipoAtiv == 0 {
+                //não tem nada pra fazer se for uma prova futura - nao da pra "entregar", e tambem nao tem nota pra dar ainda
+                return
+            }
+        }
         let statusVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("StatusVC") as! StatusTarefaViewController
-        statusVC.tarefa = self.atividades.objectAtIndex(indexPath.row) as! Atividade
+        statusVC.tarefa = ativ
         self.navigationController?.pushViewController(statusVC, animated: true)
     }
 

@@ -108,8 +108,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Ac7-RK-GLu">
-                                <rect key="frame" x="0.0" y="50" width="600" height="470"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Ac7-RK-GLu">
+                                <rect key="frame" x="0.0" y="94" width="600" height="382"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="tarefaCelula" id="6jY-sF-4T1" customClass="TarefasCell" customModule="Agenda" customModuleProvider="target">
@@ -177,25 +177,32 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Nome da Matéria" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AX1-wN-e3N">
-                                <rect key="frame" x="234" y="111" width="133" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nome da Matéria" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AX1-wN-e3N">
+                                <rect key="frame" x="234" y="111" width="132.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iH4-l3-Xgf">
-                                <rect key="frame" x="252" y="198" width="97" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iH4-l3-Xgf">
+                                <rect key="frame" x="210.5" y="197.5" width="180" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="180" id="zx9-vS-kf7"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="iH4-l3-Xgf" firstAttribute="top" secondItem="AX1-wN-e3N" secondAttribute="bottom" constant="66" id="1Nc-g2-bkI"/>
+                            <constraint firstAttribute="centerX" secondItem="iH4-l3-Xgf" secondAttribute="centerX" id="4Ks-TI-Cfa"/>
                             <constraint firstItem="iH4-l3-Xgf" firstAttribute="top" secondItem="AX1-wN-e3N" secondAttribute="bottom" constant="67" id="H4P-3H-iJu"/>
                             <constraint firstItem="iH4-l3-Xgf" firstAttribute="centerX" secondItem="vLS-nt-4sc" secondAttribute="centerX" id="WYV-pt-5UG"/>
                             <constraint firstItem="AX1-wN-e3N" firstAttribute="top" secondItem="oaq-Ky-ZyJ" secondAttribute="bottom" constant="46" id="YgP-o6-qiO"/>
                             <constraint firstItem="AX1-wN-e3N" firstAttribute="trailing" secondItem="iH4-l3-Xgf" secondAttribute="trailing" id="Zkf-BN-vH1"/>
+                            <constraint firstItem="AX1-wN-e3N" firstAttribute="top" secondItem="oaq-Ky-ZyJ" secondAttribute="bottom" constant="47" id="fC4-mX-Yuz"/>
                             <constraint firstItem="iH4-l3-Xgf" firstAttribute="leading" secondItem="AX1-wN-e3N" secondAttribute="leading" id="k95-VG-NFm"/>
+                            <constraint firstAttribute="centerX" secondItem="AX1-wN-e3N" secondAttribute="centerX" id="srH-1U-1ZL"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -249,8 +256,8 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Data" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qvg-Sq-MmW">
-                                <rect key="frame" x="287" y="306" width="36" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Data" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qvg-Sq-MmW">
+                                <rect key="frame" x="282" y="306.5" width="36" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -268,8 +275,8 @@
                                     <segment title="Trabalho"/>
                                 </segments>
                             </segmentedControl>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="btu-Gb-cTX">
-                                <rect key="frame" x="252" y="211" width="97" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="btu-Gb-cTX">
+                                <rect key="frame" x="200" y="230" width="200" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="PHg-mR-jyR"/>
                                 </constraints>
@@ -291,6 +298,7 @@
                             <constraint firstItem="Qvg-Sq-MmW" firstAttribute="top" secondItem="btu-Gb-cTX" secondAttribute="bottom" constant="78" id="TSI-Ed-cSi"/>
                             <constraint firstItem="Syg-xA-oJX" firstAttribute="centerX" secondItem="Qvg-Sq-MmW" secondAttribute="centerX" id="Vbt-6n-mRJ"/>
                             <constraint firstAttribute="centerX" secondItem="FTh-Us-abH" secondAttribute="centerX" id="X4r-90-dVu"/>
+                            <constraint firstAttribute="centerX" secondItem="Qvg-Sq-MmW" secondAttribute="centerX" id="aqf-0x-MEE"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Syg-xA-oJX" secondAttribute="trailing" constant="-16" id="bmb-pE-XJ5"/>
                             <constraint firstItem="Syg-xA-oJX" firstAttribute="leading" secondItem="uAF-il-69E" secondAttribute="leadingMargin" constant="-16" id="ija-lN-YZh"/>
                             <constraint firstItem="FTh-Us-abH" firstAttribute="top" secondItem="YGX-Xx-yJu" secondAttribute="bottom" constant="29" id="kWb-3b-lFg"/>
@@ -449,8 +457,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Xdi-pz-BsO">
-                                <rect key="frame" x="163" y="55" width="275" height="29"/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Xdi-pz-BsO">
+                                <rect key="frame" x="163" y="99" width="275" height="29"/>
                                 <segments>
                                     <segment title="Proximas Atividades"/>
                                     <segment title="Atividades Recentes"/>
@@ -459,8 +467,8 @@
                                     <action selector="segmentButton:" destination="ZZ5-EQ-0GH" eventType="valueChanged" id="O5e-v0-PkN"/>
                                 </connections>
                             </segmentedControl>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="9Fx-6G-4Rv">
-                                <rect key="frame" x="0.0" y="109" width="600" height="392"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="9Fx-6G-4Rv">
+                                <rect key="frame" x="0.0" y="153" width="600" height="348"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
                         </subviews>

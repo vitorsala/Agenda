@@ -27,6 +27,7 @@ class StatusTarefaViewController: UIViewController {
         switchAvaliado.setOn((tarefa.avaliado == 1), animated: true)
         switchEntregue.setOn((tarefa.entregue == 1), animated: true)
         
+        
         //se for tarefa passada
         if tarefa.dataEntrega.compare(NSDate()) == NSComparisonResult.OrderedAscending {
             labelAvaliado.hidden = false
@@ -37,7 +38,6 @@ class StatusTarefaViewController: UIViewController {
             labelEntregue.hidden = false
             switchEntregue.hidden = false
         }
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
