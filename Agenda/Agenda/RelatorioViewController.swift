@@ -10,6 +10,7 @@ import UIKit
 
 class RelatorioViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
+    
     var materias:NSMutableArray!
     @IBOutlet weak var tableView: UITableView!
     
