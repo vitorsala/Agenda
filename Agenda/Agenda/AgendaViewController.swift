@@ -11,10 +11,11 @@ import UIKit
 //Classe para auxiliar a criação e controle de sections.
 class DataQtd {
     var data:NSDate;
-    var qtd:Int = 1;
+    var qtd:NSMutableArray;
     
     init(datinha: NSDate){
         data = datinha;
+        qtd = NSMutableArray();
     }
 }
 
@@ -27,8 +28,7 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var atividades:NSMutableArray!
     var dias:NSMutableArray!
     
-    //Deve ter um jeito não burro pra saber pra qual section x atividade vai.
-    var contSLQ = 0;
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,7 +63,6 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         //Por algum motivo, esse método é chamado 4 vezes quando essa view é criada pela primeira vez. Essa linha resolve o problema de calculo erroneo de sections.
         dias = NSMutableArray();
-        contSLQ = 0;
         
         //Usado pra ver se os dias são os mesmos.
         //O comparador de dias lá tava dando ruim, ai desse jeito fica mais prático.
@@ -73,14 +72,15 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
         for a in atividades{
             if(dias.firstObject == nil){
                 dias.addObject(DataQtd(datinha: (a as! Atividade).dataEntrega));
-                
+                (dias.objectAtIndex(dias.count - 1) as! DataQtd).qtd.addObject(a);
             } else if(dateFormatter.stringFromDate((dias.lastObject! as! DataQtd).data) == dateFormatter.stringFromDate((a as! Atividade).dataEntrega)){
-                //Se os dias são iguais, aumenta um na quantidade.
-                (dias.objectAtIndex(dias.count - 1) as! DataQtd).qtd += 1;
+                //Se os dias são iguais, bota a atividade naquele dia.
+                (dias.objectAtIndex(dias.count - 1) as! DataQtd).qtd.addObject(a);
                 
             } else {
                 //Se não, adiciona um novo dia.
                 dias.addObject(DataQtd(datinha: (a as! Atividade).dataEntrega));
+                (dias.objectAtIndex(dias.count - 1) as! DataQtd).qtd.addObject(a);
             }
         }
         return dias.count;
@@ -94,14 +94,14 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (dias.objectAtIndex(section) as! DataQtd).qtd;
+        return (dias.objectAtIndex(section) as! DataQtd).qtd.count;
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: nil)
         //let cell = tableView.dequeueReusableCellWithIdentifier("tarefaCelula") as! TarefasCell
         
-        let ativ = atividades.objectAtIndex(contSLQ) as! Atividade
+        let ativ = (dias.objectAtIndex(indexPath.section) as! DataQtd).qtd.objectAtIndex(indexPath.row) as! Atividade;
         
         if self.segmentControl.selectedSegmentIndex == 1 {
             //se for trabalho
@@ -119,12 +119,11 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
         dateFormatter.dateFormat = "dd/MM/yyyy - HH:mm";
         cell.detailTextLabel?.text = dateFormatter.stringFromDate(ativ.dataEntrega);
         
-        contSLQ++;
         return cell
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let ativ = self.atividades.objectAtIndex(indexPath.row) as! Atividade
+        let ativ = (dias.objectAtIndex(indexPath.section) as! DataQtd).qtd.objectAtIndex(indexPath.row) as! Atividade;
         //se for atividade futura
         if self.segmentControl.selectedSegmentIndex == 0 {
             //se for prova
