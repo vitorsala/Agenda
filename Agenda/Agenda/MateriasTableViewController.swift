@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import EventKit
 
 class MateriasTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -14,9 +15,24 @@ class MateriasTableViewController: UIViewController, UITableViewDataSource, UITa
     
     var arrayMaterias = NSMutableArray()
     
+    let em:EventManager = EventManager.sharedInstance;
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //Se o usuário não permitiu que usassem o calendário anteriormente, pergunta de novo lol.
+        if(!em.verificaPermissao()){
+            em.eventStore.requestAccessToEntityType(EKEntityTypeEvent, completion:
+                {[weak self] (granted: Bool, error: NSError!) -> Void in
+                    if granted {
+                        //NSNotificationCenter.defaultCenter().addObserver(self!.em, selector: "calendarioUpdated", name: EKEventStoreChangedNotification, object: nil);
+                        println("porra ligo no granted");
+                    } else {
+                        println("Access denied")
+                    }
+                })
+        }
 
         self.tableView.delegate = self
         self.tableView.dataSource = self

@@ -20,20 +20,23 @@ class AddTarefaViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        em.criaCalendario();
-        // Do any additional setup after loading the view.
         
         //Se o usuário não permitiu que usassem o calendário anteriormente, pergunta de novo lol.
-        if(!em.verificaPermissao()){
-            em.eventStore.requestAccessToEntityType(EKEntityTypeEvent, completion:
-                {[weak self] (granted: Bool, error: NSError!) -> Void in
-                    if granted {
-                        println("porra ligo");
-                    } else {
-                        println("Access denied")
-                    }
-                })
+//        if(!em.verificaPermissao()){
+//            em.eventStore.requestAccessToEntityType(EKEntityTypeEvent, completion:
+//                {[weak self] (granted: Bool, error: NSError!) -> Void in
+//                    if granted {
+//                        println("porra ligo no granted");
+//                    } else {
+//                        println("Access denied")
+//                    }
+//                })
+//        }
+        
+        if(em.verificaPermissao()){
+            em.criaCalendario();
         }
+        // Do any additional setup after loading the view.
         
     }
 
