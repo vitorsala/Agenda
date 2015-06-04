@@ -72,6 +72,12 @@ class TarefaManager: NSObject{
     func fetchTarefasFuturas() -> Array<Atividade> {
         let fetchRequest = NSFetchRequest(entityName: TarefaManager.entityName)
         var error: NSError?
+        
+        //Ordena de acordo com a data
+        var sortDescriptor = NSSortDescriptor(key: "dataEntrega", ascending: true);
+        var sortDescriptors = NSArray(object: sortDescriptor);
+        fetchRequest.sortDescriptors = sortDescriptors as [AnyObject]
+        
         let predicate = NSPredicate(format: "dataEntrega >= %@", NSDate())
         fetchRequest.predicate = predicate
         let fetchedResults = managedObjectContext.executeFetchRequest(fetchRequest, error: &error) as? [NSManagedObject]
@@ -88,6 +94,12 @@ class TarefaManager: NSObject{
     func fetchTarefasPassadas() -> Array<Atividade> {
         let fetchRequest = NSFetchRequest(entityName: TarefaManager.entityName)
         var error: NSError?
+        
+        //Ordena de acordo com a data
+        var sortDescriptor = NSSortDescriptor(key: "dataEntrega", ascending: true);
+        var sortDescriptors = NSArray(object: sortDescriptor);
+        fetchRequest.sortDescriptors = sortDescriptors as [AnyObject]
+        
         let predicate = NSPredicate(format: "dataEntrega <= %@", NSDate())
         fetchRequest.predicate = predicate
         let fetchedResults = managedObjectContext.executeFetchRequest(fetchRequest, error: &error) as? [NSManagedObject]
