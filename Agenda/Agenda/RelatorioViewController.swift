@@ -54,7 +54,7 @@ class RelatorioViewController: UIViewController, UITableViewDataSource, UITableV
         let media = TarefaManager.sharedInstance.getMediaSimples(materias.objectAtIndex(indexPath.row) as! Materia)
         
         if media < 0{
-            cell.detailTextLabel?.text = "Nenhuma atividade registrada."
+            cell.detailTextLabel?.text = "Nenhuma atividade avaliada."
         }
         else{
             cell.detailTextLabel?.text = "\(media)"

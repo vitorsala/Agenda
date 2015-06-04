@@ -126,14 +126,21 @@ class TarefaManager: NSObject{
         fetchRequest.predicate = predicate
         let fetchedResults = managedObjectContext.executeFetchRequest(fetchRequest, error: &error) as? [NSManagedObject]
         
+        var numAtivs = 0
         if let results = fetchedResults as? [Atividade] {
             if results.count < 1{
                 return -1
             }
             for ativ in results {
-                media = media + ativ.nota.floatValue
+                if ativ.avaliado == 1 {
+                    media = media + ativ.nota.floatValue
+                    numAtivs++
+                }
             }
-            return media/Float(results.count)
+            if numAtivs < 1 {
+                return -1
+            }
+            return media/Float(numAtivs)
         } else {
             println("Erro ao buscar tarefas.")
         }

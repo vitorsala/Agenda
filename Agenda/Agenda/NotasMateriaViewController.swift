@@ -46,11 +46,18 @@ class NotasMateriaViewController: UIViewController, UITableViewDelegate, UITable
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: nil)
         
-        cell.textLabel?.text = (tarefas.objectAtIndex(indexPath.row) as! Atividade).nomeAtiv
+        let tarefa = tarefas.objectAtIndex(indexPath.row) as! Atividade
         
-        let nota = (tarefas.objectAtIndex(indexPath.row) as! Atividade).nota
+        cell.textLabel?.text = tarefa.nomeAtiv
         
-        cell.detailTextLabel?.text = "\(nota)"
+        let nota = tarefa.nota
+        
+        if tarefa.avaliado == 1{
+            cell.detailTextLabel?.text = "\(nota)"
+        }
+        else {
+            cell.detailTextLabel?.text = "Ainda não avaliado."
+        }
         
         return cell
     }
