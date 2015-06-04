@@ -39,7 +39,6 @@ class EventManager: NSObject {
         } else {
             let calendario = EKCalendar(forEntityType: EKEntityTypeEvent, eventStore: eventStore);
             calendario.title = "AgendApp";
-            
             for source in eventStore.sources(){
                 //let currentSourceType = source.sourceType as EKSourceType;
                 if (source.sourceType.value == EKSourceTypeLocal.value){
@@ -77,16 +76,14 @@ class EventManager: NSObject {
     }
     
     func insertEvent(dataAtividade: NSDate, nome: String, materia: String) {
-
         let calendars = eventStore.calendarsForEntityType(EKEntityTypeEvent)
             as! [EKCalendar]
-        
         for calendar in calendars {
 
             //Calendário padrão do dispositivo se chama "Calendar". Talvez seja interessante criar um calendário só pro app.
             if calendar.title == "AgendApp" {
 
-
+                //calendar.
                 //endDate padrão de uma hora mais tarde do start.
                 let endDate = dataAtividade.dateByAddingTimeInterval(1 * 60 * 60)
                 
@@ -97,6 +94,10 @@ class EventManager: NSObject {
                 event.startDate = dataAtividade
                 event.endDate = endDate
                 event.notes = materia;
+                event.addAlarm(EKAlarm(relativeOffset: -60));
+                
+                //let alarme = EKAlarm(relativeOffset: -60);
+
                 // Salvando o evento no calendario.
                 var error: NSError?
                 let result = eventStore.saveEvent(event, span: EKSpanThisEvent, error: &error)
@@ -109,5 +110,9 @@ class EventManager: NSObject {
             }
         }
     }
+    
+//    func calendarioUpdated(){
+//        println("wow wink");
+//    }
 
 }
