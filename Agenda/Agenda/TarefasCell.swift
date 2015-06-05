@@ -10,6 +10,7 @@ import UIKit
 
 class TarefasCell: UITableViewCell {
 
+    @IBOutlet weak var img: UIImageView!
     @IBOutlet weak var data: UILabel!
     @IBOutlet weak var nome: UILabel!
 }

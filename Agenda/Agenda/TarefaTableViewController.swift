@@ -51,6 +51,12 @@ class TarefaTableViewController: UIViewController, UITableViewDataSource, UITabl
         
 //        cell.detailTextLabel?.text = "\((self.tarefas.objectAtIndex(indexPath.row) as! Atividade).nota)"
         
+        if (self.tarefas.objectAtIndex(indexPath.row) as! Atividade).tipoAtiv == 0 {
+            cell.img.image = UIImage(named: "imgProva.png");
+        } else {
+            cell.img.image = UIImage(named: "imgTrabalho.png");
+        }
+        
         let dateFormatter = NSDateFormatter();
         dateFormatter.dateFormat = "dd/MM/yyyy - HH:mm";
         cell.data?.text = dateFormatter.stringFromDate((self.tarefas.objectAtIndex(indexPath.row) as! Atividade).dataEntrega);

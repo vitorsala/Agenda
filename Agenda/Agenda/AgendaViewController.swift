@@ -41,6 +41,10 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
         //Array de DataQtd pro auxilio das sections.
         dias = NSMutableArray();
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        self.tableView.reloadData();
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -98,8 +102,11 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: nil)
-        //let cell = tableView.dequeueReusableCellWithIdentifier("tarefaCelula") as! TarefasCell
+        //let cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: nil)
+        let cell = tableView.dequeueReusableCellWithIdentifier("tarefaCelula") as! TarefasCell
+        
+        //Usado pra "descolorir" células previamente coloridas.
+        cell.backgroundColor = UIColor.whiteColor();
         
         let ativ = (dias.objectAtIndex(indexPath.section) as! DataQtd).qtd.objectAtIndex(indexPath.row) as! Atividade;
         
@@ -111,13 +118,27 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     cell.backgroundColor = UIColor.redColor()
                 }
             }
+        } else {
+            if ativ.tipoAtiv == 1 {
+                //Se o trabalho já foi entregue antes do prazo.
+                if ativ.entregue == 1 {
+                    cell.backgroundColor = UIColor.greenColor()
+                }
+            }
         }
         
-        cell.textLabel?.text = ativ.nomeAtiv
+        cell.nome?.text = "\(ativ.nomeAtiv) (\(ativ.disciplina.nomeMateria))";
         
         let dateFormatter = NSDateFormatter();
         dateFormatter.dateFormat = "dd/MM/yyyy - HH:mm";
-        cell.detailTextLabel?.text = dateFormatter.stringFromDate(ativ.dataEntrega);
+        cell.data?.text = dateFormatter.stringFromDate(ativ.dataEntrega);
+        
+        //cell.img.image = UIImage(contentsOfFile: "Images.xcassets/imgProva.imageset/imgProva.png");
+        if ativ.tipoAtiv == 0 {
+            cell.img.image = UIImage(named: "imgProva.png");
+        } else {
+            cell.img.image = UIImage(named: "imgTrabalho.png");
+        }
         
         return cell
     }
