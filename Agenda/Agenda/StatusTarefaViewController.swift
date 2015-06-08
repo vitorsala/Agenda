@@ -49,6 +49,10 @@ class StatusTarefaViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+        self.textNota.resignFirstResponder()
+    }
+    
     @IBAction func switchEntregueAc(sender: AnyObject) {
         if switchAvaliado.on && switchEntregue.on{
             labelNota.hidden = false

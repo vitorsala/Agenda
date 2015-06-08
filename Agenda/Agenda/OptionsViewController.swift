@@ -36,6 +36,10 @@ class OptionsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+        self.media.resignFirstResponder()
+    }
+    
 
     /*
     // MARK: - Navigation

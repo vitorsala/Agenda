@@ -23,6 +23,10 @@ class AddMateriaViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+        self.textField.resignFirstResponder()
+    }
+    
     @IBAction func salvarMateria(sender: AnyObject) {
         
         //COLOCAR UM REGEX BEM LEGAL AQUI
