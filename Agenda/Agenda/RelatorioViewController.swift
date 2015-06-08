@@ -58,6 +58,14 @@ class RelatorioViewController: UIViewController, UITableViewDataSource, UITableV
         }
         else{
             cell.detailTextLabel?.text = "\(media)"
+            let ud = NSUserDefaults.standardUserDefaults();
+            if(ud.valueForKey("media") != nil){
+                if(media < (ud.valueForKey("media") as! NSString).floatValue){
+                    cell.backgroundColor = UIColor.redColor();
+                } else {
+                    cell.backgroundColor = UIColor(red: 0, green: 0, blue: 1, alpha: 0.25);
+                }
+            }
         }
         
         return cell

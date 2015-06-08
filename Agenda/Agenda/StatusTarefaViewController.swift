@@ -27,11 +27,15 @@ class StatusTarefaViewController: UIViewController {
         switchAvaliado.setOn((tarefa.avaliado == 1), animated: true)
         switchEntregue.setOn((tarefa.entregue == 1), animated: true)
         
-        
         //se for tarefa passada
         if tarefa.dataEntrega.compare(NSDate()) == NSComparisonResult.OrderedAscending {
             labelAvaliado.hidden = false
             switchAvaliado.hidden = false
+            
+            if switchAvaliado.on && switchEntregue.on {
+                labelNota.hidden = false
+                textNota.hidden = false
+            }
         }
         //se ainda estiver para ser entregue
         else{
@@ -46,10 +50,18 @@ class StatusTarefaViewController: UIViewController {
     }
     
     @IBAction func switchEntregueAc(sender: AnyObject) {
+        if switchAvaliado.on && switchEntregue.on{
+            labelNota.hidden = false
+            textNota.hidden = false
+        }
+        else{
+            labelNota.hidden = true
+            textNota.hidden = true
+        }
     }
 
     @IBAction func switchAvaliadoAc(sender: AnyObject) {
-        if switchAvaliado.on {
+        if switchAvaliado.on && switchEntregue.on{
             labelNota.hidden = false
             textNota.hidden = false
         }
@@ -74,6 +86,7 @@ class StatusTarefaViewController: UIViewController {
         else{
             tarefa.avaliado = 0
         }
+        TarefaManager.sharedInstance.save();
     }
     
     /*
