@@ -15,8 +15,8 @@ class TarefaManager: NSObject{
     static let entityName = "Atividade"
     
     lazy var managedObjectContext: NSManagedObjectContext = {
-        var appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate;
-        return appDelegate.managedObjectContext!
+        var coredata = CoreDataStack.sharedInstance;
+        return coredata.managedObjectContext!
         }()
     
     

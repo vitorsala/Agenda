@@ -15,8 +15,8 @@ class MateriaManager: NSObject{
     static let entityName = "Materia"
     
     lazy var managedObjectContext: NSManagedObjectContext = {
-        var appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate;
-        return appDelegate.managedObjectContext!
+        var coreData = CoreDataStack.sharedInstance
+        return coreData.managedObjectContext!
         }()
     
     func insertNewMateria(nome:String){
