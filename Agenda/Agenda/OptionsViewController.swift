@@ -1,20 +1,33 @@
 //
-//  AddMateriaViewController.swift
+//  OptionsViewController.swift
 //  Agenda
 //
-//  Created by Bruno Omella Mainieri on 6/1/15.
+//  Created by Lucas Leal Mendonça on 08/06/15.
 //  Copyright (c) 2015 Melhor Grupo. All rights reserved.
 //
 
 import UIKit
 
-class AddMateriaViewController: UIViewController {
+class OptionsViewController: UIViewController {
+    @IBOutlet weak var icloudSwitch: UISwitch!
+    @IBOutlet weak var media: UITextField!
+    @IBOutlet weak var alarme: UIDatePicker!
+   
+    @IBAction func salvar(sender: AnyObject) {
+        let ud = NSUserDefaults.standardUserDefaults();
+        if(media.text != ""){
+            ud.setValue(media.text, forKey: "media");
+        }
+        //icloudAllowed
+    }
 
-    @IBOutlet weak var textField: UITextField!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        let ud = NSUserDefaults.standardUserDefaults();
+        if(ud.valueForKey("media") != nil){
+            media.text = ud.valueForKey("media") as! String;
+        }
+        //alarme.datePickerMode = UIDatePicker.UIDatePickerModeTime;
         // Do any additional setup after loading the view.
     }
 
@@ -24,18 +37,9 @@ class AddMateriaViewController: UIViewController {
     }
     
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
-        self.textField.resignFirstResponder()
+        self.media.resignFirstResponder()
     }
     
-    @IBAction func salvarMateria(sender: AnyObject) {
-        
-        //COLOCAR UM REGEX BEM LEGAL AQUI
-        
-        MateriaManager.sharedInstance.insertNewMateria(textField.text)
-        self.textField.text = ""
-        
-        //APARECER UM POPUP OU ALERT AQUI SERIA BACANA
-    }
 
     /*
     // MARK: - Navigation

@@ -45,6 +45,10 @@ class AddTarefaViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+        self.textField.resignFirstResponder()
+    }
+    
     @IBAction func salvar(sender: AnyObject) {
         //MAIS REGEXES
         

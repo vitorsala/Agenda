@@ -54,6 +54,14 @@ class NotasMateriaViewController: UIViewController, UITableViewDelegate, UITable
         
         if tarefa.avaliado == 1{
             cell.detailTextLabel?.text = "\(nota)"
+            let ud = NSUserDefaults.standardUserDefaults();
+            if(ud.valueForKey("media") != nil){
+                if(nota.floatValue < (ud.valueForKey("media") as! NSString).floatValue){
+                    cell.backgroundColor = UIColor.redColor();
+                } else {
+                    cell.backgroundColor = UIColor(red: 0, green: 0, blue: 1, alpha: 0.25);
+                }
+            }
         }
         else {
             cell.detailTextLabel?.text = "Ainda não avaliado."

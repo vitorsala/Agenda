@@ -111,6 +111,33 @@ class EventManager: NSObject {
         }
     }
     
+    func brincadeDeletar(){
+        let futuro :NSDate = NSDate.distantFuture() as! NSDate;
+        let cal = NSMutableArray();
+        let calendars = eventStore.calendarsForEntityType(EKEntityTypeEvent)
+            as! [EKCalendar]
+        for calendar in calendars {
+            
+            //Calendário padrão do dispositivo se chama "Calendar". Talvez seja interessante criar um calendário só pro app.
+            if calendar.title == "AgendApp" {
+                cal.addObject(calendar);
+                break;
+            }
+        }
+        
+        let pred = eventStore.predicateForEventsWithStartDate(NSDate(), endDate: futuro, calendars: cal as [AnyObject]);
+        let eventos = NSMutableArray(array: eventStore.eventsMatchingPredicate(pred));
+        for evento in eventos{
+            var error:NSError?;
+            eventStore.removeEvent(evento as! EKEvent, span: EKSpanThisEvent, error: &error);
+            if(error != nil){
+                println("nem apago");
+            } else {
+                println("porra apago");
+            }
+        }
+    }
+    
 //    func calendarioUpdated(){
 //        println("wow wink");
 //    }
