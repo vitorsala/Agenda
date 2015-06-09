@@ -12,11 +12,11 @@ import CoreData
 class CoreDataStack {
 	static let sharedInstance = CoreDataStack()
 	private init(){
-		let notcenter = NSNotificationCenter.defaultCenter()
-
-		notcenter.addObserver(self, selector: "willChange:", name: NSPersistentStoreCoordinatorStoresWillChangeNotification, object: managedObjectContext?.persistentStoreCoordinator)
-
-		notcenter.addObserver(self, selector: "didChange:", name: NSPersistentStoreCoordinatorStoresDidChangeNotification, object: managedObjectContext?.persistentStoreCoordinator)
+//		let notcenter = NSNotificationCenter.defaultCenter()
+//
+//		notcenter.addObserver(self, selector: "willChange:", name: NSPersistentStoreCoordinatorStoresWillChangeNotification, object: managedObjectContext?.persistentStoreCoordinator)
+//
+//		notcenter.addObserver(self, selector: "didChange:", name: NSPersistentStoreCoordinatorStoresDidChangeNotification, object: managedObjectContext?.persistentStoreCoordinator)
 	}
 
 	func willChange(notification : NSNotification){
