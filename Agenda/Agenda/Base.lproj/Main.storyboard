@@ -5,11 +5,11 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Item-->
+        <!--Matérias & Tarefas-->
         <scene sceneID="0hv-LM-iAa">
             <objects>
                 <navigationController id="wTF-lw-PPh" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="wPx-gx-bvb"/>
+                    <tabBarItem key="tabBarItem" title="Matérias &amp; Tarefas" image="Books-32" id="wPx-gx-bvb"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="t5F-2q-FOd">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -118,7 +118,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nome da Materia" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="caO-fJ-QOj">
                                 <rect key="frame" x="234.5" y="144" width="132.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NlH-kj-p3S">
@@ -268,7 +268,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nome da tarefa" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MoF-mH-bI8">
                                 <rect key="frame" x="241" y="125" width="118.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BoT-tn-18Q">
@@ -282,7 +282,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Data" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8wX-R0-Zi1">
                                 <rect key="frame" x="282" y="271" width="36" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="CkS-eN-0c3">
@@ -517,11 +517,11 @@
             </objects>
             <point key="canvasLocation" x="2045" y="873"/>
         </scene>
-        <!--Item-->
+        <!--Relatório-->
         <scene sceneID="ZdI-PW-jhP">
             <objects>
                 <navigationController id="bwW-DP-Tnb" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="wXe-os-Zja"/>
+                    <tabBarItem key="tabBarItem" title="Relatório" image="Report Card-32" id="wXe-os-Zja"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="3HD-Fp-GHn">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -818,11 +818,11 @@
             </objects>
             <point key="canvasLocation" x="2106" y="-1489"/>
         </scene>
-        <!--Item-->
+        <!--Agenda-->
         <scene sceneID="Yss-rM-fmX">
             <objects>
                 <navigationController id="Uva-av-UXh" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="S7M-yQ-reh"/>
+                    <tabBarItem key="tabBarItem" title="Agenda" image="Calendar-32" id="S7M-yQ-reh"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="AWe-s4-0wW">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -857,7 +857,7 @@
             </objects>
             <point key="canvasLocation" x="-430" y="-1489"/>
         </scene>
-        <!--Item-->
+        <!--Configurações-->
         <scene sceneID="ihf-Ib-xfr">
             <objects>
                 <viewController id="YVD-jv-D15" customClass="OptionsViewController" customModule="Agenda" customModuleProvider="target" sceneMemberID="viewController">
@@ -963,7 +963,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="60X-qI-zYY"/>
+                    <tabBarItem key="tabBarItem" title="Configurações" image="Settings Filled-32" id="60X-qI-zYY"/>
                     <connections>
                         <outlet property="alarme" destination="x23-FC-nlV" id="wBm-Yt-zu8"/>
                         <outlet property="icloudSwitch" destination="YcO-i5-P9F" id="ku8-jW-1wp"/>
@@ -975,4 +975,10 @@
             <point key="canvasLocation" x="-460.5" y="-583.5"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Books-32" width="32" height="32"/>
+        <image name="Calendar-32" width="32" height="32"/>
+        <image name="Report Card-32" width="32" height="32"/>
+        <image name="Settings Filled-32" width="32" height="32"/>
+    </resources>
 </document>

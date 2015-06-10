@@ -34,6 +34,7 @@ class StatusTarefaViewController: UIViewController {
             
             if switchAvaliado.on && switchEntregue.on {
                 labelNota.hidden = false
+                textNota.text = tarefa.nota.stringValue;
                 textNota.hidden = false
             }
         }

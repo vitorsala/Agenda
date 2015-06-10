@@ -26,6 +26,11 @@ class NotasMateriaViewController: UIViewController, UITableViewDelegate, UITable
         
         // Do any additional setup after loading the view.
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        self.tarefas = NSMutableArray(array: TarefaManager.sharedInstance.fetchTarefasForMateria(materia));
+        self.tableView.reloadData();
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
