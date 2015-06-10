@@ -80,6 +80,11 @@
                     <tabBarItem key="tabBarItem" title="Item" id="wiA-j2-mCp"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Matérias" id="LIT-4M-zp6">
+                        <barButtonItem key="leftBarButtonItem" title="Editar" id="c6D-Qe-DIk">
+                            <connections>
+                                <action selector="editButton:" destination="buS-sL-Rml" id="b4T-FS-fe0"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Adicionar Matéria" id="vs8-Sw-Ise">
                             <connections>
                                 <segue destination="7Mg-r7-vwB" kind="push" id="uh5-jv-DTQ"/>
@@ -88,13 +93,66 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="editButton" destination="c6D-Qe-DIk" id="eSP-WI-jVE"/>
                         <outlet property="tableView" destination="FTS-ly-09U" id="OAa-TW-mfM"/>
                         <segue destination="2Ls-cR-wef" kind="push" id="FDs-vG-78v"/>
+                        <segue destination="MFa-yt-zqB" kind="push" id="qiv-pm-tDd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eVb-cI-qo2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1288.5" y="-428.25"/>
+            <point key="canvasLocation" x="1287" y="-438"/>
+        </scene>
+        <!--Editar Materia-->
+        <scene sceneID="qQU-2F-ubx">
+            <objects>
+                <viewController storyboardIdentifier="editMateria" id="MFa-yt-zqB" customClass="EditarMateriaViewController" customModule="Agenda" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Iqd-fL-TDu"/>
+                        <viewControllerLayoutGuide type="bottom" id="J2E-fM-NHC"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Lrs-xF-SJ8">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nome da Materia" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="caO-fJ-QOj">
+                                <rect key="frame" x="234.5" y="144" width="132.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NlH-kj-p3S">
+                                <rect key="frame" x="200" y="291" width="200" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="mBo-ib-ec0"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="NlH-kj-p3S" secondAttribute="centerX" id="DL3-ak-iQ4"/>
+                            <constraint firstItem="caO-fJ-QOj" firstAttribute="top" secondItem="Iqd-fL-TDu" secondAttribute="bottom" constant="80" id="PAX-eI-G0I"/>
+                            <constraint firstItem="NlH-kj-p3S" firstAttribute="top" secondItem="caO-fJ-QOj" secondAttribute="bottom" constant="127" id="Wd0-yo-5hi"/>
+                            <constraint firstAttribute="centerX" secondItem="caO-fJ-QOj" secondAttribute="centerX" id="e6Q-hc-l1k"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Editar Materia" id="FN0-OR-3Du">
+                        <barButtonItem key="rightBarButtonItem" title="Salvar" id="b1E-VD-o5u">
+                            <connections>
+                                <action selector="salvar:" destination="MFa-yt-zqB" id="260-AA-9Ab"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="navItem" destination="FN0-OR-3Du" id="p0J-zE-C4T"/>
+                        <outlet property="textField" destination="NlH-kj-p3S" id="iIj-V4-jz1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qxa-LB-dNx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2045" y="-695"/>
         </scene>
         <!--Tarefas-->
         <scene sceneID="hUU-FY-nY2">
@@ -188,11 +246,82 @@
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="Ac7-RK-GLu" id="ijS-RJ-0Ti"/>
+                        <segue destination="P8v-4V-LgN" kind="push" id="hF9-sh-C4G"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WwX-fh-cmp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1351" y="321"/>
+            <point key="canvasLocation" x="1288" y="341"/>
+        </scene>
+        <!--Editar Tarefa-->
+        <scene sceneID="Svp-zN-Jio">
+            <objects>
+                <viewController storyboardIdentifier="editTarefa" id="P8v-4V-LgN" customClass="EditarTarefaViewController" customModule="Agenda" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Bot-j0-btF"/>
+                        <viewControllerLayoutGuide type="bottom" id="31U-sA-iih"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="18A-KR-Zo3">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nome da tarefa" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MoF-mH-bI8">
+                                <rect key="frame" x="241" y="125" width="118.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BoT-tn-18Q">
+                                <rect key="frame" x="200" y="199" width="200" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="tcS-xa-nV6"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Data" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8wX-R0-Zi1">
+                                <rect key="frame" x="282" y="271" width="36" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="CkS-eN-0c3">
+                                <rect key="frame" x="16" y="335" width="568" height="162"/>
+                                <date key="date" timeIntervalSinceReferenceDate="455650961.90478301">
+                                    <!--2015-06-10 17:42:41 +0000-->
+                                </date>
+                            </datePicker>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="8wX-R0-Zi1" secondAttribute="centerX" id="7bt-15-Qes"/>
+                            <constraint firstAttribute="centerX" secondItem="BoT-tn-18Q" secondAttribute="centerX" id="8mC-tk-aQB"/>
+                            <constraint firstItem="8wX-R0-Zi1" firstAttribute="top" secondItem="BoT-tn-18Q" secondAttribute="bottom" constant="42" id="Ihz-7W-bTm"/>
+                            <constraint firstItem="BoT-tn-18Q" firstAttribute="top" secondItem="MoF-mH-bI8" secondAttribute="bottom" constant="54" id="KaC-zo-92M"/>
+                            <constraint firstItem="CkS-eN-0c3" firstAttribute="leading" secondItem="18A-KR-Zo3" secondAttribute="leadingMargin" id="LZD-6Y-Wss"/>
+                            <constraint firstItem="MoF-mH-bI8" firstAttribute="top" secondItem="Bot-j0-btF" secondAttribute="bottom" constant="61" id="Q6u-pm-J52"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="CkS-eN-0c3" secondAttribute="trailing" id="SiG-gC-7iq"/>
+                            <constraint firstAttribute="centerX" secondItem="MoF-mH-bI8" secondAttribute="centerX" id="gws-zv-Rdu"/>
+                            <constraint firstAttribute="centerX" secondItem="CkS-eN-0c3" secondAttribute="centerX" id="ouD-8E-zPg"/>
+                            <constraint firstItem="CkS-eN-0c3" firstAttribute="top" secondItem="8wX-R0-Zi1" secondAttribute="bottom" constant="43" id="ueF-R5-KJS"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Editar Tarefa" id="eX5-RG-rnB">
+                        <barButtonItem key="rightBarButtonItem" title="Salvar" id="dgB-sv-MKW">
+                            <connections>
+                                <action selector="salvar:" destination="P8v-4V-LgN" id="y3K-eA-6yA"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="datePicker" destination="CkS-eN-0c3" id="O7I-2i-GRQ"/>
+                        <outlet property="navItem" destination="eX5-RG-rnB" id="imw-cY-rJp"/>
+                        <outlet property="textField" destination="BoT-tn-18Q" id="oBF-id-uOq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZCO-zL-cMz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1287" y="1195"/>
         </scene>
         <!--Adicionar Matéria-->
         <scene sceneID="xmW-LH-dWT">
@@ -265,7 +394,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KDg-iq-7sG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2035.5" y="-428.25"/>
+            <point key="canvasLocation" x="2045" y="98"/>
         </scene>
         <!--Adicionar Tarefa-->
         <scene sceneID="dbL-X2-RdA">
@@ -386,7 +515,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HD2-rn-OlK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2101.5" y="321"/>
+            <point key="canvasLocation" x="2045" y="873"/>
         </scene>
         <!--Item-->
         <scene sceneID="ZdI-PW-jhP">
@@ -580,7 +709,7 @@
             </objects>
             <point key="canvasLocation" x="1287" y="-1489.5"/>
         </scene>
-        <!--Editar Tarefa-->
+        <!--Estado da Tarefa-->
         <scene sceneID="ra7-hF-JaJ">
             <objects>
                 <viewController storyboardIdentifier="StatusVC" id="QRg-M5-yQZ" customClass="StatusTarefaViewController" customModule="Agenda" customModuleProvider="target" sceneMemberID="viewController">
@@ -669,7 +798,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="Editar Tarefa" id="AbF-Wy-ypK">
+                    <navigationItem key="navigationItem" title="Estado da Tarefa" id="AbF-Wy-ypK">
                         <barButtonItem key="rightBarButtonItem" title="Salvar" id="dXy-1o-5bM">
                             <connections>
                                 <action selector="salvar:" destination="QRg-M5-yQZ" id="w7d-f6-EeI"/>

@@ -63,6 +63,12 @@ class TarefaTableViewController: UIViewController, UITableViewDataSource, UITabl
         
         return cell
     }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let editTVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("editTarefa") as! EditarTarefaViewController
+        editTVC.tarefa = self.tarefas.objectAtIndex(indexPath.row) as! Atividade
+        self.navigationController?.pushViewController(editTVC, animated: true)
+    }
 
     
     // MARK: - Navigation

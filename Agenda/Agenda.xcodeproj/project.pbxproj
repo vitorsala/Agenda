@@ -26,7 +26,9 @@
 		153B75CF1B1E474400EC5070 /* NotasMateriaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153B75CE1B1E474400EC5070 /* NotasMateriaViewController.swift */; };
 		153B75D11B1E6ECE00EC5070 /* Atividade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153B75D01B1E6ECE00EC5070 /* Atividade.swift */; };
 		153B75D31B1E77C600EC5070 /* StatusTarefaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153B75D21B1E77C600EC5070 /* StatusTarefaViewController.swift */; };
-		4E0464181B2611D300EE23C4 /* OptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0464171B2611D300EE23C4 /* OptionsViewController.swift */; };
+		153B760F1B28AA1700EC5070 /* OptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153B760E1B28AA1700EC5070 /* OptionsViewController.swift */; };
+		153B76111B28AB0D00EC5070 /* EditarMateriaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153B76101B28AB0D00EC5070 /* EditarMateriaViewController.swift */; };
+		153B76131B28AEFF00EC5070 /* EditarTarefaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153B76121B28AEFF00EC5070 /* EditarTarefaViewController.swift */; };
 		4E6C9E261B1D03F8000C4CFA /* TarefasCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6C9E251B1D03F8000C4CFA /* TarefasCell.swift */; };
 		4EFFD8131B1E53DF00580BBF /* EventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFFD8121B1E53DF00580BBF /* EventManager.swift */; };
 		EB4DF69E1B261C0D003B31AB /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4DF69D1B261C0D003B31AB /* CoreDataStack.swift */; };
@@ -66,7 +68,9 @@
 		153B75CE1B1E474400EC5070 /* NotasMateriaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotasMateriaViewController.swift; sourceTree = "<group>"; };
 		153B75D01B1E6ECE00EC5070 /* Atividade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Atividade.swift; sourceTree = "<group>"; };
 		153B75D21B1E77C600EC5070 /* StatusTarefaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusTarefaViewController.swift; sourceTree = "<group>"; };
-		4E0464171B2611D300EE23C4 /* OptionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionsViewController.swift; sourceTree = "<group>"; };
+		153B760E1B28AA1700EC5070 /* OptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OptionsViewController.swift; path = Agenda/OptionsViewController.swift; sourceTree = "<group>"; };
+		153B76101B28AB0D00EC5070 /* EditarMateriaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditarMateriaViewController.swift; sourceTree = "<group>"; };
+		153B76121B28AEFF00EC5070 /* EditarTarefaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditarTarefaViewController.swift; sourceTree = "<group>"; };
 		4E6C9E251B1D03F8000C4CFA /* TarefasCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TarefasCell.swift; sourceTree = "<group>"; };
 		4EFFD8121B1E53DF00580BBF /* EventManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventManager.swift; sourceTree = "<group>"; };
 		EB4DF69D1B261C0D003B31AB /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
@@ -94,6 +98,7 @@
 		153B75861B1CD43C00EC5070 = {
 			isa = PBXGroup;
 			children = (
+				153B760E1B28AA1700EC5070 /* OptionsViewController.swift */,
 				153B75911B1CD43C00EC5070 /* Agenda */,
 				153B75AA1B1CD43C00EC5070 /* AgendaTests */,
 				153B75901B1CD43C00EC5070 /* Products */,
@@ -134,6 +139,8 @@
 				153B75CE1B1E474400EC5070 /* NotasMateriaViewController.swift */,
 				153B75D21B1E77C600EC5070 /* StatusTarefaViewController.swift */,
 				EB4DF69D1B261C0D003B31AB /* CoreDataStack.swift */,
+				153B76101B28AB0D00EC5070 /* EditarMateriaViewController.swift */,
+				153B76121B28AEFF00EC5070 /* EditarTarefaViewController.swift */,
 			);
 			path = Agenda;
 			sourceTree = "<group>";
@@ -229,10 +236,10 @@
 				TargetAttributes = {
 					153B758E1B1CD43C00EC5070 = {
 						CreatedOnToolsVersion = 6.3.2;
-						DevelopmentTeam = KY9XTC3U67;
+						DevelopmentTeam = GT48V5L69E;
 						SystemCapabilities = {
 							com.apple.iCloud = {
-								enabled = 1;
+								enabled = 0;
 							};
 						};
 					};
@@ -286,11 +293,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				153B760F1B28AA1700EC5070 /* OptionsViewController.swift in Sources */,
 				153B75D31B1E77C600EC5070 /* StatusTarefaViewController.swift in Sources */,
 				4EFFD8131B1E53DF00580BBF /* EventManager.swift in Sources */,
 				153B75C31B1CE86200EC5070 /* TarefaManager.swift in Sources */,
 				EB4DF69E1B261C0D003B31AB /* CoreDataStack.swift in Sources */,
+				153B76111B28AB0D00EC5070 /* EditarMateriaViewController.swift in Sources */,
 				153B75CB1B1E2B9300EC5070 /* AgendaViewController.swift in Sources */,
+				153B76131B28AEFF00EC5070 /* EditarTarefaViewController.swift in Sources */,
 				153B759A1B1CD43C00EC5070 /* ViewController.swift in Sources */,
 				153B75951B1CD43C00EC5070 /* AppDelegate.swift in Sources */,
 				153B75CF1B1E474400EC5070 /* NotasMateriaViewController.swift in Sources */,
@@ -298,7 +308,6 @@
 				153B75C71B1CF6A900EC5070 /* AddTarefaViewController.swift in Sources */,
 				153B75981B1CD43C00EC5070 /* Agenda.xcdatamodeld in Sources */,
 				4E6C9E261B1D03F8000C4CFA /* TarefasCell.swift in Sources */,
-				4E0464181B2611D300EE23C4 /* OptionsViewController.swift in Sources */,
 				153B75BD1B1CE77500EC5070 /* MateriasTableViewController.swift in Sources */,
 				153B75C51B1CF60B00EC5070 /* TarefaTableViewController.swift in Sources */,
 				153B75C11B1CE84F00EC5070 /* MateriaManager.swift in Sources */,
@@ -433,7 +442,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Agenda/Agenda.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Agenda/Info.plist;
@@ -447,7 +455,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Agenda/Agenda.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Agenda/Info.plist;

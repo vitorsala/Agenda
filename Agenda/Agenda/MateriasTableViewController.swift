@@ -11,7 +11,11 @@ import EventKit
 
 class MateriasTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
+    
+    var editando:Bool = false
+    
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var editButton: UIBarButtonItem!
     
     var arrayMaterias = NSMutableArray()
     
@@ -42,6 +46,11 @@ class MateriasTableViewController: UIViewController, UITableViewDataSource, UITa
         
         // Do any additional setup after loading the view.
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        self.editando = false
+        self.editButton.title = "Editar"
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -69,12 +78,28 @@ class MateriasTableViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let tarefaTVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("TarefasTVC") as! TarefaTableViewController
-        tarefaTVC.materia = self.arrayMaterias.objectAtIndex(indexPath.row) as! Materia
-        self.navigationController?.pushViewController(tarefaTVC, animated: true)
+        if !editando{
+            let tarefaTVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("TarefasTVC") as! TarefaTableViewController
+            tarefaTVC.materia = self.arrayMaterias.objectAtIndex(indexPath.row) as! Materia
+            self.navigationController?.pushViewController(tarefaTVC, animated: true)
+        }
+        else{
+           let editTVC =  UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("editMateria") as! EditarMateriaViewController
+            editTVC.materia = self.arrayMaterias.objectAtIndex(indexPath.row) as! Materia
+            self.navigationController?.pushViewController(editTVC, animated: true)
+        }
     }
     
 
+    @IBAction func editButton(sender: AnyObject) {
+        self.editando = !self.editando
+        if self.editando{
+            editButton.title = "OK"
+        }
+        else{
+            editButton.title = "Editar"
+        }
+    }
     /*
     // MARK: - Navigation
 
