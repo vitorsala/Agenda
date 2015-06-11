@@ -36,7 +36,7 @@ class EditarTarefaViewController: UIViewController {
     @IBAction func salvar(sender: AnyObject) {
         
         //REGEX
-        
+        EventManager.sharedInstance.editaEvento(textField.text, nData: datePicker.date, tarefa: tarefa);
         tarefa.nomeAtiv = textField.text
         tarefa.dataEntrega = datePicker.date
         
