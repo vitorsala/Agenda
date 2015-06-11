@@ -29,6 +29,11 @@ class OptionsViewController: UIViewController {
         }
         //alarme.datePickerMode = UIDatePicker.UIDatePickerModeTime;
         // Do any additional setup after loading the view.
+
+		icloudSwitch.addTarget(self, action: "switchValueChanged:", forControlEvents: UIControlEvents.ValueChanged)
+		if NSUserDefaults.standardUserDefaults().boolForKey(CoreDataStackIcloudFlagForUserDefault){
+			icloudSwitch.on = true
+		}
     }
 
     override func didReceiveMemoryWarning() {
@@ -39,7 +44,12 @@ class OptionsViewController: UIViewController {
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         self.media.resignFirstResponder()
     }
-    
+
+	func switchValueChanged(switchState: UISwitch){
+
+		CoreDataStack.sharedInstance.switchMode()
+
+	}
 
     /*
     // MARK: - Navigation

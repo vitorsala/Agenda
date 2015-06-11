@@ -14,10 +14,10 @@
                     <rect key="frame" x="100" y="228" width="400" height="120"/>
                     <subviews>
                         <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="s5w-jJ-sOu" customClass="ActivityIndicator" customModule="Agenda" customModuleProvider="target">
-                            <rect key="frame" x="170" y="55" width="60" height="60"/>
+                            <rect key="frame" x="180" y="65" width="40" height="40"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="number" keyPath="scaleMultiplier">
-                                    <real key="value" value="3"/>
+                                    <real key="value" value="2"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                             <variation key="widthClass=compact" misplaced="YES">

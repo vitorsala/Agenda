@@ -40,7 +40,7 @@ class MateriasTableViewController: UIViewController, UITableViewDataSource, UITa
         }
 
 		// Permissão para usar o icloud
-		if NSUserDefaults.standardUserDefaults().objectForKey("icloudAllowed") == nil{
+		if NSUserDefaults.standardUserDefaults().objectForKey(CoreDataStackIcloudFlagForUserDefault) == nil{
 
 			NSNotificationCenter.defaultCenter().addObserverForName(CoreDataStackDidChangeNotification, object: nil, queue: NSOperationQueue.mainQueue(), usingBlock: { (notification) -> Void in
 
@@ -56,21 +56,21 @@ class MateriasTableViewController: UIViewController, UITableViewDataSource, UITa
 			let icloudalert = UIAlertController(title: "iCloud?", message: "Vai usar o iCloud?", preferredStyle: UIAlertControllerStyle.Alert)
 
 			icloudalert.addAction(UIAlertAction(title: "YEAH!", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-				NSUserDefaults.standardUserDefaults().setBool(true, forKey: "icloudAllowed")
-				CoreDataStack.sharedInstance.setup()
+				NSUserDefaults.standardUserDefaults().setBool(true, forKey: CoreDataStackIcloudFlagForUserDefault)
+				CoreDataStack.sharedInstance
 				self.view.addSubview(self.loading!)
 			}))
 
 			icloudalert.addAction(UIAlertAction(title: "NOPE!", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
-				NSUserDefaults.standardUserDefaults().setBool(false, forKey: "icloudAllowed")
-				CoreDataStack.sharedInstance.setup()
+				NSUserDefaults.standardUserDefaults().setBool(false, forKey: CoreDataStackIcloudFlagForUserDefault)
+				CoreDataStack.sharedInstance
 			}))
 
 			self.presentViewController(icloudalert, animated: true, completion: nil)
 
 		}
 		else{
-			CoreDataStack.sharedInstance.setup()
+			CoreDataStack.sharedInstance
 		}
 
         self.tableView.delegate = self
@@ -84,7 +84,7 @@ class MateriasTableViewController: UIViewController, UITableViewDataSource, UITa
         self.editando = false
         self.editButton.title = "Editar"
 
-		if NSUserDefaults.standardUserDefaults().objectForKey("icloudAllowed") != nil{
+		if NSUserDefaults.standardUserDefaults().objectForKey(CoreDataStackIcloudFlagForUserDefault) != nil{
 			refreshData(nil)
 		}
 
