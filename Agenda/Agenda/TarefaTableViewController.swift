@@ -18,8 +18,6 @@ class TarefaTableViewController: UIViewController, UITableViewDataSource, UITabl
         super.viewDidLoad()
         
         self.navigationItem.title = materia.nomeMateria
-
-        tarefas = NSMutableArray(array: TarefaManager.sharedInstance.fetchTarefasForMateria(self.materia))
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
@@ -31,11 +29,21 @@ class TarefaTableViewController: UIViewController, UITableViewDataSource, UITabl
         // Dispose of any resources that can be recreated.
     }
     
-    override func viewDidAppear(animated: Bool) {
-        tarefas = NSMutableArray(array: TarefaManager.sharedInstance.fetchTarefasForMateria(self.materia))
-        self.tableView.reloadData()
+    override func viewWillAppear(animated: Bool) {
+        refreshData(nil)
+
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshData:", name: CoreDataStackDidImportedNotification, object: nil)
     }
-    
+
+	override func viewWillDisappear(animated: Bool) {
+		NSNotificationCenter.defaultCenter().removeObserver(self, name: CoreDataStackDidImportedNotification, object: nil)
+	}
+
+	@objc func refreshData(notification : NSNotification?){
+		tarefas = NSMutableArray(array: TarefaManager.sharedInstance.fetchTarefasForMateria(self.materia))
+		self.tableView.reloadData()
+	}
+
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.tarefas.count
     }

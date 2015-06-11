@@ -16,19 +16,27 @@ class RelatorioViewController: UIViewController, UITableViewDataSource, UITableV
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.materias = NSMutableArray(array: MateriaManager.sharedInstance.fetchAllMaterias())
-        
+
         self.tableView.delegate = self
         self.tableView.dataSource = self
 
         // Do any additional setup after loading the view.
     }
-    
-    override func viewWillAppear(animated: Bool) {
-        self.materias = NSMutableArray(array: MateriaManager.sharedInstance.fetchAllMaterias())
-        self.tableView.reloadData()
-    }
+
+	override func viewWillAppear(animated: Bool) {
+		refreshData(nil)
+
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshData:", name: CoreDataStackDidImportedNotification, object: nil)
+	}
+
+	override func viewWillDisappear(animated: Bool) {
+		NSNotificationCenter.defaultCenter().removeObserver(self, name: CoreDataStackDidImportedNotification, object: nil)
+	}
+
+	@objc func refreshData(notification : NSNotification?){
+		self.materias = NSMutableArray(array: MateriaManager.sharedInstance.fetchAllMaterias())
+		self.tableView.reloadData()
+	}
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

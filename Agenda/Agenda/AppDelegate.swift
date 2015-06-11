@@ -17,27 +17,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 
-		let notcenter = NSNotificationCenter.defaultCenter()
-
-		notcenter.addObserverForName(NSPersistentStoreCoordinatorStoresWillChangeNotification, object: CoreDataStack.sharedInstance.persistentStoreCoordinator, queue: NSOperationQueue.mainQueue()) { (notification) -> Void in
-			let stack = CoreDataStack.sharedInstance
-
-			if stack.managedObjectContext!.hasChanges{
-				var error : NSError?
-				if stack.managedObjectContext!.save(&error){
-					println(error?.description)
-				}
-				println("roar")
-			}
-			else{
-				stack.managedObjectContext!.reset()
-			}
-		}
-
-		notcenter.addObserverForName(NSPersistentStoreCoordinatorStoresDidChangeNotification, object: CoreDataStack.sharedInstance.persistentStoreCoordinator, queue: NSOperationQueue.mainQueue()) { (notification) -> Void in
-
-		}
-
         return true
     }
 

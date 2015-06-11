@@ -6,21 +6,79 @@
 //  Copyright (c) 2015 Melhor Grupo. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import CoreData
+
+let CoreDataStackDidChangeNotification = "didUpdatedFromIcloud"
+let CoreDataStackDidImportedNotification = "didImportFromIcloud"
 
 class CoreDataStack {
 	static let sharedInstance = CoreDataStack()
-	private init(){
-//		let notcenter = NSNotificationCenter.defaultCenter()
-//
-//		notcenter.addObserver(self, selector: "willChange:", name: NSPersistentStoreCoordinatorStoresWillChangeNotification, object: managedObjectContext?.persistentStoreCoordinator)
-//
-//		notcenter.addObserver(self, selector: "didChange:", name: NSPersistentStoreCoordinatorStoresDidChangeNotification, object: managedObjectContext?.persistentStoreCoordinator)
+	private init(){}
+
+	internal var isOnline : Bool = false
+	private var firstTimeRun = true
+
+	func setup(){
+		if firstTimeRun{
+
+			let userDefault = NSUserDefaults.standardUserDefaults()
+
+
+			if let token = NSFileManager.defaultManager().ubiquityIdentityToken{
+				if userDefault.boolForKey("icloudAllowed"){
+					persistentStoreCoordinator = persistentStoreOnlineCoordinator
+
+					let notcenter = NSNotificationCenter.defaultCenter()
+
+					notcenter.addObserver(self, selector: "willChange:", name: NSPersistentStoreCoordinatorStoresWillChangeNotification, object: managedObjectContext?.persistentStoreCoordinator)
+
+					notcenter.addObserver(self, selector: "didChange:", name: NSPersistentStoreCoordinatorStoresDidChangeNotification, object: managedObjectContext?.persistentStoreCoordinator)
+
+					notcenter.addObserver(self, selector: "didImportUibquitousContent:", name: NSPersistentStoreDidImportUbiquitousContentChangesNotification, object: managedObjectContext?.persistentStoreCoordinator)
+
+					isOnline = true
+				}
+				else{
+					persistentStoreCoordinator = persistentStoreOfflineCoordinator
+				}
+			}
+			else {
+				persistentStoreCoordinator = persistentStoreOfflineCoordinator
+			}
+
+			firstTimeRun = false
+		}
 	}
 
-	func willChange(notification : NSNotification){
-		println("willChangeNotification")
+	func switchMode(){
+		let notcenter = NSNotificationCenter.defaultCenter()
+
+		if isOnline {
+			notcenter.removeObserver(self)
+			persistentStoreCoordinator = persistentStoreOfflineCoordinator
+			managedObjectContext!.persistentStoreCoordinator? = persistentStoreCoordinator!
+		}
+			
+		else{
+
+			notcenter.addObserver(self, selector: "willChange:", name: NSPersistentStoreCoordinatorStoresWillChangeNotification, object: managedObjectContext?.persistentStoreCoordinator)
+
+			notcenter.addObserver(self, selector: "didChange:", name: NSPersistentStoreCoordinatorStoresDidChangeNotification, object: managedObjectContext?.persistentStoreCoordinator)
+
+			notcenter.addObserver(self, selector: "didImportUibquitousContent:", name: NSPersistentStoreDidImportUbiquitousContentChangesNotification, object: managedObjectContext?.persistentStoreCoordinator)
+
+			persistentStoreCoordinator = persistentStoreOnlineCoordinator
+			managedObjectContext!.persistentStoreCoordinator? = persistentStoreCoordinator!
+
+
+		}
+
+		isOnline != isOnline
+	}
+
+	@objc func willChange(notification : NSNotification){
+//		println("willChangeNotification")
 
 		if managedObjectContext!.hasChanges{
 			var error : NSError?
@@ -35,11 +93,20 @@ class CoreDataStack {
 		}
 	}
 
-	func didChange(notification : NSNotification){
-		// Faz o update das coisas
+	@objc func didChange(notification : NSNotification){
+		NSNotificationCenter.defaultCenter().postNotificationName(CoreDataStackDidChangeNotification, object: nil, userInfo: notification.userInfo)
+	}
+
+	@objc func didImportUibquitousContent(notification : NSNotification){
+
+
+		managedObjectContext?.mergeChangesFromContextDidSaveNotification(notification)
+
+		NSNotificationCenter.defaultCenter().postNotificationName(CoreDataStackDidImportedNotification, object: nil, userInfo: notification.userInfo)
 	}
 
 	// MARK: - Core Data stack
+	var persistentStoreCoordinator : NSPersistentStoreCoordinator?
 
 	lazy var applicationDocumentsDirectory: NSURL = {
 		// The directory the application uses to store the Core Data store file. This code uses a directory named "BEPiD.Agenda" in the application's documents Application Support directory.
@@ -103,20 +170,6 @@ class CoreDataStack {
 
 		return coordinator
 		}()
-
-	lazy var persistentStoreCoordinator : NSPersistentStoreCoordinator? = {
-
-		let userDefault = NSUserDefaults.standardUserDefaults()
-
-		return self.persistentStoreOnlineCoordinator
-		
-//		if let token = NSFileManager.defaultManager().ubiquityIdentityToken{
-//			if let icloud = userDefault.objectForKey("icloudAllowed") as? Bool{
-//				return self.persistentStoreOnlineCoordinator
-//			}
-//		}
-//		return self.persistentStoreOfflineCoordinator
-	}()
 
 	lazy var managedObjectContext: NSManagedObjectContext? = {
 		// Returns the managed object context for the application (which is already bound to the persistent store coordinator for the application.) This property is optional since there are legitimate error conditions that could cause the creation of the context to fail.

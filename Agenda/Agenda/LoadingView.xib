@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="LoadingView" customModule="Agenda" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FtJ-qf-YYH" customClass="InternalLoadingView" customModule="Agenda" customModuleProvider="target">
+                    <rect key="frame" x="100" y="228" width="400" height="120"/>
+                    <subviews>
+                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="s5w-jJ-sOu" customClass="ActivityIndicator" customModule="Agenda" customModuleProvider="target">
+                            <rect key="frame" x="170" y="55" width="60" height="60"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="scaleMultiplier">
+                                    <real key="value" value="3"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <variation key="widthClass=compact" misplaced="YES">
+                                <rect key="frame" x="70" y="55" width="60" height="60"/>
+                            </variation>
+                            <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                <rect key="frame" x="70" y="55" width="60" height="60"/>
+                            </variation>
+                        </activityIndicatorView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Carregando dados do iCloud" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UBZ-6N-mzt">
+                            <rect key="frame" x="10" y="15" width="380" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="EFA-jK-MyG"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="UBZ-6N-mzt" firstAttribute="top" secondItem="FtJ-qf-YYH" secondAttribute="top" constant="15" id="0Ve-vi-edp"/>
+                        <constraint firstItem="UBZ-6N-mzt" firstAttribute="leading" secondItem="FtJ-qf-YYH" secondAttribute="leading" id="2Bp-C2-jl3"/>
+                        <constraint firstAttribute="trailing" secondItem="UBZ-6N-mzt" secondAttribute="trailing" constant="10" id="5ef-6n-XOU"/>
+                        <constraint firstItem="UBZ-6N-mzt" firstAttribute="top" secondItem="FtJ-qf-YYH" secondAttribute="top" constant="15" id="73g-h8-57n"/>
+                        <constraint firstAttribute="height" constant="120" id="LJy-Y5-wgi"/>
+                        <constraint firstAttribute="bottom" secondItem="s5w-jJ-sOu" secondAttribute="bottom" constant="25" id="Wpg-Qm-L3o"/>
+                        <constraint firstAttribute="trailing" secondItem="UBZ-6N-mzt" secondAttribute="trailing" id="XDn-us-csX"/>
+                        <constraint firstItem="UBZ-6N-mzt" firstAttribute="leading" secondItem="FtJ-qf-YYH" secondAttribute="leading" constant="10" id="h0m-Pe-Zj1"/>
+                        <constraint firstAttribute="centerX" secondItem="s5w-jJ-sOu" secondAttribute="centerX" id="pld-iE-384"/>
+                        <constraint firstAttribute="centerX" secondItem="UBZ-6N-mzt" secondAttribute="centerX" id="wFr-M1-roA"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="20"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="0Ve-vi-edp"/>
+                            <exclude reference="2Bp-C2-jl3"/>
+                            <exclude reference="XDn-us-csX"/>
+                            <exclude reference="wFr-M1-roA"/>
+                        </mask>
+                    </variation>
+                    <variation key="heightClass=regular-widthClass=compact">
+                        <mask key="constraints">
+                            <exclude reference="wFr-M1-roA"/>
+                        </mask>
+                    </variation>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="FtJ-qf-YYH" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="100" id="Hlh-Sy-kkx"/>
+                <constraint firstAttribute="trailing" secondItem="FtJ-qf-YYH" secondAttribute="trailing" constant="100" id="XVA-Ed-Luq"/>
+                <constraint firstAttribute="centerY" secondItem="FtJ-qf-YYH" secondAttribute="centerY" constant="12" id="cVz-cv-gIR"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

@@ -31,6 +31,8 @@
 		153B76131B28AEFF00EC5070 /* EditarTarefaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153B76121B28AEFF00EC5070 /* EditarTarefaViewController.swift */; };
 		4E6C9E261B1D03F8000C4CFA /* TarefasCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6C9E251B1D03F8000C4CFA /* TarefasCell.swift */; };
 		4EFFD8131B1E53DF00580BBF /* EventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFFD8121B1E53DF00580BBF /* EventManager.swift */; };
+		EB4573341B290BD10072912C /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4573331B290BD10072912C /* LoadingView.swift */; };
+		EB4573361B290CEF0072912C /* LoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB4573351B290CEF0072912C /* LoadingView.xib */; };
 		EB4DF69E1B261C0D003B31AB /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4DF69D1B261C0D003B31AB /* CoreDataStack.swift */; };
 /* End PBXBuildFile section */
 
@@ -68,11 +70,13 @@
 		153B75CE1B1E474400EC5070 /* NotasMateriaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotasMateriaViewController.swift; sourceTree = "<group>"; };
 		153B75D01B1E6ECE00EC5070 /* Atividade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Atividade.swift; sourceTree = "<group>"; };
 		153B75D21B1E77C600EC5070 /* StatusTarefaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusTarefaViewController.swift; sourceTree = "<group>"; };
-		153B760E1B28AA1700EC5070 /* OptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OptionsViewController.swift; path = Agenda/OptionsViewController.swift; sourceTree = "<group>"; };
+		153B760E1B28AA1700EC5070 /* OptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsViewController.swift; sourceTree = "<group>"; };
 		153B76101B28AB0D00EC5070 /* EditarMateriaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditarMateriaViewController.swift; sourceTree = "<group>"; };
 		153B76121B28AEFF00EC5070 /* EditarTarefaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditarTarefaViewController.swift; sourceTree = "<group>"; };
 		4E6C9E251B1D03F8000C4CFA /* TarefasCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TarefasCell.swift; sourceTree = "<group>"; };
 		4EFFD8121B1E53DF00580BBF /* EventManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventManager.swift; sourceTree = "<group>"; };
+		EB4573331B290BD10072912C /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		EB4573351B290CEF0072912C /* LoadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingView.xib; sourceTree = "<group>"; };
 		EB4DF69D1B261C0D003B31AB /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		EBDF21861B1E0DFF0087166F /* Agenda.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Agenda.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -98,7 +102,6 @@
 		153B75861B1CD43C00EC5070 = {
 			isa = PBXGroup;
 			children = (
-				153B760E1B28AA1700EC5070 /* OptionsViewController.swift */,
 				153B75911B1CD43C00EC5070 /* Agenda */,
 				153B75AA1B1CD43C00EC5070 /* AgendaTests */,
 				153B75901B1CD43C00EC5070 /* Products */,
@@ -141,6 +144,9 @@
 				EB4DF69D1B261C0D003B31AB /* CoreDataStack.swift */,
 				153B76101B28AB0D00EC5070 /* EditarMateriaViewController.swift */,
 				153B76121B28AEFF00EC5070 /* EditarTarefaViewController.swift */,
+				153B760E1B28AA1700EC5070 /* OptionsViewController.swift */,
+				EB4573331B290BD10072912C /* LoadingView.swift */,
+				EB4573351B290CEF0072912C /* LoadingView.xib */,
 			);
 			path = Agenda;
 			sourceTree = "<group>";
@@ -236,10 +242,10 @@
 				TargetAttributes = {
 					153B758E1B1CD43C00EC5070 = {
 						CreatedOnToolsVersion = 6.3.2;
-						DevelopmentTeam = GT48V5L69E;
+						DevelopmentTeam = KY9XTC3U67;
 						SystemCapabilities = {
 							com.apple.iCloud = {
-								enabled = 0;
+								enabled = 1;
 							};
 						};
 					};
@@ -274,6 +280,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				153B759D1B1CD43C00EC5070 /* Main.storyboard in Resources */,
+				EB4573361B290CEF0072912C /* LoadingView.xib in Resources */,
 				153B75A21B1CD43C00EC5070 /* LaunchScreen.xib in Resources */,
 				153B759F1B1CD43C00EC5070 /* Images.xcassets in Resources */,
 			);
@@ -296,6 +303,7 @@
 				153B760F1B28AA1700EC5070 /* OptionsViewController.swift in Sources */,
 				153B75D31B1E77C600EC5070 /* StatusTarefaViewController.swift in Sources */,
 				4EFFD8131B1E53DF00580BBF /* EventManager.swift in Sources */,
+				EB4573341B290BD10072912C /* LoadingView.swift in Sources */,
 				153B75C31B1CE86200EC5070 /* TarefaManager.swift in Sources */,
 				EB4DF69E1B261C0D003B31AB /* CoreDataStack.swift in Sources */,
 				153B76111B28AB0D00EC5070 /* EditarMateriaViewController.swift in Sources */,
@@ -442,6 +450,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Agenda/Agenda.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Agenda/Info.plist;
@@ -455,6 +464,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Agenda/Agenda.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Agenda/Info.plist;

@@ -18,13 +18,14 @@ class MateriasTableViewController: UIViewController, UITableViewDataSource, UITa
     @IBOutlet weak var editButton: UIBarButtonItem!
     
     var arrayMaterias = NSMutableArray()
+
+	var loading : LoadingView?
     
     let em:EventManager = EventManager.sharedInstance;
 
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         //Se o usuário não permitiu que usassem o calendário anteriormente, pergunta de novo lol.
         if(!em.verificaPermissao()){
             em.eventStore.requestAccessToEntityType(EKEntityTypeEvent, completion:
@@ -38,30 +39,72 @@ class MateriasTableViewController: UIViewController, UITableViewDataSource, UITa
                 })
         }
 
+		// Permissão para usar o icloud
+		if NSUserDefaults.standardUserDefaults().objectForKey("icloudAllowed") == nil{
+
+			NSNotificationCenter.defaultCenter().addObserverForName(CoreDataStackDidChangeNotification, object: nil, queue: NSOperationQueue.mainQueue(), usingBlock: { (notification) -> Void in
+
+				self.arrayMaterias = NSMutableArray(array: MateriaManager.sharedInstance.fetchAllMaterias())
+				self.tableView.reloadData()
+				self.loading?.removeFromSuperview()
+			})
+
+			self.loading = NSBundle.mainBundle().loadNibNamed("LoadingView", owner: self, options: nil).first as? LoadingView
+
+			println("Vai querer o icloud?")
+
+			let icloudalert = UIAlertController(title: "iCloud?", message: "Vai usar o iCloud?", preferredStyle: UIAlertControllerStyle.Alert)
+
+			icloudalert.addAction(UIAlertAction(title: "YEAH!", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+				NSUserDefaults.standardUserDefaults().setBool(true, forKey: "icloudAllowed")
+				CoreDataStack.sharedInstance.setup()
+				self.view.addSubview(self.loading!)
+			}))
+
+			icloudalert.addAction(UIAlertAction(title: "NOPE!", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
+				NSUserDefaults.standardUserDefaults().setBool(false, forKey: "icloudAllowed")
+				CoreDataStack.sharedInstance.setup()
+			}))
+
+			self.presentViewController(icloudalert, animated: true, completion: nil)
+
+		}
+		else{
+			CoreDataStack.sharedInstance.setup()
+		}
+
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        
-        arrayMaterias = NSMutableArray(array: MateriaManager.sharedInstance.fetchAllMaterias())
-        
-        
+
         // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(animated: Bool) {
+
         self.editando = false
         self.editButton.title = "Editar"
+
+		if NSUserDefaults.standardUserDefaults().objectForKey("icloudAllowed") != nil{
+			refreshData(nil)
+		}
+
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshData:", name: CoreDataStackDidImportedNotification, object: nil)
     }
+
+	override func viewWillDisappear(animated: Bool) {
+		NSNotificationCenter.defaultCenter().removeObserver(self, name: CoreDataStackDidImportedNotification, object: nil)
+	}
+
+	@objc func refreshData(notification : NSNotification?){
+		arrayMaterias = NSMutableArray(array: MateriaManager.sharedInstance.fetchAllMaterias())
+		self.tableView.reloadData()
+	}
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    override func viewDidAppear(animated: Bool) {
-        arrayMaterias = NSMutableArray(array: MateriaManager.sharedInstance.fetchAllMaterias())
-        self.tableView.reloadData()
-    }
-    
+
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return arrayMaterias.count
     }

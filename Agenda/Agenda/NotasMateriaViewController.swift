@@ -18,19 +18,27 @@ class NotasMateriaViewController: UIViewController, UITableViewDelegate, UITable
         super.viewDidLoad()
         
         self.navigationItem.title = "Relatorio para \(materia.nomeMateria)"
-        
-        self.tarefas = NSMutableArray(array: TarefaManager.sharedInstance.fetchTarefasForMateria(materia))
 
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
         // Do any additional setup after loading the view.
     }
-    
-    override func viewWillAppear(animated: Bool) {
-        self.tarefas = NSMutableArray(array: TarefaManager.sharedInstance.fetchTarefasForMateria(materia));
-        self.tableView.reloadData();
-    }
+
+	override func viewWillAppear(animated: Bool) {
+		refreshData(nil)
+
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshData:", name: CoreDataStackDidImportedNotification, object: nil)
+	}
+
+	override func viewWillDisappear(animated: Bool) {
+		NSNotificationCenter.defaultCenter().removeObserver(self, name: CoreDataStackDidImportedNotification, object: nil)
+	}
+
+	@objc func refreshData(notification : NSNotification?){
+		self.tarefas = NSMutableArray(array: TarefaManager.sharedInstance.fetchTarefasForMateria(materia));
+		self.tableView.reloadData();
+	}
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
