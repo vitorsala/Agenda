@@ -40,15 +40,8 @@ class MateriasTableViewController: UIViewController, UITableViewDataSource, UITa
         }
 
 		// Permissão para usar o icloud
-		if CoreDataStack.sharedInstance.isLoggedInIcloud(){
+		if CoreDataStack.isLoggedInIcloud(){
 			if NSUserDefaults.standardUserDefaults().objectForKey(CoreDataStackIcloudFlagForUserDefault) == nil{
-
-				NSNotificationCenter.defaultCenter().addObserverForName(CoreDataStackDidChangeNotification, object: nil, queue: NSOperationQueue.mainQueue(), usingBlock: { (notification) -> Void in
-
-					self.arrayMaterias = NSMutableArray(array: MateriaManager.sharedInstance.fetchAllMaterias())
-					self.tableView.reloadData()
-					self.loading?.removeFromSuperview()
-				})
 
 				self.loading = NSBundle.mainBundle().loadNibNamed("LoadingView", owner: self, options: nil).first as? LoadingView
 
@@ -57,26 +50,34 @@ class MateriasTableViewController: UIViewController, UITableViewDataSource, UITa
 				let icloudalert = UIAlertController(title: "iCloud?", message: "Vai usar o iCloud?", preferredStyle: UIAlertControllerStyle.Alert)
 
 				icloudalert.addAction(UIAlertAction(title: "YEAH!", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-					NSUserDefaults.standardUserDefaults().setBool(true, forKey: CoreDataStackIcloudFlagForUserDefault)
-					CoreDataStack.sharedInstance.setup()
 					self.view.addSubview(self.loading!)
+
+					NSUserDefaults.standardUserDefaults().setBool(true, forKey: CoreDataStackIcloudFlagForUserDefault)
+					CoreDataStack.sharedInstance
+
+					NSNotificationCenter.defaultCenter().addObserverForName(CoreDataStackDidChangeNotification, object: nil, queue: NSOperationQueue.mainQueue(), usingBlock: { (notification) -> Void in
+
+						self.arrayMaterias = NSMutableArray(array: MateriaManager.sharedInstance.fetchAllMaterias())
+						self.tableView.reloadData()
+						self.loading?.removeFromSuperview()
+					})
 				}))
 
 				icloudalert.addAction(UIAlertAction(title: "NOPE!", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
 					NSUserDefaults.standardUserDefaults().setBool(false, forKey: CoreDataStackIcloudFlagForUserDefault)
-					CoreDataStack.sharedInstance.setup()
+					CoreDataStack.sharedInstance
 				}))
 
 				self.presentViewController(icloudalert, animated: true, completion: nil)
 
 			}
 			else{
-				CoreDataStack.sharedInstance.setup()
+				CoreDataStack.sharedInstance
 			}
 		}
 		else{
 			NSUserDefaults.standardUserDefaults().setBool(false, forKey: CoreDataStackIcloudFlagForUserDefault)
-			CoreDataStack.sharedInstance.setup()
+			CoreDataStack.sharedInstance
 		}
 
         self.tableView.delegate = self
