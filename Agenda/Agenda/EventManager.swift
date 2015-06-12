@@ -184,6 +184,15 @@ class EventManager: NSObject {
         }
     }
     
+    func sincCalICloud(tarefas: NSArray){
+        self.brincadeDeletar();
+        for t in tarefas{
+            let tarefa = t as! Atividade;
+            insertEvent(tarefa.dataEntrega, nome: tarefa.nomeAtiv, materia: tarefa.disciplina.nomeMateria);
+        }
+        
+    }
+    
 //    func calendarioUpdated(){
 //        println("wow wink");
 //    }
