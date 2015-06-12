@@ -40,36 +40,42 @@ class MateriasTableViewController: UIViewController, UITableViewDataSource, UITa
         }
 
 		// Permissão para usar o icloud
-		if NSUserDefaults.standardUserDefaults().objectForKey("icloudAllowed") == nil{
+		if CoreDataStack.sharedInstance.isLoggedInIcloud(){
+			if NSUserDefaults.standardUserDefaults().objectForKey(CoreDataStackIcloudFlagForUserDefault) == nil{
 
-			NSNotificationCenter.defaultCenter().addObserverForName(CoreDataStackDidChangeNotification, object: nil, queue: NSOperationQueue.mainQueue(), usingBlock: { (notification) -> Void in
+				NSNotificationCenter.defaultCenter().addObserverForName(CoreDataStackDidChangeNotification, object: nil, queue: NSOperationQueue.mainQueue(), usingBlock: { (notification) -> Void in
 
-				self.arrayMaterias = NSMutableArray(array: MateriaManager.sharedInstance.fetchAllMaterias())
-				self.tableView.reloadData()
-				self.loading?.removeFromSuperview()
-			})
+					self.arrayMaterias = NSMutableArray(array: MateriaManager.sharedInstance.fetchAllMaterias())
+					self.tableView.reloadData()
+					self.loading?.removeFromSuperview()
+				})
 
-			self.loading = NSBundle.mainBundle().loadNibNamed("LoadingView", owner: self, options: nil).first as? LoadingView
+				self.loading = NSBundle.mainBundle().loadNibNamed("LoadingView", owner: self, options: nil).first as? LoadingView
 
-			println("Vai querer o icloud?")
+				println("Vai querer o icloud?")
 
-			let icloudalert = UIAlertController(title: "iCloud?", message: "Vai usar o iCloud?", preferredStyle: UIAlertControllerStyle.Alert)
+				let icloudalert = UIAlertController(title: "iCloud?", message: "Vai usar o iCloud?", preferredStyle: UIAlertControllerStyle.Alert)
 
-			icloudalert.addAction(UIAlertAction(title: "YEAH!", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-				NSUserDefaults.standardUserDefaults().setBool(true, forKey: "icloudAllowed")
+				icloudalert.addAction(UIAlertAction(title: "YEAH!", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+					NSUserDefaults.standardUserDefaults().setBool(true, forKey: CoreDataStackIcloudFlagForUserDefault)
+					CoreDataStack.sharedInstance.setup()
+					self.view.addSubview(self.loading!)
+				}))
+
+				icloudalert.addAction(UIAlertAction(title: "NOPE!", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
+					NSUserDefaults.standardUserDefaults().setBool(false, forKey: CoreDataStackIcloudFlagForUserDefault)
+					CoreDataStack.sharedInstance.setup()
+				}))
+
+				self.presentViewController(icloudalert, animated: true, completion: nil)
+
+			}
+			else{
 				CoreDataStack.sharedInstance.setup()
-				self.view.addSubview(self.loading!)
-			}))
-
-			icloudalert.addAction(UIAlertAction(title: "NOPE!", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
-				NSUserDefaults.standardUserDefaults().setBool(false, forKey: "icloudAllowed")
-				CoreDataStack.sharedInstance.setup()
-			}))
-
-			self.presentViewController(icloudalert, animated: true, completion: nil)
-
+			}
 		}
 		else{
+			NSUserDefaults.standardUserDefaults().setBool(false, forKey: CoreDataStackIcloudFlagForUserDefault)
 			CoreDataStack.sharedInstance.setup()
 		}
 
@@ -84,7 +90,7 @@ class MateriasTableViewController: UIViewController, UITableViewDataSource, UITa
         self.editando = false
         self.editButton.title = "Editar"
 
-		if NSUserDefaults.standardUserDefaults().objectForKey("icloudAllowed") != nil{
+		if NSUserDefaults.standardUserDefaults().objectForKey(CoreDataStackIcloudFlagForUserDefault) != nil{
 			refreshData(nil)
 		}
 

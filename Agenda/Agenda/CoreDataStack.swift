@@ -11,74 +11,97 @@ import CoreData
 
 let CoreDataStackDidChangeNotification = "didUpdatedFromIcloud"
 let CoreDataStackDidImportedNotification = "didImportFromIcloud"
+let CoreDataStackIcloudFlagForUserDefault = "icloudAllowed"
 
 class CoreDataStack {
 	static let sharedInstance = CoreDataStack()
-	private init(){}
+	private init(){	}
 
 	internal var isOnline : Bool = false
-	private var firstTimeRun = true
 
+	private var url : NSURL?
+
+	private var isFirstTime : Bool = true
+
+	private let icloudStoreOptions = [NSPersistentStoreUbiquitousContentNameKey : "Agenda",
+		NSMigratePersistentStoresAutomaticallyOption : true,
+		NSInferMappingModelAutomaticallyOption : true]
+
+	private let icloudRemoveStoreOptions = [NSPersistentStoreRemoveUbiquitousMetadataOption : true]
+
+
+	// MARK:- iCloud Related
 	func setup(){
-		if firstTimeRun{
-
+		if self.isFirstTime{
 			let userDefault = NSUserDefaults.standardUserDefaults()
 
-
-			if let token = NSFileManager.defaultManager().ubiquityIdentityToken{
-				if userDefault.boolForKey("icloudAllowed"){
-					persistentStoreCoordinator = persistentStoreOnlineCoordinator
-
+			// Verifica se o usuário quer que utilize o iCloud
+			if userDefault.boolForKey(CoreDataStackIcloudFlagForUserDefault){
+				// Verifica se o usuário está logado no iCloud.
+				if isLoggedInIcloud(){
 					let notcenter = NSNotificationCenter.defaultCenter()
 
-					notcenter.addObserver(self, selector: "willChange:", name: NSPersistentStoreCoordinatorStoresWillChangeNotification, object: managedObjectContext?.persistentStoreCoordinator)
-
-					notcenter.addObserver(self, selector: "didChange:", name: NSPersistentStoreCoordinatorStoresDidChangeNotification, object: managedObjectContext?.persistentStoreCoordinator)
-
-					notcenter.addObserver(self, selector: "didImportUibquitousContent:", name: NSPersistentStoreDidImportUbiquitousContentChangesNotification, object: managedObjectContext?.persistentStoreCoordinator)
-
 					isOnline = true
+
+					notcenter.addObserver(self, selector: "willChange:", name: NSPersistentStoreCoordinatorStoresWillChangeNotification, object: nil)
+
+					notcenter.addObserver(self, selector: "didChange:", name: NSPersistentStoreCoordinatorStoresDidChangeNotification, object: nil)
+
+					notcenter.addObserver(self, selector: "didImportUibquitousContent:", name: NSPersistentStoreDidImportUbiquitousContentChangesNotification, object: nil)
 				}
 				else{
-					persistentStoreCoordinator = persistentStoreOfflineCoordinator
+					userDefault.setBool(false, forKey: CoreDataStackIcloudFlagForUserDefault)
 				}
 			}
-			else {
-				persistentStoreCoordinator = persistentStoreOfflineCoordinator
-			}
-
-			firstTimeRun = false
+			let coordinator = self.persistentStoreCoordinator
+			self.isFirstTime = false
 		}
+		println("iCloud "+(isOnline ? "Habilitado" : "Desabilitado"))
+	}
+
+	func isLoggedInIcloud() -> Bool{
+		return NSFileManager.defaultManager().ubiquityIdentityToken != nil
 	}
 
 	func switchMode(){
 		let notcenter = NSNotificationCenter.defaultCenter()
-
+		var persistentStore : NSPersistentStore? = self.persistentStoreCoordinator?.persistentStores.first as? NSPersistentStore
+		var error : NSError? = nil
 		if isOnline {
 			notcenter.removeObserver(self)
-			persistentStoreCoordinator = persistentStoreOfflineCoordinator
-			managedObjectContext!.persistentStoreCoordinator? = persistentStoreCoordinator!
+			persistentStore = self.persistentStoreCoordinator?.migratePersistentStore(persistentStore!, toURL: self.url!, options: self.icloudRemoveStoreOptions, withType: NSSQLiteStoreType, error: &error)
 		}
-			
 		else{
-
 			notcenter.addObserver(self, selector: "willChange:", name: NSPersistentStoreCoordinatorStoresWillChangeNotification, object: managedObjectContext?.persistentStoreCoordinator)
 
 			notcenter.addObserver(self, selector: "didChange:", name: NSPersistentStoreCoordinatorStoresDidChangeNotification, object: managedObjectContext?.persistentStoreCoordinator)
 
 			notcenter.addObserver(self, selector: "didImportUibquitousContent:", name: NSPersistentStoreDidImportUbiquitousContentChangesNotification, object: managedObjectContext?.persistentStoreCoordinator)
 
-			persistentStoreCoordinator = persistentStoreOnlineCoordinator
-			managedObjectContext!.persistentStoreCoordinator? = persistentStoreCoordinator!
+			persistentStore = self.persistentStoreCoordinator?.migratePersistentStore(persistentStore!, toURL: self.url!, options: self.icloudStoreOptions, withType: NSSQLiteStoreType, error: &error)
+		}
 
+		if persistentStore == nil{
+			var dict = [String: AnyObject]()
+			dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data"
+			dict[NSLocalizedFailureReasonErrorKey] = "Erro ao migrar o store"
+			dict[NSUnderlyingErrorKey] = error
+			error = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)
+			// Replace this with code to handle the error appropriately.
+			// abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+			NSLog("Unresolved error \(error), \(error!.userInfo)")
+			abort()
 
 		}
 
-		isOnline != isOnline
+		isOnline = !isOnline
+		NSUserDefaults.standardUserDefaults().setBool(isOnline, forKey: CoreDataStackIcloudFlagForUserDefault)
 	}
 
 	@objc func willChange(notification : NSNotification){
-//		println("willChangeNotification")
+		let userInfo = notification.userInfo
+
+		println("iCloud setup exec")
 
 		if managedObjectContext!.hasChanges{
 			var error : NSError?
@@ -98,15 +121,14 @@ class CoreDataStack {
 	}
 
 	@objc func didImportUibquitousContent(notification : NSNotification){
-
-
+		// Faz o merge de dados
 		managedObjectContext?.mergeChangesFromContextDidSaveNotification(notification)
 
+		// Notifica as outras classes que ouve merge
 		NSNotificationCenter.defaultCenter().postNotificationName(CoreDataStackDidImportedNotification, object: nil, userInfo: notification.userInfo)
 	}
 
 	// MARK: - Core Data stack
-	var persistentStoreCoordinator : NSPersistentStoreCoordinator?
 
 	lazy var applicationDocumentsDirectory: NSURL = {
 		// The directory the application uses to store the Core Data store file. This code uses a directory named "BEPiD.Agenda" in the application's documents Application Support directory.
@@ -120,41 +142,18 @@ class CoreDataStack {
 		return NSManagedObjectModel(contentsOfURL: modelURL)!
 		}()
 
-	lazy var persistentStoreOfflineCoordinator: NSPersistentStoreCoordinator? = {
+	lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator? = {
 		// The persistent store coordinator for the application. This implementation creates and return a coordinator, having added the store for the application to it. This property is optional since there are legitimate error conditions that could cause the creation of the store to fail.
 		// Create the coordinator and store
 		var coordinator: NSPersistentStoreCoordinator? = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
-		let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("Agenda.sqlite")
-		var error: NSError? = nil
-		var failureReason = "There was an error creating or loading the application's saved data."
-		if coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil, error: &error) == nil {
-			coordinator = nil
-			// Report any error we got.
-			var dict = [String: AnyObject]()
-			dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data"
-			dict[NSLocalizedFailureReasonErrorKey] = failureReason
-			dict[NSUnderlyingErrorKey] = error
-			error = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)
-			// Replace this with code to handle the error appropriately.
-			// abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-			NSLog("Unresolved error \(error), \(error!.userInfo)")
-			abort()
-		}
-
-		return coordinator
-		}()
-
-	lazy var persistentStoreOnlineCoordinator: NSPersistentStoreCoordinator? = {
-		// The persistent store coordinator for the application. This implementation creates and return a coordinator, having added the store for the application to it. This property is optional since there are legitimate error conditions that could cause the creation of the store to fail.
-		// Create the coordinator and store
-		var coordinator: NSPersistentStoreCoordinator? = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
-		let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("Agenda.sqlite")
+		self.url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("Agenda.sqlite")
 		var error: NSError? = nil
 		var failureReason = "There was an error creating or loading the application's saved data."
 
-		let storeOptions = [NSPersistentStoreUbiquitousContentNameKey : "icloudSyncTest"]
+		var store : NSPersistentStore?
 
-		if coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: storeOptions, error: &error) == nil {
+
+		if coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: self.url, options: (self.isOnline ? self.icloudStoreOptions : nil), error: &error) == nil {
 			coordinator = nil
 			// Report any error we got.
 			var dict = [String: AnyObject]()
@@ -195,8 +194,5 @@ class CoreDataStack {
 			}
 		}
 	}
-
-	// MARK: - Notifications Methods
-
 	
 }
