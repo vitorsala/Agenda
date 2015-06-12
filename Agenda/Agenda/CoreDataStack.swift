@@ -15,26 +15,13 @@ let CoreDataStackIcloudFlagForUserDefault = "icloudAllowed"
 
 class CoreDataStack {
 	static let sharedInstance = CoreDataStack()
-	private init(){
-		let userDefault = NSUserDefaults.standardUserDefaults()
-
-		// Verifica se o usuário quer que utilize o iCloud
-		if userDefault.boolForKey(CoreDataStackIcloudFlagForUserDefault){
-			// Verifica se o usuário está logado no iCloud.
-			if isLoggedInIcloud(){
-				switchMode()
-			}
-			else{
-				userDefault.setBool(false, forKey: CoreDataStackIcloudFlagForUserDefault)
-			}
-		}
-
-		println("iCloud "+(isOnline ? "Habilitado" : "Desabilitado"))
-	}
+	private init(){	}
 
 	internal var isOnline : Bool = false
 
 	private var url : NSURL?
+
+	private var isFirstTime : Bool = true
 
 	private let icloudStoreOptions = [NSPersistentStoreUbiquitousContentNameKey : "Agenda",
 		NSMigratePersistentStoresAutomaticallyOption : true,
@@ -44,6 +31,33 @@ class CoreDataStack {
 
 
 	// MARK:- iCloud Related
+	func setup(){
+		if self.isFirstTime{
+			let userDefault = NSUserDefaults.standardUserDefaults()
+
+			// Verifica se o usuário quer que utilize o iCloud
+			if userDefault.boolForKey(CoreDataStackIcloudFlagForUserDefault){
+				// Verifica se o usuário está logado no iCloud.
+				if isLoggedInIcloud(){
+					let notcenter = NSNotificationCenter.defaultCenter()
+
+					isOnline = true
+
+					notcenter.addObserver(self, selector: "willChange:", name: NSPersistentStoreCoordinatorStoresWillChangeNotification, object: nil)
+
+					notcenter.addObserver(self, selector: "didChange:", name: NSPersistentStoreCoordinatorStoresDidChangeNotification, object: nil)
+
+					notcenter.addObserver(self, selector: "didImportUibquitousContent:", name: NSPersistentStoreDidImportUbiquitousContentChangesNotification, object: nil)
+				}
+				else{
+					userDefault.setBool(false, forKey: CoreDataStackIcloudFlagForUserDefault)
+				}
+			}
+			let coordinator = self.persistentStoreCoordinator
+			self.isFirstTime = false
+		}
+		println("iCloud "+(isOnline ? "Habilitado" : "Desabilitado"))
+	}
 
 	func isLoggedInIcloud() -> Bool{
 		return NSFileManager.defaultManager().ubiquityIdentityToken != nil
@@ -58,7 +72,6 @@ class CoreDataStack {
 			persistentStore = self.persistentStoreCoordinator?.migratePersistentStore(persistentStore!, toURL: self.url!, options: self.icloudRemoveStoreOptions, withType: NSSQLiteStoreType, error: &error)
 		}
 		else{
-
 			notcenter.addObserver(self, selector: "willChange:", name: NSPersistentStoreCoordinatorStoresWillChangeNotification, object: managedObjectContext?.persistentStoreCoordinator)
 
 			notcenter.addObserver(self, selector: "didChange:", name: NSPersistentStoreCoordinatorStoresDidChangeNotification, object: managedObjectContext?.persistentStoreCoordinator)
@@ -137,8 +150,10 @@ class CoreDataStack {
 		var error: NSError? = nil
 		var failureReason = "There was an error creating or loading the application's saved data."
 
+		var store : NSPersistentStore?
 
-		if coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: self.url, options: nil, error: &error) == nil {
+
+		if coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: self.url, options: (self.isOnline ? self.icloudStoreOptions : nil), error: &error) == nil {
 			coordinator = nil
 			// Report any error we got.
 			var dict = [String: AnyObject]()

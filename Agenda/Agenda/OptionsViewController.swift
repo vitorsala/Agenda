@@ -31,7 +31,7 @@ class OptionsViewController: UIViewController {
         // Do any additional setup after loading the view.
 
 		icloudSwitch.addTarget(self, action: "switchValueChanged:", forControlEvents: UIControlEvents.ValueChanged)
-		if NSUserDefaults.standardUserDefaults().boolForKey(CoreDataStackIcloudFlagForUserDefault){
+		if CoreDataStack.sharedInstance.isOnline{
 			icloudSwitch.on = true
 		}
     }
