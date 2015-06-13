@@ -8,6 +8,7 @@
 
 import UIKit
 import EventKit
+import CoreData
 
 class MateriasTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -138,6 +139,22 @@ class MateriasTableViewController: UIViewController, UITableViewDataSource, UITa
             editTVC.materia = self.arrayMaterias.objectAtIndex(indexPath.row) as! Materia
             self.navigationController?.pushViewController(editTVC, animated: true)
         }
+    }
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == UITableViewCellEditingStyle.Delete {
+            
+            //AQUI TEM QUE APAGAR OS EVENTOS DO CALENDARIO
+            
+            MateriaManager.sharedInstance.managedObjectContext.deleteObject(self.arrayMaterias.objectAtIndex(indexPath.row) as! NSManagedObject)
+            self.arrayMaterias.removeObjectAtIndex(indexPath.row)
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
+
+            
+            MateriaManager.sharedInstance.save()
+            
+        }
+        self.tableView.reloadData()
     }
     
 
