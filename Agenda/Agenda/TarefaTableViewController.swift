@@ -82,7 +82,8 @@ class TarefaTableViewController: UIViewController, UITableViewDataSource, UITabl
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == UITableViewCellEditingStyle.Delete {
             
-            //AQUI TEM QUE APAGAR O EVENTO DO CALENDARIO
+            //Apaga tarefa do calendário.
+            EventManager.sharedInstance.deletaTarefa(self.tarefas.objectAtIndex(indexPath.row) as! Atividade);
             
             TarefaManager.sharedInstance.managedObjectContext.deleteObject(self.tarefas.objectAtIndex(indexPath.row) as! NSManagedObject)
             self.tarefas.removeObjectAtIndex(indexPath.row)

@@ -144,7 +144,8 @@ class MateriasTableViewController: UIViewController, UITableViewDataSource, UITa
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == UITableViewCellEditingStyle.Delete {
             
-            //AQUI TEM QUE APAGAR OS EVENTOS DO CALENDARIO
+            //Deleta os eventos da matéria do calendário.
+            EventManager.sharedInstance.deletaMateria(self.arrayMaterias.objectAtIndex(indexPath.row) as! Materia);
             
             MateriaManager.sharedInstance.managedObjectContext.deleteObject(self.arrayMaterias.objectAtIndex(indexPath.row) as! NSManagedObject)
             self.arrayMaterias.removeObjectAtIndex(indexPath.row)
