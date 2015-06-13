@@ -193,6 +193,65 @@ class EventManager: NSObject {
         
     }
     
+    func deletaTarefa(tarefa: Atividade){
+        let futuro :NSDate = NSDate.distantFuture() as! NSDate;
+        let cal = NSMutableArray();
+        let calendars = eventStore.calendarsForEntityType(EKEntityTypeEvent)
+            as! [EKCalendar]
+        for calendar in calendars {
+            
+            if calendar.title == "AgendApp" {
+                cal.addObject(calendar);
+                break;
+            }
+        }
+        
+        let pred = eventStore.predicateForEventsWithStartDate(NSDate(), endDate: futuro, calendars: cal as [AnyObject]);
+        let eventos = NSMutableArray(array: eventStore.eventsMatchingPredicate(pred));
+        for e in eventos{
+            let evento = e as! EKEvent;
+            var error:NSError?;
+            if(evento.title == tarefa.nomeAtiv && evento.startDate == tarefa.dataEntrega){
+                eventStore.removeEvent(evento, span: EKSpanThisEvent, error: &error);
+                if(error != nil){
+                    println("nem apago");
+                } else {
+                    println("porra apago");
+                    break;
+                }
+            }
+        }
+    }
+    
+    func deletaMateria(materia: Materia){
+        let futuro :NSDate = NSDate.distantFuture() as! NSDate;
+        let cal = NSMutableArray();
+        let calendars = eventStore.calendarsForEntityType(EKEntityTypeEvent)
+            as! [EKCalendar]
+        for calendar in calendars {
+            
+            if calendar.title == "AgendApp" {
+                cal.addObject(calendar);
+                break;
+            }
+        }
+        
+        let pred = eventStore.predicateForEventsWithStartDate(NSDate(), endDate: futuro, calendars: cal as [AnyObject]);
+        let eventos = NSMutableArray(array: eventStore.eventsMatchingPredicate(pred));
+        for e in eventos{
+            let evento = e as! EKEvent;
+            var error:NSError?;
+            if(evento.notes == materia.nomeMateria){
+                eventStore.removeEvent(evento, span: EKSpanThisEvent, error: &error);
+                if(error != nil){
+                    println("nem apago");
+                } else {
+                    println("porra apago");
+                }
+            }
+        }
+    }
+    
 //    func calendarioUpdated(){
 //        println("wow wink");
 //    }
