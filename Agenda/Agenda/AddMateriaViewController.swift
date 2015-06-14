@@ -30,11 +30,22 @@ class AddMateriaViewController: UIViewController {
     @IBAction func salvarMateria(sender: AnyObject) {
         
         //COLOCAR UM REGEX BEM LEGAL AQUI
+        if MateriaManager.sharedInstance.jaExisteMateria(self.textField.text) {
+            //nao deixa inserir com nome repetido
+            let alert = UIAlertController(title: "A matéria não foi adicionada", message: "Já existe uma matéria de nome \(self.textField.text)", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
+                
+            }))
+            self.presentViewController(alert, animated: true, completion: nil)
+            self.textField.text = ""
+            return
+        }
         
+        //salva dentro deste metodo
         MateriaManager.sharedInstance.insertNewMateria(textField.text)
         self.textField.text = ""
         
-        //APARECER UM POPUP OU ALERT AQUI SERIA BACANA
+        self.navigationController?.popViewControllerAnimated(true)
     }
 
     /*
