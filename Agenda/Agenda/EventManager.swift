@@ -252,6 +252,39 @@ class EventManager: NSObject {
         }
     }
     
+    func editaMateria(nomeAntigo: String, nomeNovo: String){
+        let futuro :NSDate = NSDate.distantFuture() as! NSDate;
+        let cal = NSMutableArray();
+        let calendars = eventStore.calendarsForEntityType(EKEntityTypeEvent)
+            as! [EKCalendar]
+        for calendar in calendars {
+            
+            if calendar.title == "AgendApp" {
+                cal.addObject(calendar);
+                break;
+            }
+        }
+        
+        let pred = eventStore.predicateForEventsWithStartDate(NSDate(), endDate: futuro, calendars: cal as [AnyObject]);
+        let eventos = NSMutableArray(array: eventStore.eventsMatchingPredicate(pred));
+        for e in eventos{
+            let evento = e as! EKEvent;
+            var error:NSError?;
+            if(evento.notes == nomeAntigo){
+                evento.notes = nomeNovo;
+                // Salvando o evento no calendario.
+                var error: NSError?
+                let result = eventStore.saveEvent(evento, span: EKSpanThisEvent, error: &error)
+                
+                if result == false {
+                    if let theError = error {
+                        println("An error occured \(theError)")
+                    }
+                }
+            }
+        }
+    }
+    
 //    func calendarioUpdated(){
 //        println("wow wink");
 //    }

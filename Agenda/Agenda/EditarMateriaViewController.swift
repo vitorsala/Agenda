@@ -32,6 +32,8 @@ class EditarMateriaViewController: UIViewController {
     
     @IBAction func salvar(sender: AnyObject) {
         
+        EventManager.sharedInstance.editaMateria(materia.nomeMateria, nomeNovo: textField.text);
+        
         //REGEX AQUI
         
         materia.nomeMateria = textField.text
