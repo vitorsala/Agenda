@@ -22,6 +22,7 @@ class MateriaManager: NSObject{
     func insertNewMateria(nome:String){
         let newMateria = NSEntityDescription.insertNewObjectForEntityForName(MateriaManager.entityName, inManagedObjectContext: managedObjectContext) as! Materia
         newMateria.nomeMateria = nome
+        newMateria.idCloud = NSDate().timeIntervalSince1970 as Double
         self.save()
     }
     
