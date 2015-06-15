@@ -47,6 +47,15 @@ class OptionsViewController: UIViewController {
 
 	func switchValueChanged(switchState: UISwitch){
 
+		NSNotificationCenter.defaultCenter().addObserverForName(CoreDataStackDidChangeNotification, object: nil, queue: NSOperationQueue.mainQueue(), usingBlock: { (notification) -> Void in
+
+			MateriaManager.sharedInstance.removeDuplicated()
+			TarefaManager.sharedInstance.removeDuplicated()
+
+
+			NSNotificationCenter.defaultCenter().removeObserver(self)
+		})
+
 		CoreDataStack.sharedInstance.switchMode()
 
 	}

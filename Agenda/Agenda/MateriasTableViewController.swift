@@ -58,7 +58,11 @@ class MateriasTableViewController: UIViewController, UITableViewDataSource, UITa
 
 					NSNotificationCenter.defaultCenter().addObserverForName(CoreDataStackDidChangeNotification, object: nil, queue: NSOperationQueue.mainQueue(), usingBlock: { (notification) -> Void in
 
+						MateriaManager.sharedInstance.removeDuplicated()
+						TarefaManager.sharedInstance.removeDuplicated()
+
 						self.arrayMaterias = NSMutableArray(array: MateriaManager.sharedInstance.fetchAllMaterias())
+
 						self.tableView.reloadData()
 						self.loading?.removeFromSuperview()
 					})
