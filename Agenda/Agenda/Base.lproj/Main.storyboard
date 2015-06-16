@@ -39,10 +39,25 @@
                                 <rect key="frame" x="0.0" y="80" width="600" height="418"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstAttribute="height" constant="668" id="2cn-z2-lts"/>
+                                    <constraint firstAttribute="height" constant="676" id="eoR-Q2-jBM"/>
                                     <constraint firstAttribute="height" constant="418" id="ic4-G2-v0H"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="2cn-z2-lts"/>
+                                        <exclude reference="eoR-Q2-jBM"/>
+                                    </mask>
+                                </variation>
                                 <variation key="heightClass=regular-widthClass=compact">
                                     <mask key="constraints">
+                                        <exclude reference="ic4-G2-v0H"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <mask key="constraints">
+                                        <exclude reference="2cn-z2-lts"/>
+                                        <include reference="eoR-Q2-jBM"/>
                                         <exclude reference="ic4-G2-v0H"/>
                                     </mask>
                                 </variation>
@@ -50,20 +65,24 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="FTS-ly-09U" firstAttribute="top" secondItem="L8e-aw-9Cl" secondAttribute="bottom" constant="8" id="8m3-BV-IJl"/>
                             <constraint firstItem="FTS-ly-09U" firstAttribute="leading" secondItem="GQJ-ec-Zxz" secondAttribute="leadingMargin" constant="-16" id="BhK-f5-jHq"/>
                             <constraint firstItem="FTS-ly-09U" firstAttribute="top" secondItem="L8e-aw-9Cl" secondAttribute="bottom" id="Hsn-9y-pmZ"/>
                             <constraint firstItem="FTS-ly-09U" firstAttribute="leading" secondItem="GQJ-ec-Zxz" secondAttribute="leading" id="L3h-oY-35O"/>
                             <constraint firstItem="FTS-ly-09U" firstAttribute="bottom" secondItem="5ZX-2O-s9c" secondAttribute="top" id="SEp-sa-rH1"/>
                             <constraint firstAttribute="trailingMargin" secondItem="FTS-ly-09U" secondAttribute="trailing" constant="-16" id="SQJ-Hq-Ge4"/>
+                            <constraint firstItem="5ZX-2O-s9c" firstAttribute="top" secondItem="FTS-ly-09U" secondAttribute="bottom" constant="8" id="eRN-Rc-LmB"/>
                             <constraint firstItem="FTS-ly-09U" firstAttribute="top" secondItem="L8e-aw-9Cl" secondAttribute="bottom" constant="16" id="iOr-ws-ni3"/>
                             <constraint firstAttribute="trailing" secondItem="FTS-ly-09U" secondAttribute="trailing" id="p9K-UY-0ze"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="8m3-BV-IJl"/>
                                 <exclude reference="Hsn-9y-pmZ"/>
                                 <exclude reference="L3h-oY-35O"/>
                                 <exclude reference="SEp-sa-rH1"/>
                                 <exclude reference="p9K-UY-0ze"/>
+                                <exclude reference="eRN-Rc-LmB"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -75,6 +94,13 @@
                                 <exclude reference="SQJ-Hq-Ge4"/>
                                 <exclude reference="iOr-ws-ni3"/>
                                 <include reference="p9K-UY-0ze"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=regular">
+                            <mask key="constraints">
+                                <include reference="8m3-BV-IJl"/>
+                                <exclude reference="iOr-ws-ni3"/>
+                                <include reference="eRN-Rc-LmB"/>
                             </mask>
                         </variation>
                     </view>
