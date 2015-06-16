@@ -52,7 +52,11 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
 	}
 
 	@objc func refreshData(notification : NSNotification?){
-		atividades = NSMutableArray(array: TarefaManager.sharedInstance.fetchTarefasFuturas())
+        if(self.segmentControl.selectedSegmentIndex == 0){
+            atividades = NSMutableArray(array: TarefaManager.sharedInstance.fetchTarefasFuturas())
+        } else {
+            atividades = NSMutableArray(array: TarefaManager.sharedInstance.fetchTarefasPassadas())
+        }
 		self.tableView.reloadData()
 	}
 
