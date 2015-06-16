@@ -130,20 +130,9 @@
 				153B75A01B1CD43C00EC5070 /* LaunchScreen.xib */,
 				153B75961B1CD43C00EC5070 /* Agenda.xcdatamodeld */,
 				153B75921B1CD43C00EC5070 /* Supporting Files */,
-				153B75BC1B1CE77500EC5070 /* MateriasTableViewController.swift */,
-				153B75BE1B1CE82900EC5070 /* AddMateriaViewController.swift */,
-				153B75C01B1CE84F00EC5070 /* MateriaManager.swift */,
-				153B75C21B1CE86200EC5070 /* TarefaManager.swift */,
-				153B75C41B1CF60B00EC5070 /* TarefaTableViewController.swift */,
-				153B75C61B1CF6A900EC5070 /* AddTarefaViewController.swift */,
-				4E6C9E251B1D03F8000C4CFA /* TarefasCell.swift */,
 				153B75CA1B1E2B9300EC5070 /* AgendaViewController.swift */,
 				153B75CC1B1E44B100EC5070 /* RelatorioViewController.swift */,
-				153B75CE1B1E474400EC5070 /* NotasMateriaViewController.swift */,
-				153B75D21B1E77C600EC5070 /* StatusTarefaViewController.swift */,
 				EB4DF69D1B261C0D003B31AB /* CoreDataStack.swift */,
-				153B76101B28AB0D00EC5070 /* EditarMateriaViewController.swift */,
-				153B76121B28AEFF00EC5070 /* EditarTarefaViewController.swift */,
 				153B760E1B28AA1700EC5070 /* OptionsViewController.swift */,
 				EB4573331B290BD10072912C /* LoadingView.swift */,
 				EB4573351B290CEF0072912C /* LoadingView.xib */,
@@ -179,6 +168,9 @@
 		153B75BB1B1CE61B00EC5070 /* Entidades */ = {
 			isa = PBXGroup;
 			children = (
+				E81A01DE1B29CA3B00BE17C8 /* Metéria */,
+				E81A01DF1B29CA4600BE17C8 /* Tarefa */,
+				E81A01E01B29CA9100BE17C8 /* Manager */,
 				153B75D01B1E6ECE00EC5070 /* Atividade.swift */,
 				153B75B71B1CE61500EC5070 /* Materia.swift */,
 			);
@@ -191,6 +183,38 @@
 				4EFFD8121B1E53DF00580BBF /* EventManager.swift */,
 			);
 			name = EventKit;
+			sourceTree = "<group>";
+		};
+		E81A01DE1B29CA3B00BE17C8 /* Metéria */ = {
+			isa = PBXGroup;
+			children = (
+				153B75BE1B1CE82900EC5070 /* AddMateriaViewController.swift */,
+				153B75BC1B1CE77500EC5070 /* MateriasTableViewController.swift */,
+				153B75CE1B1E474400EC5070 /* NotasMateriaViewController.swift */,
+				153B76101B28AB0D00EC5070 /* EditarMateriaViewController.swift */,
+			);
+			name = "Metéria";
+			sourceTree = "<group>";
+		};
+		E81A01DF1B29CA4600BE17C8 /* Tarefa */ = {
+			isa = PBXGroup;
+			children = (
+				153B75C61B1CF6A900EC5070 /* AddTarefaViewController.swift */,
+				153B75C41B1CF60B00EC5070 /* TarefaTableViewController.swift */,
+				153B75D21B1E77C600EC5070 /* StatusTarefaViewController.swift */,
+				153B76121B28AEFF00EC5070 /* EditarTarefaViewController.swift */,
+				4E6C9E251B1D03F8000C4CFA /* TarefasCell.swift */,
+			);
+			name = Tarefa;
+			sourceTree = "<group>";
+		};
+		E81A01E01B29CA9100BE17C8 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				153B75C21B1CE86200EC5070 /* TarefaManager.swift */,
+				153B75C01B1CE84F00EC5070 /* MateriaManager.swift */,
+			);
+			name = Manager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

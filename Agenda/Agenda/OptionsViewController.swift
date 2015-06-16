@@ -8,7 +8,7 @@
 
 import UIKit
 
-class OptionsViewController: UIViewController {
+class OptionsViewController: UITableViewController {
     @IBOutlet weak var icloudSwitch: UISwitch!
     @IBOutlet weak var media: UITextField!
     @IBOutlet weak var alarme: UIDatePicker!
@@ -40,6 +40,13 @@ class OptionsViewController: UIViewController {
         self.media.resignFirstResponder()
     }
     
+    override func shouldAutorotate() -> Bool {
+        return false
+    }
+    
+    override func supportedInterfaceOrientations() -> Int {
+        return UIInterfaceOrientation.Portrait.rawValue
+    }
 
     /*
     // MARK: - Navigation
