@@ -173,19 +173,29 @@ class TarefaManager: NSObject{
             //WELL IT IS DONE NOW
         }
         //GOOD JOB BREAKING IT HERO
+		self.save()
     }
 
 	func removeDuplicated(){
-		var tarefas = self.fetchAllTarefas() // Pega todas as tarefas existentes
-		for tarefa in tarefas{
-			// Verifica se existe + de 1 tarefa com o mesmo id
-			let dupes = tarefas.filter{$0.idCloud == tarefa.idCloud}
-			if dupes.count > 1{	// Se positivo
-				for i in 1 ..< dupes.count {
-					managedObjectContext.deleteObject(dupes[i])
+		func removeDuplicated(){
+			var tarefas = self.fetchAllTarefas() // Pega todos as materias existentes
+			tarefas.sort{$0.0.nomeAtiv.compare($0.1.nomeAtiv) == NSComparisonResult.OrderedDescending}
+			while tarefas.count > 1 {
+				if tarefas[0].nomeAtiv == tarefas[1].nomeAtiv {
+					if tarefas[0].idCloud.doubleValue > tarefas[1].idCloud.doubleValue{
+						managedObjectContext.deleteObject(tarefas[1])
+						tarefas.removeAtIndex(1)
+					}
+					else{
+						managedObjectContext.deleteObject(tarefas[0])
+						tarefas.removeAtIndex(0)
+					}
+				}
+				else{
+					tarefas.removeAtIndex(0)
 				}
 			}
+			self.save()
 		}
-		self.save()
 	}
 }

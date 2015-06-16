@@ -67,28 +67,28 @@ class MateriaManager: NSObject{
             //HOLD ON RIGHT WHERE YOU ARE
             self.managedObjectContext.deleteObject(materia)
             //WELL IT IS DONE NOW
-        }
-        //GOOD JOB BREAKING IT HERO
+		}
+		//GOOD JOB BREAKING IT HERO
+		self.save()
     }
 
 	func removeDuplicated(){
 		var materias = self.fetchAllMaterias() // Pega todos as materias existentes
-		for materia in materias{
-			// Verifica se existe + de 1 matéria com o mesmo nome
-			let dupes = materias.filter{$0.nomeMateria == materia.nomeMateria}
-			if dupes.count > 1{	// Se positivo
-				var chosenOne = 0
-				for (index, obj) in enumerate(dupes){
-					if index > 0{
-						if obj.idCloud.doubleValue >= dupes[chosenOne].idCloud.doubleValue{
-							chosenOne = index
-							managedObjectContext.deleteObject(dupes[chosenOne])
-						}
-						else{
-							managedObjectContext.deleteObject(obj)
-						}
-					}
+
+		materias.sort{$0.0.nomeMateria.compare($0.1.nomeMateria) == NSComparisonResult.OrderedDescending}
+		while materias.count > 1 {
+			if materias[0].nomeMateria == materias[1].nomeMateria {
+				if materias[0].idCloud.doubleValue > materias[1].idCloud.doubleValue{
+					managedObjectContext.deleteObject(materias[1])
+					materias.removeAtIndex(1)
 				}
+				else{
+					managedObjectContext.deleteObject(materias[0])
+					materias.removeAtIndex(0)
+				}
+			}
+			else{
+				materias.removeAtIndex(0)
 			}
 		}
 		self.save()

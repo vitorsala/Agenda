@@ -42,16 +42,14 @@ class CoreDataStack {
 
 	internal var isOnline : Bool = false
 
-	private var url : NSURL?
-
 	private var isFirstTime : Bool = true
 
 	private let icloudStoreOptions = [NSPersistentStoreUbiquitousContentNameKey : "Agenda",
-		NSMigratePersistentStoresAutomaticallyOption: true,
-		NSInferMappingModelAutomaticallyOption: true]
+		NSMigratePersistentStoresAutomaticallyOption : true,
+		NSInferMappingModelAutomaticallyOption : true]
 
-	private let icloudRemoveStoreOptions = [NSPersistentStoreRemoveUbiquitousMetadataOption : true]
-
+	private let icloudRemoveStoreOptions = [NSPersistentStoreRemoveUbiquitousMetadataOption : true,NSMigratePersistentStoresAutomaticallyOption : true,
+		NSInferMappingModelAutomaticallyOption : true]
 
 	// MARK:- iCloud Related
 
@@ -61,11 +59,14 @@ class CoreDataStack {
 
 	func switchMode(){
 		let notcenter = NSNotificationCenter.defaultCenter()
+
 		var persistentStore : NSPersistentStore? = self.persistentStoreCoordinator?.persistentStores.first as? NSPersistentStore
+		
 		var error : NSError? = nil
+
 		if isOnline {
 			notcenter.removeObserver(self)
-			persistentStore = self.persistentStoreCoordinator?.migratePersistentStore(persistentStore!, toURL: self.url!, options: self.icloudRemoveStoreOptions, withType: NSSQLiteStoreType, error: &error)
+			persistentStore = self.persistentStoreCoordinator?.migratePersistentStore(persistentStore!, toURL: self.localStoreURL, options: self.icloudRemoveStoreOptions, withType: NSSQLiteStoreType, error: &error)
 		}
 		else{
 			notcenter.addObserver(self, selector: "willChange:", name: NSPersistentStoreCoordinatorStoresWillChangeNotification, object: managedObjectContext?.persistentStoreCoordinator)
@@ -74,7 +75,7 @@ class CoreDataStack {
 
 			notcenter.addObserver(self, selector: "didImportUibquitousContent:", name: NSPersistentStoreDidImportUbiquitousContentChangesNotification, object: managedObjectContext?.persistentStoreCoordinator)
 
-			persistentStore = self.persistentStoreCoordinator?.migratePersistentStore(persistentStore!, toURL: self.url!, options: self.icloudStoreOptions, withType: NSSQLiteStoreType, error: &error)
+			persistentStore = self.persistentStoreCoordinator?.migratePersistentStore(persistentStore!, toURL: self.remoteStoreURL, options: self.icloudStoreOptions, withType: NSSQLiteStoreType, error: &error)
 		}
 
 		if persistentStore == nil{
@@ -127,6 +128,15 @@ class CoreDataStack {
 
 	// MARK: - Core Data stack
 
+
+	lazy var remoteStoreURL : NSURL = {
+		return	self.applicationDocumentsDirectory.URLByAppendingPathComponent("iCloudAgenda.sqlite") as NSURL
+	}()
+
+	lazy var localStoreURL : NSURL = {
+		return	self.applicationDocumentsDirectory.URLByAppendingPathComponent("Agenda.sqlite")
+		}() as NSURL
+
 	lazy var applicationDocumentsDirectory: NSURL = {
 		// The directory the application uses to store the Core Data store file. This code uses a directory named "BEPiD.Agenda" in the application's documents Application Support directory.
 		let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
@@ -143,7 +153,10 @@ class CoreDataStack {
 		// The persistent store coordinator for the application. This implementation creates and return a coordinator, having added the store for the application to it. This property is optional since there are legitimate error conditions that could cause the creation of the store to fail.
 		// Create the coordinator and store
 		var coordinator: NSPersistentStoreCoordinator? = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
-		self.url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("Agenda.sqlite")
+
+
+		let url = (self.isOnline ? self.remoteStoreURL : self.localStoreURL)
+		
 		var error: NSError? = nil
 		var failureReason = "There was an error creating or loading the application's saved data."
 
@@ -151,7 +164,7 @@ class CoreDataStack {
 
 		let options : [String : AnyObject]? = (self.isOnline ? self.icloudStoreOptions : self.icloudRemoveStoreOptions)
 
-		if coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: self.url, options: options, error: &error) == nil {
+		if coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: options, error: &error) == nil {
 			coordinator = nil
 			// Report any error we got.
 			var dict = [String: AnyObject]()
