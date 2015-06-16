@@ -22,6 +22,7 @@ class MateriaManager: NSObject{
     func insertNewMateria(nome:String){
         let newMateria = NSEntityDescription.insertNewObjectForEntityForName(MateriaManager.entityName, inManagedObjectContext: managedObjectContext) as! Materia
         newMateria.nomeMateria = nome
+        newMateria.idCloud = NSDate().timeIntervalSince1970 as Double
         self.save()
     }
     
@@ -48,6 +49,15 @@ class MateriaManager: NSObject{
         return Array<Materia>()
     }
     
+    func jaExisteMateria(nome:String) -> Bool {
+        for materia in self.fetchAllMaterias() {
+            if materia.nomeMateria == nome{
+                return true
+            }
+        }
+        return false
+    }
+    
     //BE VERY CAREFUL AROUND THIS PLEASE
     func deleteAllMaterias(){
         //THINK ABOUT WHAT YOU ARE DOING
@@ -60,5 +70,27 @@ class MateriaManager: NSObject{
         }
         //GOOD JOB BREAKING IT HERO
     }
-    
+
+	func removeDuplicated(){
+		var materias = self.fetchAllMaterias() // Pega todos as materias existentes
+		for materia in materias{
+			// Verifica se existe + de 1 matéria com o mesmo nome
+			let dupes = materias.filter{$0.nomeMateria == materia.nomeMateria}
+			if dupes.count > 1{	// Se positivo
+				var chosenOne = 0
+				for (index, obj) in enumerate(dupes){
+					if index > 0{
+						if obj.idCloud.doubleValue >= dupes[chosenOne].idCloud.doubleValue{
+							chosenOne = index
+							managedObjectContext.deleteObject(dupes[chosenOne])
+						}
+						else{
+							managedObjectContext.deleteObject(obj)
+						}
+					}
+				}
+			}
+		}
+		self.save()
+	}
 }

@@ -14,7 +14,6 @@
 		153B759F1B1CD43C00EC5070 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 153B759E1B1CD43C00EC5070 /* Images.xcassets */; };
 		153B75A21B1CD43C00EC5070 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 153B75A01B1CD43C00EC5070 /* LaunchScreen.xib */; };
 		153B75AE1B1CD43C00EC5070 /* AgendaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153B75AD1B1CD43C00EC5070 /* AgendaTests.swift */; };
-		153B75B81B1CE61500EC5070 /* Materia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153B75B71B1CE61500EC5070 /* Materia.swift */; };
 		153B75BD1B1CE77500EC5070 /* MateriasTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153B75BC1B1CE77500EC5070 /* MateriasTableViewController.swift */; };
 		153B75BF1B1CE82900EC5070 /* AddMateriaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153B75BE1B1CE82900EC5070 /* AddMateriaViewController.swift */; };
 		153B75C11B1CE84F00EC5070 /* MateriaManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153B75C01B1CE84F00EC5070 /* MateriaManager.swift */; };
@@ -24,11 +23,12 @@
 		153B75CB1B1E2B9300EC5070 /* AgendaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153B75CA1B1E2B9300EC5070 /* AgendaViewController.swift */; };
 		153B75CD1B1E44B100EC5070 /* RelatorioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153B75CC1B1E44B100EC5070 /* RelatorioViewController.swift */; };
 		153B75CF1B1E474400EC5070 /* NotasMateriaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153B75CE1B1E474400EC5070 /* NotasMateriaViewController.swift */; };
-		153B75D11B1E6ECE00EC5070 /* Atividade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153B75D01B1E6ECE00EC5070 /* Atividade.swift */; };
 		153B75D31B1E77C600EC5070 /* StatusTarefaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153B75D21B1E77C600EC5070 /* StatusTarefaViewController.swift */; };
 		153B760F1B28AA1700EC5070 /* OptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153B760E1B28AA1700EC5070 /* OptionsViewController.swift */; };
 		153B76111B28AB0D00EC5070 /* EditarMateriaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153B76101B28AB0D00EC5070 /* EditarMateriaViewController.swift */; };
 		153B76131B28AEFF00EC5070 /* EditarTarefaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153B76121B28AEFF00EC5070 /* EditarTarefaViewController.swift */; };
+		15F2114F1B2E009200F4496A /* Atividade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F2114E1B2E009200F4496A /* Atividade.swift */; };
+		15F211511B2E009200F4496A /* Materia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F211501B2E009200F4496A /* Materia.swift */; };
 		4E6C9E261B1D03F8000C4CFA /* TarefasCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6C9E251B1D03F8000C4CFA /* TarefasCell.swift */; };
 		4EFFD8131B1E53DF00580BBF /* EventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFFD8121B1E53DF00580BBF /* EventManager.swift */; };
 		EB4573341B290BD10072912C /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4573331B290BD10072912C /* LoadingView.swift */; };
@@ -58,7 +58,6 @@
 		153B75A71B1CD43C00EC5070 /* AgendaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AgendaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		153B75AC1B1CD43C00EC5070 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		153B75AD1B1CD43C00EC5070 /* AgendaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgendaTests.swift; sourceTree = "<group>"; };
-		153B75B71B1CE61500EC5070 /* Materia.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Materia.swift; sourceTree = "<group>"; };
 		153B75BC1B1CE77500EC5070 /* MateriasTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MateriasTableViewController.swift; sourceTree = "<group>"; };
 		153B75BE1B1CE82900EC5070 /* AddMateriaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddMateriaViewController.swift; sourceTree = "<group>"; };
 		153B75C01B1CE84F00EC5070 /* MateriaManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MateriaManager.swift; sourceTree = "<group>"; };
@@ -68,11 +67,12 @@
 		153B75CA1B1E2B9300EC5070 /* AgendaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgendaViewController.swift; sourceTree = "<group>"; };
 		153B75CC1B1E44B100EC5070 /* RelatorioViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RelatorioViewController.swift; sourceTree = "<group>"; };
 		153B75CE1B1E474400EC5070 /* NotasMateriaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotasMateriaViewController.swift; sourceTree = "<group>"; };
-		153B75D01B1E6ECE00EC5070 /* Atividade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Atividade.swift; sourceTree = "<group>"; };
 		153B75D21B1E77C600EC5070 /* StatusTarefaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusTarefaViewController.swift; sourceTree = "<group>"; };
 		153B760E1B28AA1700EC5070 /* OptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsViewController.swift; sourceTree = "<group>"; };
 		153B76101B28AB0D00EC5070 /* EditarMateriaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditarMateriaViewController.swift; sourceTree = "<group>"; };
 		153B76121B28AEFF00EC5070 /* EditarTarefaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditarTarefaViewController.swift; sourceTree = "<group>"; };
+		15F2114E1B2E009200F4496A /* Atividade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Atividade.swift; sourceTree = "<group>"; };
+		15F211501B2E009200F4496A /* Materia.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Materia.swift; sourceTree = "<group>"; };
 		4E6C9E251B1D03F8000C4CFA /* TarefasCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TarefasCell.swift; sourceTree = "<group>"; };
 		4EFFD8121B1E53DF00580BBF /* EventManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventManager.swift; sourceTree = "<group>"; };
 		EB4573331B290BD10072912C /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
@@ -324,6 +324,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15F2114F1B2E009200F4496A /* Atividade.swift in Sources */,
 				153B760F1B28AA1700EC5070 /* OptionsViewController.swift in Sources */,
 				153B75D31B1E77C600EC5070 /* StatusTarefaViewController.swift in Sources */,
 				4EFFD8131B1E53DF00580BBF /* EventManager.swift in Sources */,
@@ -342,9 +343,8 @@
 				4E6C9E261B1D03F8000C4CFA /* TarefasCell.swift in Sources */,
 				153B75BD1B1CE77500EC5070 /* MateriasTableViewController.swift in Sources */,
 				153B75C51B1CF60B00EC5070 /* TarefaTableViewController.swift in Sources */,
+				15F211511B2E009200F4496A /* Materia.swift in Sources */,
 				153B75C11B1CE84F00EC5070 /* MateriaManager.swift in Sources */,
-				153B75D11B1E6ECE00EC5070 /* Atividade.swift in Sources */,
-				153B75B81B1CE61500EC5070 /* Materia.swift in Sources */,
 				153B75CD1B1E44B100EC5070 /* RelatorioViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

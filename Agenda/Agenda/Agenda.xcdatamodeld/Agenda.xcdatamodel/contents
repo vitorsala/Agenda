@@ -4,17 +4,19 @@
         <attribute name="avaliado" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="dataEntrega" attributeType="Date" syncable="YES"/>
         <attribute name="entregue" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="idCloud" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="nomeAtiv" attributeType="String" syncable="YES"/>
         <attribute name="nota" optional="YES" attributeType="Double" minValueString="0" maxValueString="10" defaultValueString="0.0" syncable="YES"/>
         <attribute name="tipoAtiv" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <relationship name="disciplina" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Materia" inverseName="atividadesDaMateria" inverseEntity="Materia" syncable="YES"/>
     </entity>
     <entity name="Materia" representedClassName="Agenda.Materia" syncable="YES">
+        <attribute name="idCloud" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="nomeMateria" attributeType="String" syncable="YES"/>
-        <relationship name="atividadesDaMateria" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Atividade" inverseName="disciplina" inverseEntity="Atividade" syncable="YES"/>
+        <relationship name="atividadesDaMateria" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Atividade" inverseName="disciplina" inverseEntity="Atividade" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Materia" positionX="-3924" positionY="-1053" width="128" height="73"/>
-        <element name="Atividade" positionX="-3744" positionY="-945" width="128" height="148"/>
+        <element name="Atividade" positionX="-3744" positionY="-945" width="128" height="163"/>
+        <element name="Materia" positionX="-3924" positionY="-1053" width="128" height="88"/>
     </elements>
 </model>

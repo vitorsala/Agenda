@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class TarefaTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -76,6 +77,22 @@ class TarefaTableViewController: UIViewController, UITableViewDataSource, UITabl
         let editTVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("editTarefa") as! EditarTarefaViewController
         editTVC.tarefa = self.tarefas.objectAtIndex(indexPath.row) as! Atividade
         self.navigationController?.pushViewController(editTVC, animated: true)
+    }
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == UITableViewCellEditingStyle.Delete {
+            
+            //Apaga tarefa do calendário.
+            EventManager.sharedInstance.deletaTarefa(self.tarefas.objectAtIndex(indexPath.row) as! Atividade);
+            
+            TarefaManager.sharedInstance.managedObjectContext.deleteObject(self.tarefas.objectAtIndex(indexPath.row) as! NSManagedObject)
+            self.tarefas.removeObjectAtIndex(indexPath.row)
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
+            
+            TarefaManager.sharedInstance.save()
+            
+        }
+        self.tableView.reloadData()
     }
 
     

@@ -92,6 +92,8 @@ class StatusTarefaViewController: UIViewController {
             tarefa.avaliado = 0
         }
         TarefaManager.sharedInstance.save();
+        
+        self.navigationController?.popViewControllerAnimated(true)
     }
     
     /*

@@ -87,6 +87,7 @@ class AddTarefaViewController: UIViewController {
     @IBAction func salvar(sender: AnyObject) {
         //MAIS REGEXES
         
+        //salva dentro desse metodo
         TarefaManager.sharedInstance.insertNewTarefa(textField.text, disc: materia, data: datePicker.date, tipo: self.tipoSelector.selectedSegmentIndex)
         
         
@@ -96,7 +97,7 @@ class AddTarefaViewController: UIViewController {
         
         textField.text = ""
         
-        //POPUP E TAL
+        self.navigationController?.popViewControllerAnimated(true)
     }
     
 

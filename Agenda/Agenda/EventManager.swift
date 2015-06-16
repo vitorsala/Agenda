@@ -111,6 +111,53 @@ class EventManager: NSObject {
         }
     }
     
+    func editaEvento(nNome: String, nData: NSDate, tarefa: Atividade){
+        let cal = NSMutableArray();
+        let calendars = eventStore.calendarsForEntityType(EKEntityTypeEvent)
+            as! [EKCalendar]
+        for calendar in calendars {
+            
+            if calendar.title == "AgendApp" {
+                cal.addObject(calendar);
+                break;
+            }
+        }
+
+        //Não dá pra pegar todos. Então tem que fazer essa gambiarra em duas fases mesmo :P
+        let pred = eventStore.predicateForEventsWithStartDate(NSDate(), endDate: NSDate.distantFuture() as! NSDate, calendars: cal as [AnyObject]);
+        let eventos = NSMutableArray(array: eventStore.eventsMatchingPredicate(pred));
+        var encontrou = false;
+        for e in eventos{
+            let evento = e as! EKEvent;
+            //Se o nome e a data forem as mesmas, faz as alterações
+            if(evento.title == tarefa.nomeAtiv && evento.startDate == tarefa.dataEntrega){
+                evento.title = nNome;
+                evento.startDate = nData;
+                evento.endDate = evento.startDate.dateByAddingTimeInterval(1 * 60 * 60);
+                evento.alarms = nil;
+                evento.addAlarm(EKAlarm(relativeOffset: -60));
+                
+                // Salvando o evento no calendario.
+                var error: NSError?
+                let result = eventStore.saveEvent(evento, span: EKSpanThisEvent, error: &error)
+                
+                if result == false {
+                    if let theError = error {
+                        println("An error occured \(theError)")
+                    }
+                }
+                encontrou = true;
+                break;
+            }
+        }
+        
+        //Se a data do evento estiver no passado.
+        if(!encontrou){
+            insertEvent(nData, nome: nNome, materia: tarefa.disciplina.nomeMateria);
+        }
+
+    }
+    
     func brincadeDeletar(){
         let futuro :NSDate = NSDate.distantFuture() as! NSDate;
         let cal = NSMutableArray();
@@ -118,7 +165,6 @@ class EventManager: NSObject {
             as! [EKCalendar]
         for calendar in calendars {
             
-            //Calendário padrão do dispositivo se chama "Calendar". Talvez seja interessante criar um calendário só pro app.
             if calendar.title == "AgendApp" {
                 cal.addObject(calendar);
                 break;
@@ -134,6 +180,107 @@ class EventManager: NSObject {
                 println("nem apago");
             } else {
                 println("porra apago");
+            }
+        }
+    }
+    
+    func sincCalICloud(tarefas: NSArray){
+        self.brincadeDeletar();
+        for t in tarefas{
+            let tarefa = t as! Atividade;
+            insertEvent(tarefa.dataEntrega, nome: tarefa.nomeAtiv, materia: tarefa.disciplina.nomeMateria);
+        }
+        
+    }
+    
+    func deletaTarefa(tarefa: Atividade){
+        let futuro :NSDate = NSDate.distantFuture() as! NSDate;
+        let cal = NSMutableArray();
+        let calendars = eventStore.calendarsForEntityType(EKEntityTypeEvent)
+            as! [EKCalendar]
+        for calendar in calendars {
+            
+            if calendar.title == "AgendApp" {
+                cal.addObject(calendar);
+                break;
+            }
+        }
+        
+        let pred = eventStore.predicateForEventsWithStartDate(NSDate(), endDate: futuro, calendars: cal as [AnyObject]);
+        let eventos = NSMutableArray(array: eventStore.eventsMatchingPredicate(pred));
+        for e in eventos{
+            let evento = e as! EKEvent;
+            var error:NSError?;
+            if(evento.title == tarefa.nomeAtiv && evento.startDate == tarefa.dataEntrega){
+                eventStore.removeEvent(evento, span: EKSpanThisEvent, error: &error);
+                if(error != nil){
+                    println("nem apago");
+                } else {
+                    println("porra apago");
+                    break;
+                }
+            }
+        }
+    }
+    
+    func deletaMateria(materia: Materia){
+        let futuro :NSDate = NSDate.distantFuture() as! NSDate;
+        let cal = NSMutableArray();
+        let calendars = eventStore.calendarsForEntityType(EKEntityTypeEvent)
+            as! [EKCalendar]
+        for calendar in calendars {
+            
+            if calendar.title == "AgendApp" {
+                cal.addObject(calendar);
+                break;
+            }
+        }
+        
+        let pred = eventStore.predicateForEventsWithStartDate(NSDate(), endDate: futuro, calendars: cal as [AnyObject]);
+        let eventos = NSMutableArray(array: eventStore.eventsMatchingPredicate(pred));
+        for e in eventos{
+            let evento = e as! EKEvent;
+            var error:NSError?;
+            if(evento.notes == materia.nomeMateria){
+                eventStore.removeEvent(evento, span: EKSpanThisEvent, error: &error);
+                if(error != nil){
+                    println("nem apago");
+                } else {
+                    println("porra apago");
+                }
+            }
+        }
+    }
+    
+    func editaMateria(nomeAntigo: String, nomeNovo: String){
+        let futuro :NSDate = NSDate.distantFuture() as! NSDate;
+        let cal = NSMutableArray();
+        let calendars = eventStore.calendarsForEntityType(EKEntityTypeEvent)
+            as! [EKCalendar]
+        for calendar in calendars {
+            
+            if calendar.title == "AgendApp" {
+                cal.addObject(calendar);
+                break;
+            }
+        }
+        
+        let pred = eventStore.predicateForEventsWithStartDate(NSDate(), endDate: futuro, calendars: cal as [AnyObject]);
+        let eventos = NSMutableArray(array: eventStore.eventsMatchingPredicate(pred));
+        for e in eventos{
+            let evento = e as! EKEvent;
+            var error:NSError?;
+            if(evento.notes == nomeAntigo){
+                evento.notes = nomeNovo;
+                // Salvando o evento no calendario.
+                var error: NSError?
+                let result = eventStore.saveEvent(evento, span: EKSpanThisEvent, error: &error)
+                
+                if result == false {
+                    if let theError = error {
+                        println("An error occured \(theError)")
+                    }
+                }
             }
         }
     }

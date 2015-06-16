@@ -29,6 +29,11 @@ class OptionsViewController: UITableViewController {
         }
         //alarme.datePickerMode = UIDatePicker.UIDatePickerModeTime;
         // Do any additional setup after loading the view.
+
+		icloudSwitch.addTarget(self, action: "switchValueChanged:", forControlEvents: UIControlEvents.ValueChanged)
+		if CoreDataStack.sharedInstance.isOnline{
+			icloudSwitch.on = true
+		}
     }
 
     override func didReceiveMemoryWarning() {
