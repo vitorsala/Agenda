@@ -30,6 +30,11 @@ class TarefaManager: NSObject{
         newTarefa.idCloud = NSDate().timeIntervalSince1970 as Double
         self.save()
         
+        self.criaNotif(newTarefa)
+        
+    }
+    
+    func criaNotif(newTarefa: Atividade) {
         //cria notif
         let ud = NSUserDefaults.standardUserDefaults()
         if ud.valueForKey("horaAlerta") == nil {
@@ -60,8 +65,18 @@ class TarefaManager: NSObject{
                 message = "Faltam \(i) dias para a data da atividade."
             }
             
-            LocalNotificationManager.sharedInstance.scheduleNewNotification(title: "\(disc.nomeMateria): \(newTarefa.nomeAtiv)", msg: message, action: "Ok", options: nil, toDate: newDate!)
+            LocalNotificationManager.sharedInstance.scheduleNewNotification(title: "\(newTarefa.disciplina.nomeMateria): \(newTarefa.nomeAtiv)", msg: message, action: "Ok", options: ["\(newTarefa.idCloud.floatValue)": i], toDate: newDate!)
         }
+    }
+    
+    func atualizaNotif(tarefa:Atividade) {
+        var notif = LocalNotificationManager.sharedInstance.getNotificationUsingFilter { (notification) -> (Bool) in
+            return notification.userInfo?["\(tarefa.idCloud.floatValue)"] != nil
+        }
+        for eachNotif in notif {
+            LocalNotificationManager.sharedInstance.cancelSingleScheduledNotification(eachNotif)
+        }
+        self.criaNotif(tarefa)
     }
     
     func save() {
