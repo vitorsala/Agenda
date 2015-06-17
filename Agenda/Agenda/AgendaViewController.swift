@@ -151,8 +151,12 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         let dateFormatter = NSDateFormatter();
         dateFormatter.dateFormat = "dd/MM/yyyy - HH:mm";
-        //TEM QUE TIRAR O TEMPOFALTA DAQUI, TA SÓ PRA TESTE
-        cell.data?.text = "\(dateFormatter.stringFromDate(ativ.dataEntrega)) - \(tempoFalta)"
+        //Conteudo da label depende se é atividades futuras ou passadas.
+        if(self.segmentControl.selectedSegmentIndex == 0){
+            cell.data?.text = "\(dateFormatter.stringFromDate(ativ.dataEntrega)) || \(tempoFalta)";
+        } else {
+            cell.data?.text = "\(dateFormatter.stringFromDate(ativ.dataEntrega))";
+        }
         
         //cell.img.image = UIImage(contentsOfFile: "Images.xcassets/imgProva.imageset/imgProva.png");
         if ativ.tipoAtiv == 0 {

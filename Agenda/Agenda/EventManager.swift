@@ -9,15 +9,16 @@
 import UIKit
 import EventKit
 
-class EventManager: NSObject {
+class EventManager {
    
     //Classe singleton pra controlar os paranaue do EventKit.
     static let sharedInstance = EventManager();
     
     let eventStore:EKEventStore;
     
-    private override init() {
+    private init() {
         eventStore = EKEventStore();
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "syncCalICloud:", name: CoreDataStackDidImportedNotification, object: nil);
     }
     
     func criaCalendario(){
@@ -158,7 +159,7 @@ class EventManager: NSObject {
 
     }
     
-    func brincadeDeletar(){
+    func deletaEventosFuturos(){
         let futuro :NSDate = NSDate.distantFuture() as! NSDate;
         let cal = NSMutableArray();
         let calendars = eventStore.calendarsForEntityType(EKEntityTypeEvent)
@@ -184,8 +185,9 @@ class EventManager: NSObject {
         }
     }
     
-    func sincCalICloud(tarefas: NSArray){
-        self.brincadeDeletar();
+    func syncCalICloud(){
+        let tarefas: NSArray = TarefaManager.sharedInstance.fetchTarefasFuturas()
+        self.deletaEventosFuturos();
         for t in tarefas{
             let tarefa = t as! Atividade;
             insertEvent(tarefa.dataEntrega, nome: tarefa.nomeAtiv, materia: tarefa.disciplina.nomeMateria);
