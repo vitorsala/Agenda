@@ -40,4 +40,16 @@ class LocalNotificationManager {
 			UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
 		}
 	}
+
+	func getAllScheduledNotifications() -> [UILocalNotification]{
+		return UIApplication.sharedApplication().scheduledLocalNotifications as! [UILocalNotification]
+	}
+
+	func cancelSingleScheduledNotification(notification: UILocalNotification){
+		UIApplication.sharedApplication().cancelLocalNotification(notification)
+	}
+
+	func cancelAllScheduledNotification(){
+		UIApplication.sharedApplication().cancelAllLocalNotifications()
+	}
 }
