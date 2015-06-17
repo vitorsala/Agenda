@@ -29,6 +29,39 @@ class TarefaManager: NSObject{
         newTarefa.tipoAtiv = tipo
         newTarefa.idCloud = NSDate().timeIntervalSince1970 as Double
         self.save()
+        
+        //cria notif
+        let ud = NSUserDefaults.standardUserDefaults()
+        if ud.valueForKey("horaAlerta") == nil {
+            ud.setValue(NSDate(), forKey: "horaAlerta")
+        }
+        for i in 0...7 {
+            
+            //montando o horario correto - favor testar
+            var dia = newTarefa.dataEntrega
+            var unitFlags = NSCalendarUnit.YearCalendarUnit | NSCalendarUnit.MonthCalendarUnit |  NSCalendarUnit.DayCalendarUnit
+            var calendar = NSCalendar.currentCalendar()
+            var comps = calendar.components(unitFlags, fromDate: dia)
+            comps.day -= i
+            comps.hour = calendar.component(NSCalendarUnit.HourCalendarUnit, fromDate: (ud.valueForKey("horaAlerta") as! NSDate))
+            comps.minute = calendar.component(NSCalendarUnit.MinuteCalendarUnit, fromDate: (ud.valueForKey("horaAlerta") as! NSDate))
+            comps.second = 0
+            var newDate = calendar.dateFromComponents(comps)
+            
+            var message:String
+            
+            if i == 0 {
+                message = "A data da atividade é hoje!"
+            }
+            else if i == 1 {
+                message = "Falta um dia para a data d atividade."
+            }
+            else{
+                message = "Faltam \(i) dias para a data da atividade."
+            }
+            
+            LocalNotificationManager.sharedInstance.scheduleNewNotification(title: "\(disc.nomeMateria): \(newTarefa.nomeAtiv)", msg: message, action: "Ok", options: nil, toDate: newDate!)
+        }
     }
     
     func save() {

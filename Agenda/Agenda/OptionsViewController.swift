@@ -18,6 +18,7 @@ class OptionsViewController: UIViewController {
         if(media.text != ""){
             ud.setValue(media.text, forKey: "media");
         }
+        ud.setValue(alarme.date, forKey: "horaAlerta")
         //icloudAllowed
     }
 
