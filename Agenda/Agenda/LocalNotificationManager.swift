@@ -16,6 +16,7 @@ class LocalNotificationManager {
 		// Verifica e pede permisão para o app enviar notificações
 		let notificationSettings = UIUserNotificationSettings(forTypes: (UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound), categories: nil)
 		UIApplication.sharedApplication().registerUserNotificationSettings(notificationSettings)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "syncNotifICloud:", name: CoreDataStackDidImportedNotification, object: nil);
 	}
 
 	/**
@@ -126,5 +127,17 @@ class LocalNotificationManager {
             UIApplication.sharedApplication().scheduleLocalNotification(notif)
         }
         
+    }
+    
+    /**
+    Atualiza as notificações locais quando sincronizar com o iCloud
+    */
+    func syncNotifICloud(){
+        let tarefas: NSArray = TarefaManager.sharedInstance.fetchTarefasFuturas()
+        self.cancelAllScheduledNotification()
+        for t in tarefas{
+            let tarefa = t as! Atividade;
+            TarefaManager.sharedInstance.criaNotif(tarefa)
+        }
     }
 }

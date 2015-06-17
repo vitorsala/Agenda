@@ -17,6 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
+        //criando o Manager, para que possa receber as notifications de sinc do iCloud
+        let notifSingleton = LocalNotificationManager.sharedInstance
 		let test = LocalNotificationManager.sharedInstance
 		//test.scheduleNewNotification(title: "Test notifications", msg: "test msg", action: "action", options: nil, toDate: NSDate(timeIntervalSinceNow: 10))
 
