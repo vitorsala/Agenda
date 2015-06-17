@@ -94,4 +94,37 @@ class LocalNotificationManager {
 	func cancelAllScheduledNotification(){
 		UIApplication.sharedApplication().cancelAllLocalNotifications()
 	}
+    
+    
+    /**
+    Atualiza o horário no qual serão disparadas as notificações
+
+    :param: horaMinuto NSDate que contem o valor de Hora e Minuto aualizados
+    */
+    func updateAllNotificationsTime(horaMinuto:NSDate) {
+        //busca as notificações futuras
+//        var notifs = self.getNotificationUsingFilter { (notification) -> (Bool) in
+//            return (notification.fireDate?.timeIntervalSinceNow) > 0
+//        }
+        
+        var notifs = self.getAllScheduledNotifications()
+        
+        for notif in notifs {
+            UIApplication.sharedApplication().cancelLocalNotification(notif)
+            
+            var dia = notif.fireDate
+            var unitFlags = NSCalendarUnit.YearCalendarUnit | NSCalendarUnit.MonthCalendarUnit |  NSCalendarUnit.DayCalendarUnit
+            var calendar = NSCalendar.currentCalendar()
+            var comps = calendar.components(unitFlags, fromDate: dia!)
+            comps.hour = calendar.component(NSCalendarUnit.HourCalendarUnit, fromDate: horaMinuto)
+            comps.minute = calendar.component(NSCalendarUnit.MinuteCalendarUnit, fromDate: horaMinuto)
+            comps.second = 0
+            var newDate = calendar.dateFromComponents(comps)
+            
+            notif.fireDate = newDate
+            
+            UIApplication.sharedApplication().scheduleLocalNotification(notif)
+        }
+        
+    }
 }

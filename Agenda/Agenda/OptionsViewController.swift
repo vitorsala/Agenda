@@ -19,6 +19,7 @@ class OptionsViewController: UIViewController {
             ud.setValue(media.text, forKey: "media");
         }
         ud.setValue(alarme.date, forKey: "horaAlerta")
+        LocalNotificationManager.sharedInstance.updateAllNotificationsTime(ud.valueForKey("horaAlerta") as! NSDate)
         //icloudAllowed
     }
 
