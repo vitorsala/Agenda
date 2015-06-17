@@ -65,6 +65,8 @@ class MateriasTableViewController: UIViewController, UITableViewDataSource, UITa
 
 						self.tableView.reloadData()
 						self.loading?.removeFromSuperview()
+                        
+                        self.em.syncCalICloud();
 					})
 				}))
 
