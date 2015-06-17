@@ -84,6 +84,7 @@ class TarefaTableViewController: UIViewController, UITableViewDataSource, UITabl
             
             //Apaga tarefa do calendário.
             EventManager.sharedInstance.deletaTarefa(self.tarefas.objectAtIndex(indexPath.row) as! Atividade);
+            TarefaManager.sharedInstance.deletaNotif(self.tarefas.objectAtIndex(indexPath.row) as! Atividade)
             
             TarefaManager.sharedInstance.managedObjectContext.deleteObject(self.tarefas.objectAtIndex(indexPath.row) as! NSManagedObject)
             self.tarefas.removeObjectAtIndex(indexPath.row)

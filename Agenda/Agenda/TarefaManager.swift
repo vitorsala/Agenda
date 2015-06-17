@@ -70,13 +70,17 @@ class TarefaManager: NSObject{
     }
     
     func atualizaNotif(tarefa:Atividade) {
+        self.deletaNotif(tarefa)
+        self.criaNotif(tarefa)
+    }
+    
+    func deletaNotif(tarefa:Atividade) {
         var notif = LocalNotificationManager.sharedInstance.getNotificationUsingFilter { (notification) -> (Bool) in
             return notification.userInfo?["\(tarefa.idCloud.floatValue)"] != nil
         }
         for eachNotif in notif {
             LocalNotificationManager.sharedInstance.cancelSingleScheduledNotification(eachNotif)
         }
-        self.criaNotif(tarefa)
     }
     
     func save() {

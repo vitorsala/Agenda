@@ -93,4 +93,11 @@ class MateriaManager: NSObject{
 		}
 		self.save()
 	}
+    
+    func deletaNotifsMateria(materia:Materia){
+        let tarefas = TarefaManager.sharedInstance.fetchTarefasForMateria(materia)
+        for tarefa in tarefas {
+            TarefaManager.sharedInstance.deletaNotif(tarefa)
+        }
+    }
 }

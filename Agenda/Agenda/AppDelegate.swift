@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 
 		let test = LocalNotificationManager.sharedInstance
-		test.scheduleNewNotification(title: "Test notifications", msg: "test msg", action: "action", options: nil, toDate: NSDate(timeIntervalSinceNow: 10))
+		//test.scheduleNewNotification(title: "Test notifications", msg: "test msg", action: "action", options: nil, toDate: NSDate(timeIntervalSinceNow: 10))
 
         return true
     }

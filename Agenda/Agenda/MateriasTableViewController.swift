@@ -153,10 +153,11 @@ class MateriasTableViewController: UIViewController, UITableViewDataSource, UITa
             //Deleta os eventos da matéria do calendário.
             EventManager.sharedInstance.deletaMateria(self.arrayMaterias.objectAtIndex(indexPath.row) as! Materia);
             
+            MateriaManager.sharedInstance.deletaNotifsMateria(self.arrayMaterias.objectAtIndex(indexPath.row) as! Materia)
+            
             MateriaManager.sharedInstance.managedObjectContext.deleteObject(self.arrayMaterias.objectAtIndex(indexPath.row) as! NSManagedObject)
             self.arrayMaterias.removeObjectAtIndex(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
-
             
             MateriaManager.sharedInstance.save()
             

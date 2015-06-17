@@ -42,6 +42,8 @@ class EditarTarefaViewController: UIViewController {
         
         TarefaManager.sharedInstance.save()
         
+        TarefaManager.sharedInstance.atualizaNotif(tarefa)
+        
         self.navigationController?.popViewControllerAnimated(true)
     }
 
