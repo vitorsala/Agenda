@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Melhor Grupo. All rights reserved.
 //
 
+import Foundation
 import UIKit
 
 //Classe para auxiliar a criação e controle de sections.
@@ -120,6 +121,14 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         let ativ = (dias.objectAtIndex(indexPath.section) as! DataQtd).qtd.objectAtIndex(indexPath.row) as! Atividade;
         
+        //calcula o tempo que falta pra entrega
+        var totalFalta = NSDate().timeIntervalSinceDate(ativ.dataEntrega)
+        var faltaDias = (totalFalta as Double)/(-60*60*24)
+        var diasString = String(format: "%.0f", arguments: [faltaDias])
+        var faltaHoras = ((totalFalta as Double)/(-60*60))%24
+        var horasString = String(format: "%.0f", arguments: [faltaHoras])
+        var tempoFalta = "\(diasString)d \(horasString)h"
+        
         if self.segmentControl.selectedSegmentIndex == 1 {
             //se for trabalho
             if ativ.tipoAtiv == 1 {
@@ -137,11 +146,13 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }
         }
         
+        
         cell.nome?.text = "\(ativ.nomeAtiv) (\(ativ.disciplina.nomeMateria))";
         
         let dateFormatter = NSDateFormatter();
         dateFormatter.dateFormat = "dd/MM/yyyy - HH:mm";
-        cell.data?.text = dateFormatter.stringFromDate(ativ.dataEntrega);
+        //TEM QUE TIRAR O TEMPOFALTA DAQUI, TA SÓ PRA TESTE
+        cell.data?.text = "\(dateFormatter.stringFromDate(ativ.dataEntrega)) - \(tempoFalta)"
         
         //cell.img.image = UIImage(contentsOfFile: "Images.xcassets/imgProva.imageset/imgProva.png");
         if ativ.tipoAtiv == 0 {
