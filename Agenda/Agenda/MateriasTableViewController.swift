@@ -14,7 +14,7 @@ class MateriasTableViewController: UIViewController, UITableViewDataSource, UITa
     
     
     var editando:Bool = false
-    
+    var myColor = UIColor.redColor()
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var editButton: UIBarButtonItem!
     
@@ -26,6 +26,8 @@ class MateriasTableViewController: UIViewController, UITableViewDataSource, UITa
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tabBarController!.tabBar.tintColor = myColor
 
         //Se o usuário não permitiu que usassem o calendário anteriormente, pergunta de novo lol.
         if(!em.verificaPermissao()){

@@ -45,13 +45,13 @@ class OptionsViewController: UITableViewController {
         self.media.resignFirstResponder()
     }
     
-    override func shouldAutorotate() -> Bool {
-        return false
-    }
-    
-    override func supportedInterfaceOrientations() -> Int {
-        return UIInterfaceOrientation.Portrait.rawValue
-    }
+//    override func shouldAutorotate() -> Bool {
+//        return false
+//    }
+//    
+//    override func supportedInterfaceOrientations() -> Int {
+//        return UIInterfaceOrientation.Portrait.rawValue
+//    }
 
     /*
     // MARK: - Navigation

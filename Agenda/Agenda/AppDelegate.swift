@@ -13,10 +13,19 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    
 
-
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-
+        
+//        UIApplication.sharedApplication().statusBarStyle = .LightContent
+        
+     
+////        navigationController!.navigationBar.barTintColor = UIColor
+//        
+//        UINavigationBar.appearance().barTintColor = UIColor(red: 225, green: 89, blue: 83, alpha: 1.0)
+////      (red: 225, green: 89, blue: 83, alpha: 1.0)
+        
         return true
     }
 
