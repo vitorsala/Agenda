@@ -32,12 +32,22 @@ class OptionsViewController: UIViewController {
         //alarme.datePickerMode = UIDatePicker.UIDatePickerModeTime;
         // Do any additional setup after loading the view.
 
-		icloudSwitch.addTarget(self, action: "switchValueChanged:", forControlEvents: UIControlEvents.ValueChanged)
-		if CoreDataStack.sharedInstance.isOnline{
-			icloudSwitch.on = true
-		}
     }
 
+	override func viewWillAppear(animated: Bool) {
+		// Verifica se o usuário está logado no iCloud.
+		// Caso positivo, permite a ativação do iCloud no app
+		if CoreDataStack.isLoggedInIcloud(){
+			icloudSwitch.addTarget(self, action: "switchValueChanged:", forControlEvents: UIControlEvents.ValueChanged)
+			if CoreDataStack.sharedInstance.isOnline{
+				icloudSwitch.on = true
+			}
+		}
+		// Caso negativo, evita que o iCloud seja ativado.
+		else {
+			icloudSwitch.enabled = false
+		}
+	}
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

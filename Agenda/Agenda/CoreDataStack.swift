@@ -25,7 +25,7 @@ class CoreDataStack {
 				let notcenter = NSNotificationCenter.defaultCenter()
 
 				isOnline = true
-
+				// Registra a instancia como observador das notificações lançadas pelo coordinator
 				notcenter.addObserver(self, selector: "willChange:", name: NSPersistentStoreCoordinatorStoresWillChangeNotification, object: nil)
 
 				notcenter.addObserver(self, selector: "didChange:", name: NSPersistentStoreCoordinatorStoresDidChangeNotification, object: nil)
@@ -33,6 +33,7 @@ class CoreDataStack {
 				notcenter.addObserver(self, selector: "didImportUibquitousContent:", name: NSPersistentStoreDidImportUbiquitousContentChangesNotification, object: nil)
 			}
 			else{
+				// Se o usuário não está logado no icloud, utiliza o sistema padrão
 				userDefault.setBool(false, forKey: CoreDataStackIcloudFlagForUserDefault)
 			}
 		}
@@ -52,17 +53,28 @@ class CoreDataStack {
 		NSInferMappingModelAutomaticallyOption : true]
 
 	// MARK:- iCloud Related
+	/**
+	Verifica se o usuário está logado, no iCloud, no dispositivo
 
+	:returns: **true** caso o usuário esteja logado, **false** caso contrário
+	*/
 	static func isLoggedInIcloud() -> Bool{
 		return NSFileManager.defaultManager().ubiquityIdentityToken != nil
 	}
 
+	/**
+	Troca o tipo de persistencie entre local e remoto.
+	
+	A propriedade *isOnline* indica qual tipo de propriedade está sendo utilizdo (local ou local+icloud)
+	*/
 	func switchMode(){
 		let notcenter = NSNotificationCenter.defaultCenter()
 
 		var persistentStore : NSPersistentStore? = self.persistentStoreCoordinator?.persistentStores.first as? NSPersistentStore
 		
 		var error : NSError? = nil
+
+		self.managedObjectContext?.reset()	// Antes de efetuar a troca, reseta o estado do contexto para o utimo estado válido.
 
 		if isOnline {
 			notcenter.removeObserver(self)
@@ -94,7 +106,11 @@ class CoreDataStack {
 		isOnline = !isOnline
 		NSUserDefaults.standardUserDefaults().setBool(isOnline, forKey: CoreDataStackIcloudFlagForUserDefault)
 	}
+	/**
+	Método observadora para o primeiro setup quando o icloud é ativado no aplicativo.
 
+	:param: notification : NSNotification
+	*/
 	@objc func willChange(notification : NSNotification){
 		let userInfo = notification.userInfo
 
@@ -106,18 +122,27 @@ class CoreDataStack {
 				println(error?.description)
 			}
 
-			println("roar")
 		}
 		else{
 			managedObjectContext!.reset()
 		}
 	}
 
+	/**
+	Método observadora que é executado após o término da execução do setup do icloud
+
+	:param: notification : NSNotification
+	*/
 	@objc func didChange(notification : NSNotification){
 		
 		NSNotificationCenter.defaultCenter().postNotificationName(CoreDataStackDidChangeNotification, object: nil, userInfo: nil)
 	}
 
+	/**
+	Método observadora que será executado toda vez que o dispositivo detectar mudanças vindo do iCloud
+
+	:param: notification : NSNotification
+	*/
 	@objc func didImportUibquitousContent(notification : NSNotification){
 		// Faz o merge de dados
 		managedObjectContext?.mergeChangesFromContextDidSaveNotification(notification)

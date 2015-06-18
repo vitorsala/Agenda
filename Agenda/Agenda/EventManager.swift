@@ -243,7 +243,7 @@ class EventManager {
         for e in eventos{
             let evento = e as! EKEvent;
             var error:NSError?;
-            if(evento.notes == materia.nomeMateria){
+            if(evento.notes != nil && evento.notes == materia.nomeMateria){
                 eventStore.removeEvent(evento, span: EKSpanThisEvent, error: &error);
                 if(error != nil){
                     println("nem apago");
@@ -272,7 +272,7 @@ class EventManager {
         for e in eventos{
             let evento = e as! EKEvent;
             var error:NSError?;
-            if(evento.notes == nomeAntigo){
+            if(evento.notes != nil && evento.notes == nomeAntigo){
                 evento.notes = nomeNovo;
                 // Salvando o evento no calendario.
                 var error: NSError?
