@@ -21,6 +21,41 @@ class AddTarefaViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        for i in 0...7 {
+            
+            var localNotification:UILocalNotification = UILocalNotification()
+            localNotification.alertAction = "Ver a tarefa"
+            
+            var diasRestantes = 7 - i
+            var strNotif = "\(textField) de \(materia)"
+            
+            if diasRestantes == 0 {
+                localNotification.alertBody = "'\(strNotif)' entrega é para hoje."
+            }
+            else if diasRestantes == 1 {
+                localNotification.alertBody = "Falta \(diasRestantes) dia para entregar '\(strNotif)'"
+            }
+            else {
+                localNotification.alertBody = "Faltam \(diasRestantes) dias para entregar '\(strNotif)'!"
+            }
+            
+            
+            let dateFix: NSTimeInterval = floor(datePicker.date.timeIntervalSinceReferenceDate / 60.0) * 60.0
+            
+            var horario: NSDate = NSDate(timeIntervalSinceReferenceDate: dateFix)
+            
+            let intervalo: NSTimeInterval = -NSTimeInterval(60*60*24 * (diasRestantes))
+            
+            localNotification.fireDate = NSDate(timeInterval: intervalo, sinceDate: horario)
+            UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
+            
+//            var interval: NSTimeInterval = 60 * 7 + 10
+//            
+//            localNotification.fireDate = NSDate(timeIntervalSinceNow: (interval - NSTimeInterval( 60 * diasRestantes)))
+//            
+//            UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
+        }
+        
         //Se o usuário não permitiu que usassem o calendário anteriormente, pergunta de novo lol.
 //        if(!em.verificaPermissao()){
 //            em.eventStore.requestAccessToEntityType(EKEntityTypeEvent, completion:
