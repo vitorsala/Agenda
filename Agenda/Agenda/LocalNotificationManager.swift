@@ -114,11 +114,10 @@ class LocalNotificationManager {
             UIApplication.sharedApplication().cancelLocalNotification(notif)
             
             var dia = notif.fireDate
-            var unitFlags = NSCalendarUnit.YearCalendarUnit | NSCalendarUnit.MonthCalendarUnit |  NSCalendarUnit.DayCalendarUnit
             var calendar = NSCalendar.currentCalendar()
-            var comps = calendar.components(unitFlags, fromDate: dia!)
-            comps.hour = calendar.component(NSCalendarUnit.HourCalendarUnit, fromDate: horaMinuto)
-            comps.minute = calendar.component(NSCalendarUnit.MinuteCalendarUnit, fromDate: horaMinuto)
+            var comps = calendar.components(NSCalendarUnit.CalendarUnitYear | NSCalendarUnit.CalendarUnitMonth | NSCalendarUnit.CalendarUnitDay, fromDate: dia!)
+            comps.hour = calendar.component(NSCalendarUnit.CalendarUnitHour, fromDate: horaMinuto)
+            comps.minute = calendar.component(NSCalendarUnit.CalendarUnitMinute, fromDate: horaMinuto)
             comps.second = 0
             var newDate = calendar.dateFromComponents(comps)
             

@@ -10,6 +10,10 @@ import Foundation
 import UIKit
 
 class LoadingView : UIView{
+	@IBOutlet weak var activityIndicator: ActivityIndicator!
+	override func awakeFromNib() {
+		activityIndicator.startAnimating()
+	}
 }
 
 @IBDesignable

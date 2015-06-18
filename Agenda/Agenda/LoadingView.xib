@@ -13,7 +13,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FtJ-qf-YYH" customClass="InternalLoadingView" customModule="Agenda" customModuleProvider="target">
                     <rect key="frame" x="100" y="228" width="400" height="120"/>
                     <subviews>
-                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="s5w-jJ-sOu" customClass="ActivityIndicator" customModule="Agenda" customModuleProvider="target">
+                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="s5w-jJ-sOu" customClass="ActivityIndicator" customModule="Agenda" customModuleProvider="target">
                             <rect key="frame" x="180" y="65" width="40" height="40"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="number" keyPath="scaleMultiplier">
@@ -76,6 +76,9 @@
                 <constraint firstAttribute="trailing" secondItem="FtJ-qf-YYH" secondAttribute="trailing" constant="100" id="XVA-Ed-Luq"/>
                 <constraint firstAttribute="centerY" secondItem="FtJ-qf-YYH" secondAttribute="centerY" constant="12" id="cVz-cv-gIR"/>
             </constraints>
+            <connections>
+                <outlet property="activityIndicator" destination="s5w-jJ-sOu" id="y1H-63-sJy"/>
+            </connections>
         </view>
     </objects>
 </document>

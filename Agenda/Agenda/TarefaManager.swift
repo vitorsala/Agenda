@@ -44,12 +44,12 @@ class TarefaManager: NSObject{
             
             //montando o horario correto - favor testar
             var dia = newTarefa.dataEntrega
-            var unitFlags = NSCalendarUnit.YearCalendarUnit | NSCalendarUnit.MonthCalendarUnit |  NSCalendarUnit.DayCalendarUnit
+            var unitFlags = NSCalendarUnit.CalendarUnitYear | NSCalendarUnit.CalendarUnitMonth |  NSCalendarUnit.CalendarUnitDay
             var calendar = NSCalendar.currentCalendar()
             var comps = calendar.components(unitFlags, fromDate: dia)
             comps.day -= i
-            comps.hour = calendar.component(NSCalendarUnit.HourCalendarUnit, fromDate: (ud.valueForKey("horaAlerta") as! NSDate))
-            comps.minute = calendar.component(NSCalendarUnit.MinuteCalendarUnit, fromDate: (ud.valueForKey("horaAlerta") as! NSDate))
+            comps.hour = calendar.component(NSCalendarUnit.CalendarUnitHour, fromDate: (ud.valueForKey("horaAlerta") as! NSDate))
+            comps.minute = calendar.component(NSCalendarUnit.CalendarUnitMinute, fromDate: (ud.valueForKey("horaAlerta") as! NSDate))
             comps.second = 0
             var newDate = calendar.dateFromComponents(comps)
             
