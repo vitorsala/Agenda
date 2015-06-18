@@ -18,7 +18,7 @@ class EventManager {
     
     private init() {
         eventStore = EKEventStore();
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "syncCalICloud:", name: CoreDataStackDidImportedNotification, object: nil);
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "syncCalICloud", name: CoreDataStackDidImportedNotification, object: nil);
     }
     
     func criaCalendario(){
@@ -185,7 +185,7 @@ class EventManager {
         }
     }
     
-    func syncCalICloud(){
+    @objc func syncCalICloud(){
         let tarefas: NSArray = TarefaManager.sharedInstance.fetchTarefasFuturas()
         self.deletaEventosFuturos();
         for t in tarefas{

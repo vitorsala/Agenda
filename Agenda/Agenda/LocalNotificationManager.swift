@@ -131,7 +131,7 @@ class LocalNotificationManager {
     /**
     Atualiza as notificações locais quando sincronizar com o iCloud
     */
-    func syncNotifICloud(){
+    @objc func syncNotifICloud(){
         let tarefas: NSArray = TarefaManager.sharedInstance.fetchTarefasFuturas()
         self.cancelAllScheduledNotification()
         for t in tarefas{

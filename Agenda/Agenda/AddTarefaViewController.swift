@@ -51,53 +51,43 @@ class AddTarefaViewController: UIViewController {
     
     @IBAction func salvar(sender: AnyObject) {
         //MAIS REGEXES
-        
-        //salva dentro desse metodo
-        TarefaManager.sharedInstance.insertNewTarefa(textField.text, disc: materia, data: datePicker.date, tipo: self.tipoSelector.selectedSegmentIndex)
-        
-        
-        if(em.verificaPermissao()){
-            em.insertEvent(datePicker.date, nome: textField.text, materia: materia.nomeMateria);
-        }
-        
-        
-        //mandei tudo pro TarefaManager
-//        //cria notif
-//        let ud = NSUserDefaults.standardUserDefaults()
-//        for i in 0...7 {
-//            
-//            //montando o horario correto - favor testar
-//            var dia = NSDate()
-//            var unitFlags = NSCalendarUnit.YearCalendarUnit | NSCalendarUnit.MonthCalendarUnit |  NSCalendarUnit.DayCalendarUnit
-//            var calendar = NSCalendar.currentCalendar()
-//            var comps = calendar.components(unitFlags, fromDate: dia)
-//            comps.day -= i
-//            comps.hour = calendar.component(NSCalendarUnit.HourCalendarUnit, fromDate: (ud.valueForKey("horaAlerta") as! NSDate))
-//            comps.minute = calendar.component(NSCalendarUnit.MinuteCalendarUnit, fromDate: (ud.valueForKey("horaAlerta") as! NSDate))
-//            comps.second = 0
-//            var newDate = calendar.dateFromComponents(comps)
-//            
-//            var message:String
-//            
-//            if i == 0 {
-//                message = "A data da atividade é hoje!"
-//            }
-//            else if i == 1 {
-//                message = "Falta um dia para a data d atividade."
-//            }
-//            else{
-//                message = "Faltam \(i) dias para a data da atividade."
-//            }
-//            
-//            LocalNotificationManager.sharedInstance.scheduleNewNotification(title: "\(self.materia.nomeMateria): \(textField.text)", msg: message, action: "Nem sei o que vem aqui", options: [], toDate: <#NSDate#>)
-//        }
-        
-        
-        textField.text = ""
-        
-        self.navigationController?.popViewControllerAnimated(true)
+
+		let regexString = "^[a-zA-Z]([a-z0-9]| )*$"
+
+		var error : NSError? = nil
+
+		let regex = NSRegularExpression(pattern: regexString, options: NSRegularExpressionOptions.CaseInsensitive, error: &error)
+
+		if (error != nil){
+			println("Error: \(error?.localizedDescription)")
+			return
+		}
+
+		let name : String = textField.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+
+		if regex!.numberOfMatchesInString(name, options: NSMatchingOptions.allZeros, range: NSMakeRange(0, count(name))) > 0{
+
+			//salva dentro desse metodo
+			TarefaManager.sharedInstance.insertNewTarefa(textField.text, disc: materia, data: datePicker.date, tipo: self.tipoSelector.selectedSegmentIndex)
+
+
+			if(em.verificaPermissao()){
+				em.insertEvent(datePicker.date, nome: textField.text, materia: materia.nomeMateria);
+			}
+
+			textField.text = ""
+
+			self.navigationController?.popViewControllerAnimated(true)
+		}
+		else{
+			let alert = UIAlertController(title: "A tarefa não foi adicionada", message: "O nome só pode possuir letras, números e espaços", preferredStyle: UIAlertControllerStyle.Alert)
+			alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
+
+			}))
+			self.presentViewController(alert, animated: true, completion: nil)
+		}
     }
-    
+
 
     /*
     // MARK: - Navigation

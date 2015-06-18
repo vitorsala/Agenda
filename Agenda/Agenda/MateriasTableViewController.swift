@@ -158,11 +158,11 @@ class MateriasTableViewController: UIViewController, UITableViewDataSource, UITa
             MateriaManager.sharedInstance.managedObjectContext.deleteObject(self.arrayMaterias.objectAtIndex(indexPath.row) as! NSManagedObject)
             self.arrayMaterias.removeObjectAtIndex(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
-            
+
             MateriaManager.sharedInstance.save()
             
         }
-        self.tableView.reloadData()
+//        self.tableView.reloadData()
     }
     
 
