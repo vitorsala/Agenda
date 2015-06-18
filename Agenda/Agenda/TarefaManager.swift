@@ -40,32 +40,45 @@ class TarefaManager: NSObject{
         if ud.valueForKey("horaAlerta") == nil {
             ud.setValue(NSDate(), forKey: "horaAlerta")
         }
+        let comeco : String;
+        if(newTarefa.tipoAtiv == 0){
+            comeco = "Realização de prova";
+        } else {
+            comeco = "Entrega de trabalho";
+        }
         for i in 0...7 {
-            
             //montando o horario correto - favor testar
             var dia = newTarefa.dataEntrega
-            var unitFlags = NSCalendarUnit.CalendarUnitYear | NSCalendarUnit.CalendarUnitMonth |  NSCalendarUnit.CalendarUnitDay
-            var calendar = NSCalendar.currentCalendar()
-            var comps = calendar.components(unitFlags, fromDate: dia)
-            comps.day -= i
-            comps.hour = calendar.component(NSCalendarUnit.CalendarUnitHour, fromDate: (ud.valueForKey("horaAlerta") as! NSDate))
-            comps.minute = calendar.component(NSCalendarUnit.CalendarUnitMinute, fromDate: (ud.valueForKey("horaAlerta") as! NSDate))
-            comps.second = 0
-            var newDate = calendar.dateFromComponents(comps)
-            
-            var message:String
-            
-            if i == 0 {
-                message = "A data da atividade é hoje!"
+            //Se o dia iterado for depois que o horário atual, coloca no calendário
+            if(dia.dateByAddingTimeInterval((-60)*60*24*Double(i)).timeIntervalSinceDate(NSDate()) > 0){
+                
+                
+                var unitFlags = NSCalendarUnit.CalendarUnitYear | NSCalendarUnit.CalendarUnitMonth |  NSCalendarUnit.CalendarUnitDay
+                var calendar = NSCalendar.currentCalendar()
+                var comps = calendar.components(unitFlags, fromDate: dia)
+                comps.day -= i
+                comps.hour = calendar.component(NSCalendarUnit.CalendarUnitHour, fromDate: (ud.valueForKey("horaAlerta") as! NSDate))
+                comps.minute = calendar.component(NSCalendarUnit.CalendarUnitMinute, fromDate: (ud.valueForKey("horaAlerta") as! NSDate))
+                comps.second = 0
+                var newDate = calendar.dateFromComponents(comps)
+
+                var message:String
+                
+                if i == 0 {
+                    message = "\(comeco) hoje!"//"A data da atividade é hoje!"
+                }
+                else if i == 1 {
+                    message = "\(comeco) daqui um dia."//"Falta um dia para a data d atividade."
+                }
+                else{
+                    message = "\(comeco) daqui \(i) dias."//"Faltam \(i) dias para a data da atividade."
+                }
+                
+                LocalNotificationManager.sharedInstance.scheduleNewNotification(title: "\(newTarefa.disciplina.nomeMateria): \(newTarefa.nomeAtiv)", msg: message, action: "Ok", options: ["\(newTarefa.idCloud.floatValue)": i], toDate: newDate!)
+            } else {
+                //Se não, não coloca e sai do for.
+                break;
             }
-            else if i == 1 {
-                message = "Falta um dia para a data d atividade."
-            }
-            else{
-                message = "Faltam \(i) dias para a data da atividade."
-            }
-            
-            LocalNotificationManager.sharedInstance.scheduleNewNotification(title: "\(newTarefa.disciplina.nomeMateria): \(newTarefa.nomeAtiv)", msg: message, action: "Ok", options: ["\(newTarefa.idCloud.floatValue)": i], toDate: newDate!)
         }
     }
     
