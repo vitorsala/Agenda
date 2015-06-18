@@ -49,13 +49,14 @@ class TarefaManager: NSObject{
         for i in 0...7 {
             //montando o horario correto - favor testar
             var dia = newTarefa.dataEntrega
+            //Se o dia iterado for depois que o horário atual, coloca no calendário
             if(dia.dateByAddingTimeInterval((-60)*60*24*Double(i)).timeIntervalSinceDate(NSDate()) > 0){
+                
+                
                 var unitFlags = NSCalendarUnit.YearCalendarUnit | NSCalendarUnit.MonthCalendarUnit |  NSCalendarUnit.DayCalendarUnit
                 var calendar = NSCalendar.currentCalendar()
                 var comps = calendar.components(unitFlags, fromDate: dia)
                 comps.day -= i
-
-                //Se o dia iterado for depois que o horário atual, coloca no calendário
                 comps.hour = calendar.component(NSCalendarUnit.HourCalendarUnit, fromDate: (ud.valueForKey("horaAlerta") as! NSDate))
                 comps.minute = calendar.component(NSCalendarUnit.MinuteCalendarUnit, fromDate: (ud.valueForKey("horaAlerta") as! NSDate))
                 comps.second = 0
