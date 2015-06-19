@@ -124,18 +124,22 @@ class TarefaManager: NSObject{
                         break;
                     }
                 }
-                
-                if i == 0 {
-                    message = "\(comeco) hoje!"//"A data da atividade é hoje!"
+                //Se o dia que está pondo o alarme for hoje E o horário selecionado do alarme já passou, não cria notificação
+                if((daysBetweenDates(NSDate(), toDate: newDate!) == 0) && (newDate?.timeIntervalSinceDate(NSDate()) < 0)){}
+                else{//Deve ter um jeito mais bonito de fazer isso lol
+                    
+                    if i == 0 {
+                        message = "\(comeco) hoje!"//"A data da atividade é hoje!"
+                    }
+                    else if i == 1 {
+                        message = "\(comeco) daqui um dia."//"Falta um dia para a data d atividade."
+                    }
+                    else{
+                        message = "\(comeco) daqui \(i) dias."//"Faltam \(i) dias para a data da atividade."
+                    }
+                    
+                    LocalNotificationManager.sharedInstance.scheduleNewNotification(title: "\(newTarefa.disciplina.nomeMateria): \(newTarefa.nomeAtiv)", msg: message, action: "Ok", options: ["\(newTarefa.idCloud.floatValue)": i], toDate: newDate!)
                 }
-                else if i == 1 {
-                    message = "\(comeco) daqui um dia."//"Falta um dia para a data d atividade."
-                }
-                else{
-                    message = "\(comeco) daqui \(i) dias."//"Faltam \(i) dias para a data da atividade."
-                }
-                
-                LocalNotificationManager.sharedInstance.scheduleNewNotification(title: "\(newTarefa.disciplina.nomeMateria): \(newTarefa.nomeAtiv)", msg: message, action: "Ok", options: ["\(newTarefa.idCloud.floatValue)": i], toDate: newDate!)
                 
             }//for
         }//if passado
