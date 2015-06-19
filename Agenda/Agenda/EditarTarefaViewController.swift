@@ -36,16 +36,29 @@ class EditarTarefaViewController: UIViewController {
     @IBAction func salvar(sender: AnyObject) {
         
         //REGEX
-        EventManager.sharedInstance.editaEvento(textField.text, nData: datePicker.date, tarefa: tarefa);
-        tarefa.nomeAtiv = textField.text
-        tarefa.dataEntrega = datePicker.date
-        
-        TarefaManager.sharedInstance.save()
-		TarefaManager.sharedInstance.updateInCloud(tarefa)
-        
-        TarefaManager.sharedInstance.atualizaNotif(tarefa)
-        
-        self.navigationController?.popViewControllerAnimated(true)
+		let name : String = textField.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+
+		if Util.nameRegex(name){
+
+			EventManager.sharedInstance.editaEvento(textField.text, nData: datePicker.date, tarefa: tarefa);
+			tarefa.nomeAtiv = textField.text
+			tarefa.dataEntrega = datePicker.date
+			
+			TarefaManager.sharedInstance.save()
+			TarefaManager.sharedInstance.updateInCloud(tarefa)
+			
+			TarefaManager.sharedInstance.atualizaNotif(tarefa)
+			
+			self.navigationController?.popViewControllerAnimated(true)
+		}
+
+		else{
+			let alert = UIAlertController(title: "A nome da tarefa não foi editado", message: "O nome só pode possuir letras, números e espaços", preferredStyle: UIAlertControllerStyle.Alert)
+			alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
+
+			}))
+			self.presentViewController(alert, animated: true, completion: nil)
+		}
     }
 
     /*

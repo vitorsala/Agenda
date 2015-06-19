@@ -31,17 +31,27 @@ class EditarMateriaViewController: UIViewController {
     }
     
     @IBAction func salvar(sender: AnyObject) {
-        
-        EventManager.sharedInstance.editaMateria(materia.nomeMateria, nomeNovo: textField.text);
-        
-        //REGEX AQUI
-        
-        materia.nomeMateria = textField.text
-        
-        MateriaManager.sharedInstance.save()
-		MateriaManager.sharedInstance.updateInCloud(materia)
-        
-        self.navigationController?.popViewControllerAnimated(true)
+
+		let name : String = textField.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+
+		if Util.nameRegex(name){
+
+			EventManager.sharedInstance.editaMateria(materia.nomeMateria, nomeNovo: textField.text);
+			
+			materia.nomeMateria = textField.text
+			
+			MateriaManager.sharedInstance.save()
+			MateriaManager.sharedInstance.updateInCloud(materia)
+			
+			self.navigationController?.popViewControllerAnimated(true)
+		}
+		else{
+			let alert = UIAlertController(title: "A nome da matéria não foi editado", message: "O nome só pode possuir letras, números e espaços", preferredStyle: UIAlertControllerStyle.Alert)
+			alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
+
+			}))
+			self.presentViewController(alert, animated: true, completion: nil)
+		}
     }
 
     /*

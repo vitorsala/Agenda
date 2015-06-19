@@ -34,6 +34,7 @@
 		EB1BB5BB1B335B380096F0E4 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB1BB5BA1B335B380096F0E4 /* CloudKit.framework */; };
 		EB1BB5BD1B347ABF0096F0E4 /* Atividade.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1BB5BC1B347ABF0096F0E4 /* Atividade.swift */; };
 		EB1BB5BF1B347ABF0096F0E4 /* Materia.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1BB5BE1B347ABF0096F0E4 /* Materia.swift */; };
+		EB1BB5C11B34C5CF0096F0E4 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1BB5C01B34C5CF0096F0E4 /* Util.swift */; };
 		EB4573341B290BD10072912C /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4573331B290BD10072912C /* LoadingView.swift */; };
 		EB4573361B290CEF0072912C /* LoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB4573351B290CEF0072912C /* LoadingView.xib */; };
 		EB4DF69E1B261C0D003B31AB /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4DF69D1B261C0D003B31AB /* CoreDataStack.swift */; };
@@ -81,6 +82,7 @@
 		EB1BB5BA1B335B380096F0E4 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		EB1BB5BC1B347ABF0096F0E4 /* Atividade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Atividade.swift; sourceTree = "<group>"; };
 		EB1BB5BE1B347ABF0096F0E4 /* Materia.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Materia.swift; sourceTree = "<group>"; };
+		EB1BB5C01B34C5CF0096F0E4 /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 		EB4573331B290BD10072912C /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		EB4573351B290CEF0072912C /* LoadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingView.xib; sourceTree = "<group>"; };
 		EB4DF69D1B261C0D003B31AB /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 				EB4573331B290BD10072912C /* LoadingView.swift */,
 				EB4573351B290CEF0072912C /* LoadingView.xib */,
 				EB1BB5AF1B31FFE80096F0E4 /* LocalNotificationManager.swift */,
+				EB1BB5C01B34C5CF0096F0E4 /* Util.swift */,
 			);
 			path = Agenda;
 			sourceTree = "<group>";
@@ -364,6 +367,7 @@
 				4E6C9E261B1D03F8000C4CFA /* TarefasCell.swift in Sources */,
 				153B75BD1B1CE77500EC5070 /* MateriasTableViewController.swift in Sources */,
 				153B75C51B1CF60B00EC5070 /* TarefaTableViewController.swift in Sources */,
+				EB1BB5C11B34C5CF0096F0E4 /* Util.swift in Sources */,
 				153B75C11B1CE84F00EC5070 /* MateriaManager.swift in Sources */,
 				153B75CD1B1E44B100EC5070 /* RelatorioViewController.swift in Sources */,
 			);

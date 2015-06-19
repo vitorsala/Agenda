@@ -87,20 +87,9 @@ class AddTarefaViewController: UIViewController {
     @IBAction func salvar(sender: AnyObject) {
         //MAIS REGEXES
 
-		let regexString = "^[a-zA-Z]([a-z0-9]| )*$"
-
-		var error : NSError? = nil
-
-		let regex = NSRegularExpression(pattern: regexString, options: NSRegularExpressionOptions.CaseInsensitive, error: &error)
-
-		if (error != nil){
-			println("Error: \(error?.localizedDescription)")
-			return
-		}
-
 		let name : String = textField.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
 
-		if regex!.numberOfMatchesInString(name, options: NSMatchingOptions.allZeros, range: NSMakeRange(0, count(name))) > 0{
+		if Util.nameRegex(name){
 
 			//salva dentro desse metodo
 			TarefaManager.sharedInstance.insertNewTarefa(textField.text, disc: materia, data: datePicker.date, tipo: self.tipoSelector.selectedSegmentIndex)

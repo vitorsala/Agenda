@@ -30,20 +30,10 @@ class AddMateriaViewController: UIViewController {
     @IBAction func salvarMateria(sender: AnyObject) {
         
         //COLOCAR UM REGEX BEM LEGAL AQUI
-		let regexString = "^[a-zA-Z]([a-z0-9]| )*$"
-
-		var error : NSError? = nil
-
-		let regex = NSRegularExpression(pattern: regexString, options: NSRegularExpressionOptions.CaseInsensitive, error: &error)
-
-		if (error != nil){
-			println("Error: \(error?.localizedDescription)")
-			return
-		}
 
 		let name : String = textField.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
 
-		if regex!.numberOfMatchesInString(name, options: NSMatchingOptions.allZeros, range: NSMakeRange(0, count(name))) > 0{
+		if Util.nameRegex(name){
 
 			if MateriaManager.sharedInstance.jaExisteMateria(self.textField.text) {
 				//nao deixa inserir com nome repetido
