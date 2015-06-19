@@ -129,11 +129,13 @@ class CloudKitManager{
 	func rebase(){
 
 		NSNotificationCenter.defaultCenter().postNotificationName(didBeginSyncWithCloudNotification, object: nil)
+		// Essa notificação tem que travar qualquer outra operação!
 
 		privateDB.performQuery(CKQuery(recordType: MateriaManager.entityName, predicate: NSPredicate(value: true)), inZoneWithID: nil) { (results: [AnyObject]!, error: NSError!) -> Void in
 
 			if error == nil{
 				dispatch_sync(dispatch_get_main_queue(), { () -> Void in
+					CoreDataStack.sharedInstance.managedObjectContext?.reset()
 					TarefaManager.sharedInstance.deleteAllTarefas()
 					MateriaManager.sharedInstance.deleteAllMaterias()
 				})
@@ -147,16 +149,12 @@ class CloudKitManager{
 					test.append(newMateria)
 				}
 
-				dispatch_sync(dispatch_get_main_queue(), { () -> Void in
-					MateriaManager.sharedInstance.save()
-				})
-
 				self.privateDB.performQuery(CKQuery(recordType: TarefaManager.entityName, predicate: NSPredicate(value: true)), inZoneWithID: nil) { (results: [AnyObject]!, error: NSError!) -> Void in
 
 					if error == nil{
-						var disciplinas : [Materia] = []
+						var disciplinas : [AnyObject] = []
 						dispatch_sync(dispatch_get_main_queue(), { () -> Void in
-							 disciplinas = MateriaManager.sharedInstance.fetchAllMaterias()
+							 disciplinas = Array(CoreDataStack.sharedInstance.managedObjectContext!.insertedObjects)
 						})
 						for result in results as! [CKRecord]{
 							let newTarefa = TarefaManager.sharedInstance.newTarefa()
@@ -166,7 +164,12 @@ class CloudKitManager{
 							newTarefa.nota = result.objectForKey("nota") as! NSNumber
 							newTarefa.tipoAtiv = result.objectForKey("tipoAtiv") as! NSNumber
 							newTarefa.avaliado = result.objectForKey("avaliado") as! NSNumber
-							newTarefa.disciplina = (disciplinas.filter{$0.idCloud == result.recordID.recordName}).first!
+							newTarefa.disciplina = disciplinas.filter({ (e:AnyObject) -> Bool in
+								if let obj = e as? Materia{
+									return obj.idCloud == (result.objectForKey("disciplina") as! CKReference).recordID.recordName
+								}
+								return false
+							}).first as! Materia
 						}
 
 						dispatch_sync(dispatch_get_main_queue(), { () -> Void in
@@ -174,6 +177,7 @@ class CloudKitManager{
 						})
 
 						NSNotificationCenter.defaultCenter().postNotificationName(didFinishedSyncWithCloudNotification, object: nil, userInfo: nil)
+						// Libera as outras operações
 					}
 				}
 
