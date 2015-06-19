@@ -16,6 +16,9 @@ enum AccountStatus {
 	case CouldNotDetermine
 }
 
+let didBeginSyncWithCloudNotification = "didBeginSyncWithCloud"
+let didFinishedSyncWithCloudNotification = "didFinishedSyncWithCloud"
+
 class CloudKitManager{
 	static let sharedInstance = CloudKitManager()
 
@@ -97,6 +100,7 @@ class CloudKitManager{
 							NSUserDefaults.standardUserDefaults().setBool(true, forKey: CoreDataStackIcloudFlagForUserDefault)
 
 							// Código para sincronizar os dados
+							self.rebase()
 
 						}))
 
@@ -117,5 +121,64 @@ class CloudKitManager{
 				}
 			}
 		}
+	}
+
+	/**
+		Deleta tudo do storage local, e atualiza com tudo que está na nuvem
+	*/
+	func rebase(){
+
+		NSNotificationCenter.defaultCenter().postNotificationName(didBeginSyncWithCloudNotification, object: nil)
+
+		privateDB.performQuery(CKQuery(recordType: MateriaManager.entityName, predicate: NSPredicate(value: true)), inZoneWithID: nil) { (results: [AnyObject]!, error: NSError!) -> Void in
+
+			if error == nil{
+				dispatch_sync(dispatch_get_main_queue(), { () -> Void in
+					TarefaManager.sharedInstance.deleteAllTarefas()
+					MateriaManager.sharedInstance.deleteAllMaterias()
+				})
+				
+				var test : [Materia] = []
+
+				for result in results as! [CKRecord]{
+					let newMateria = MateriaManager.sharedInstance.newMateria()
+					newMateria.idCloud = result.recordID.recordName
+					newMateria.nomeMateria = result.objectForKey("nomeMateria") as! String
+					test.append(newMateria)
+				}
+
+				dispatch_sync(dispatch_get_main_queue(), { () -> Void in
+					MateriaManager.sharedInstance.save()
+				})
+
+				self.privateDB.performQuery(CKQuery(recordType: TarefaManager.entityName, predicate: NSPredicate(value: true)), inZoneWithID: nil) { (results: [AnyObject]!, error: NSError!) -> Void in
+
+					if error == nil{
+						var disciplinas : [Materia] = []
+						dispatch_sync(dispatch_get_main_queue(), { () -> Void in
+							 disciplinas = MateriaManager.sharedInstance.fetchAllMaterias()
+						})
+						for result in results as! [CKRecord]{
+							let newTarefa = TarefaManager.sharedInstance.newTarefa()
+							newTarefa.idCloud = result.recordID.recordName
+							newTarefa.nomeAtiv = result.objectForKey("nomeAtiv") as! String
+							newTarefa.dataEntrega = result.objectForKey("dataEntrega") as! NSDate
+							newTarefa.nota = result.objectForKey("nota") as! NSNumber
+							newTarefa.tipoAtiv = result.objectForKey("tipoAtiv") as! NSNumber
+							newTarefa.avaliado = result.objectForKey("avaliado") as! NSNumber
+							newTarefa.disciplina = (disciplinas.filter{$0.idCloud == result.recordID.recordName}).first!
+						}
+
+						dispatch_sync(dispatch_get_main_queue(), { () -> Void in
+							MateriaManager.sharedInstance.save()
+						})
+
+						NSNotificationCenter.defaultCenter().postNotificationName(didFinishedSyncWithCloudNotification, object: nil, userInfo: nil)
+					}
+				}
+
+			}
+		}
+
 	}
 }

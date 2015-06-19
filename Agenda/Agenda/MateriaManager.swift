@@ -19,11 +19,15 @@ class MateriaManager: NSObject{
         var coreData = CoreDataStack.sharedInstance
         return coreData.managedObjectContext!
         }()
-    
+
+	func newMateria() -> Materia{
+		return NSEntityDescription.insertNewObjectForEntityForName(MateriaManager.entityName, inManagedObjectContext: managedObjectContext) as! Materia
+	}
+
     func insertNewMateria(nome:String){
         let newMateria = NSEntityDescription.insertNewObjectForEntityForName(MateriaManager.entityName, inManagedObjectContext: managedObjectContext) as! Materia
         newMateria.nomeMateria = nome
-        newMateria.idCloud = NSDate().timeIntervalSince1970 as Double
+        newMateria.idCloud = "\(NSDate().timeIntervalSince1970 as Double)"
         self.save()
 
 		if CloudKitManager.sharedInstance.icloudEnabled{
@@ -80,28 +84,28 @@ class MateriaManager: NSObject{
 		self.save()
     }
 
-	func removeDuplicated(){
-		var materias = self.fetchAllMaterias() // Pega todos as materias existentes
+//	func removeDuplicated(){
+//		var materias = self.fetchAllMaterias() // Pega todos as materias existentes
+//
+//		materias.sort{$0.0.nomeMateria.compare($0.1.nomeMateria) == NSComparisonResult.OrderedDescending}
+//		while materias.count > 1 {
+//			if materias[0].nomeMateria == materias[1].nomeMateria {
+//				if materias[0].idCloud.doubleValue > materias[1].idCloud.doubleValue{
+//					managedObjectContext.deleteObject(materias[1])
+//					materias.removeAtIndex(1)
+//				}
+//				else{
+//					managedObjectContext.deleteObject(materias[0])
+//					materias.removeAtIndex(0)
+//				}
+//			}
+//			else{
+//				materias.removeAtIndex(0)
+//			}
+//		}
+//		self.save()
+//	}
 
-		materias.sort{$0.0.nomeMateria.compare($0.1.nomeMateria) == NSComparisonResult.OrderedDescending}
-		while materias.count > 1 {
-			if materias[0].nomeMateria == materias[1].nomeMateria {
-				if materias[0].idCloud.doubleValue > materias[1].idCloud.doubleValue{
-					managedObjectContext.deleteObject(materias[1])
-					materias.removeAtIndex(1)
-				}
-				else{
-					managedObjectContext.deleteObject(materias[0])
-					materias.removeAtIndex(0)
-				}
-			}
-			else{
-				materias.removeAtIndex(0)
-			}
-		}
-		self.save()
-	}
-    
     func deletaNotifsMateria(materia:Materia){
         let tarefas = TarefaManager.sharedInstance.fetchTarefasForMateria(materia)
         for tarefa in tarefas {
@@ -120,7 +124,7 @@ class MateriaManager: NSObject{
 	func saveInCloud(materia: Materia, inout error err: NSError?){
 		let cloud = CloudKitManager.sharedInstance
 
-		let id = CKRecordID(recordName: "\(materia.idCloud)")
+		let id = CKRecordID(recordName: materia.idCloud)
 
 		let record = CKRecord(recordType: MateriaManager.entityName, recordID: id)
 
@@ -138,11 +142,12 @@ class MateriaManager: NSObject{
 	func deleteFromCloud(materia: Materia){
 		let cloud = CloudKitManager.sharedInstance
 
-		cloud.privateDB.deleteRecordWithID(CKRecordID(recordName: "\(materia.idCloud)"), completionHandler: { (record, error) -> Void in
+		cloud.privateDB.deleteRecordWithID(CKRecordID(recordName: materia.idCloud), completionHandler: { (record, error) -> Void in
 
 			if error != nil{
 				println(error.localizedDescription)
 			}
 		})
 	}
+
 }
