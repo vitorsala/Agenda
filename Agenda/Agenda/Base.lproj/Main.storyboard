@@ -1085,7 +1085,8 @@
                                                     <variation key="heightClass=regular" ambiguous="YES" misplaced="YES">
                                                         <rect key="frame" x="8" y="53" width="368" height="32"/>
                                                     </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact">
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="8" y="49" width="249" height="32"/>
                                                         <mask key="constraints">
                                                             <include reference="uYV-T5-gXH"/>
                                                         </mask>
@@ -1118,7 +1119,8 @@
                                                             <include reference="GSh-5S-iJ2"/>
                                                         </mask>
                                                     </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact">
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="8" y="8" width="249" height="33"/>
                                                         <mask key="constraints">
                                                             <include reference="UWe-0f-xqT"/>
                                                         </mask>
@@ -1158,7 +1160,8 @@
                                                     <variation key="heightClass=regular" ambiguous="YES">
                                                         <rect key="frame" x="501" y="8" width="91" height="74"/>
                                                     </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact">
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="311" y="5" width="82" height="82"/>
                                                         <mask key="constraints">
                                                             <include reference="M4g-2X-c8R"/>
                                                             <include reference="p81-Um-63V"/>
