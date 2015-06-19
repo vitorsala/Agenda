@@ -45,16 +45,10 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
 
 	override func viewWillAppear(animated: Bool) {
-		refreshData(nil)
-
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshData:", name: CoreDataStackDidImportedNotification, object: nil)
+		refreshData()
 	}
 
-	override func viewWillDisappear(animated: Bool) {
-		NSNotificationCenter.defaultCenter().removeObserver(self, name: CoreDataStackDidImportedNotification, object: nil)
-	}
-
-	@objc func refreshData(notification : NSNotification?){
+	func refreshData(){
         if(self.segmentControl.selectedSegmentIndex == 0){
             atividades = NSMutableArray(array: TarefaManager.sharedInstance.fetchTarefasFuturas())
         } else {

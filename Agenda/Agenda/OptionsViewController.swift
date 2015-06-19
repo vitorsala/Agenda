@@ -37,9 +37,10 @@ class OptionsViewController: UITableViewController {
 	override func viewWillAppear(animated: Bool) {
 		// Verifica se o usuário está logado no iCloud.
 		// Caso positivo, permite a ativação do iCloud no app
-		if CoreDataStack.isLoggedInIcloud(){
+		var error : NSError? = nil
+		if CloudKitManager.sharedInstance.accountStatus == AccountStatus.Available{
 			icloudSwitch.addTarget(self, action: "switchValueChanged:", forControlEvents: UIControlEvents.ValueChanged)
-			if CoreDataStack.sharedInstance.isOnline{
+			if CloudKitManager.sharedInstance.icloudEnabled{
 				icloudSwitch.on = true
 			}
 		}
@@ -58,22 +59,10 @@ class OptionsViewController: UITableViewController {
     }
 
 	func switchValueChanged(switchState: UISwitch){
-
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "storageDidChange:", name: CoreDataStackDidChangeNotification, object: nil)
-
-		CoreDataStack.sharedInstance.switchMode()
-
-		MateriaManager.sharedInstance.removeDuplicated()
-		TarefaManager.sharedInstance.removeDuplicated()
-
-	}
-
-	func storageDidChange(notification : NSNotification){
-//
+		NSUserDefaults.standardUserDefaults().setBool(switchState.on, forKey: CoreDataStackIcloudFlagForUserDefault)
 //		MateriaManager.sharedInstance.removeDuplicated()
 //		TarefaManager.sharedInstance.removeDuplicated()
 
-		NSNotificationCenter.defaultCenter().removeObserver(self)
 	}
 
     /*

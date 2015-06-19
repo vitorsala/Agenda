@@ -26,16 +26,10 @@ class NotasMateriaViewController: UIViewController, UITableViewDelegate, UITable
     }
 
 	override func viewWillAppear(animated: Bool) {
-		refreshData(nil)
-
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshData:", name: CoreDataStackDidImportedNotification, object: nil)
+		refreshData()
 	}
 
-	override func viewWillDisappear(animated: Bool) {
-		NSNotificationCenter.defaultCenter().removeObserver(self, name: CoreDataStackDidImportedNotification, object: nil)
-	}
-
-	@objc func refreshData(notification : NSNotification?){
+	func refreshData(){
 		self.tarefas = NSMutableArray(array: TarefaManager.sharedInstance.fetchTarefasForMateria(materia));
 		self.tableView.reloadData();
 	}

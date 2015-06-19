@@ -42,52 +42,7 @@ class MateriasTableViewController: UIViewController, UITableViewDataSource, UITa
                 })
         }
 
-		// Permissão para usar o icloud
-		if CoreDataStack.isLoggedInIcloud(){
-			if NSUserDefaults.standardUserDefaults().objectForKey(CoreDataStackIcloudFlagForUserDefault) == nil{
-
-				self.loading = NSBundle.mainBundle().loadNibNamed("LoadingView", owner: self, options: nil).first as? LoadingView
-
-				println("Vai querer o icloud?")
-
-				let icloudalert = UIAlertController(title: "iCloud?", message: "Vai usar o iCloud?", preferredStyle: UIAlertControllerStyle.Alert)
-
-				icloudalert.addAction(UIAlertAction(title: "YEAH!", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-					self.view.addSubview(self.loading!)
-
-					NSUserDefaults.standardUserDefaults().setBool(true, forKey: CoreDataStackIcloudFlagForUserDefault)
-					CoreDataStack.sharedInstance
-
-					NSNotificationCenter.defaultCenter().addObserverForName(CoreDataStackDidChangeNotification, object: nil, queue: NSOperationQueue.mainQueue(), usingBlock: { (notification) -> Void in
-
-						MateriaManager.sharedInstance.removeDuplicated()
-						TarefaManager.sharedInstance.removeDuplicated()
-
-						self.arrayMaterias = NSMutableArray(array: MateriaManager.sharedInstance.fetchAllMaterias())
-
-						self.tableView.reloadData()
-						self.loading?.removeFromSuperview()
-                        
-                        self.em.syncCalICloud();
-					})
-				}))
-
-				icloudalert.addAction(UIAlertAction(title: "NOPE!", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
-					NSUserDefaults.standardUserDefaults().setBool(false, forKey: CoreDataStackIcloudFlagForUserDefault)
-					CoreDataStack.sharedInstance
-				}))
-
-				self.presentViewController(icloudalert, animated: true, completion: nil)
-
-			}
-			else{
-				CoreDataStack.sharedInstance
-			}
-		}
-		else{
-			NSUserDefaults.standardUserDefaults().setBool(false, forKey: CoreDataStackIcloudFlagForUserDefault)
-			CoreDataStack.sharedInstance
-		}
+		CloudKitManager.sharedInstance.askForAuth(viewController: self)
 
         self.tableView.delegate = self
         self.tableView.dataSource = self
@@ -100,18 +55,10 @@ class MateriasTableViewController: UIViewController, UITableViewDataSource, UITa
         self.editando = false
         self.editButton.title = "Editar"
 
-		if NSUserDefaults.standardUserDefaults().objectForKey(CoreDataStackIcloudFlagForUserDefault) != nil{
-			refreshData(nil)
-		}
-
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshData:", name: CoreDataStackDidImportedNotification, object: nil)
+		refreshData()
     }
 
-	override func viewWillDisappear(animated: Bool) {
-		NSNotificationCenter.defaultCenter().removeObserver(self, name: CoreDataStackDidImportedNotification, object: nil)
-	}
-
-	@objc func refreshData(notification : NSNotification?){
+	func refreshData(){
 		arrayMaterias = NSMutableArray(array: MateriaManager.sharedInstance.fetchAllMaterias())
 		self.tableView.reloadData()
 	}
@@ -157,7 +104,8 @@ class MateriasTableViewController: UIViewController, UITableViewDataSource, UITa
             
             MateriaManager.sharedInstance.deletaNotifsMateria(self.arrayMaterias.objectAtIndex(indexPath.row) as! Materia)
             
-            MateriaManager.sharedInstance.managedObjectContext.deleteObject(self.arrayMaterias.objectAtIndex(indexPath.row) as! NSManagedObject)
+            MateriaManager.sharedInstance.deletaMateria(self.arrayMaterias.objectAtIndex(indexPath.row) as! Materia)
+			
             self.arrayMaterias.removeObjectAtIndex(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
 

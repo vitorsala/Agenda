@@ -16,7 +16,7 @@ class LocalNotificationManager {
 		// Verifica e pede permisão para o app enviar notificações
 		let notificationSettings = UIUserNotificationSettings(forTypes: (UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound), categories: nil)
 		UIApplication.sharedApplication().registerUserNotificationSettings(notificationSettings)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "syncNotifICloud", name: CoreDataStackDidImportedNotification, object: nil);
+
 	}
 
 	/**

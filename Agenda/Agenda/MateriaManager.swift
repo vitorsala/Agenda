@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import CloudKit
 
 class MateriaManager: NSObject{
     
@@ -24,6 +25,13 @@ class MateriaManager: NSObject{
         newMateria.nomeMateria = nome
         newMateria.idCloud = NSDate().timeIntervalSince1970 as Double
         self.save()
+
+		if CloudKitManager.sharedInstance.icloudEnabled{
+
+			var error : NSError? = nil
+			self.saveInCloud(newMateria, error: &error)
+		}
+
     }
     
     func save() {
@@ -100,4 +108,41 @@ class MateriaManager: NSObject{
             TarefaManager.sharedInstance.deletaNotif(tarefa)
         }
     }
+
+	func deletaMateria(materia: Materia){
+		managedObjectContext.deleteObject(materia)
+
+		if CloudKitManager.sharedInstance.icloudEnabled{
+			self.deleteFromCloud(materia)
+		}
+	}
+
+	func saveInCloud(materia: Materia, inout error err: NSError?){
+		let cloud = CloudKitManager.sharedInstance
+
+		let id = CKRecordID(recordName: "\(materia.idCloud)")
+
+		let record = CKRecord(recordType: MateriaManager.entityName, recordID: id)
+
+		record.setObject(materia.nomeMateria, forKey: "nomeMateria")
+
+		cloud.privateDB.saveRecord(record, completionHandler: { (savedRecord, error) -> Void in
+
+			if error != nil{
+				println(error.localizedDescription)
+			}
+			err = error
+		})
+	}
+
+	func deleteFromCloud(materia: Materia){
+		let cloud = CloudKitManager.sharedInstance
+
+		cloud.privateDB.deleteRecordWithID(CKRecordID(recordName: "\(materia.idCloud)"), completionHandler: { (record, error) -> Void in
+
+			if error != nil{
+				println(error.localizedDescription)
+			}
+		})
+	}
 }
