@@ -18,6 +18,7 @@ class EventManager {
     
     private init() {
         eventStore = EKEventStore();
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "syncCalICloud", name: didFinishedSyncWithCloudNotification, object: nil)
     }
     
     func criaCalendario(){

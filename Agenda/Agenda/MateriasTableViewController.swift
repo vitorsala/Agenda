@@ -49,16 +49,21 @@ class MateriasTableViewController: UIViewController, UITableViewDataSource, UITa
 
         // Do any additional setup after loading the view.
     }
-    
-    override func viewWillAppear(animated: Bool) {
 
+    override func viewWillAppear(animated: Bool) {
         self.editando = false
         self.editButton.title = "Editar"
-
-		refreshData()
+        
+        refreshData(nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshData:", name: didFinishedSyncWithCloudNotification, object: nil)
     }
-
-	func refreshData(){
+    
+    override func viewWillDisappear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: didFinishedSyncWithCloudNotification, object: nil)
+    }
+    
+    func refreshData(notification : NSNotification?){
 		arrayMaterias = NSMutableArray(array: MateriaManager.sharedInstance.fetchAllMaterias())
 		self.tableView.reloadData()
 	}

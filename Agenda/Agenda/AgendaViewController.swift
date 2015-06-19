@@ -38,17 +38,23 @@ class AgendaViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
-
+        
         
         //Array de DataQtd pro auxilio das sections.
         dias = NSMutableArray();
     }
 
-	override func viewWillAppear(animated: Bool) {
-		refreshData()
-	}
+    override func viewWillAppear(animated: Bool) {
+        refreshData(nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshData:", name: didFinishedSyncWithCloudNotification, object: nil)
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: didFinishedSyncWithCloudNotification, object: nil)
+    }
 
-	func refreshData(){
+	func refreshData(notification : NSNotification?){
         if(self.segmentControl.selectedSegmentIndex == 0){
             atividades = NSMutableArray(array: TarefaManager.sharedInstance.fetchTarefasFuturas())
         } else {

@@ -17,6 +17,7 @@ class LocalNotificationManager {
 		let notificationSettings = UIUserNotificationSettings(forTypes: (UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound), categories: nil)
 		UIApplication.sharedApplication().registerUserNotificationSettings(notificationSettings)
 
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "syncNotifICloud", name: didFinishedSyncWithCloudNotification, object: nil)
 	}
 
 	/**

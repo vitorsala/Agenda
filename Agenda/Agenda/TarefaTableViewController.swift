@@ -31,10 +31,16 @@ class TarefaTableViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     override func viewWillAppear(animated: Bool) {
-        refreshData()
+        refreshData(nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshData:", name: didFinishedSyncWithCloudNotification, object: nil)
     }
-
-	func refreshData(){
+    
+    override func viewWillDisappear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: didFinishedSyncWithCloudNotification, object: nil)
+    }
+    
+    func refreshData(notification : NSNotification?){
 		tarefas = NSMutableArray(array: TarefaManager.sharedInstance.fetchTarefasForMateria(self.materia))
 		self.tableView.reloadData()
 	}

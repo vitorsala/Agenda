@@ -23,11 +23,17 @@ class RelatorioViewController: UIViewController, UITableViewDataSource, UITableV
         // Do any additional setup after loading the view.
     }
 
-	override func viewWillAppear(animated: Bool) {
-		refreshData()
-	}
-
-	func refreshData(){
+    override func viewWillAppear(animated: Bool) {
+        refreshData(nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshData:", name: didFinishedSyncWithCloudNotification, object: nil)
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: didFinishedSyncWithCloudNotification, object: nil)
+    }
+    
+    func refreshData(notification : NSNotification?){
 		self.materias = NSMutableArray(array: MateriaManager.sharedInstance.fetchAllMaterias())
 		self.tableView.reloadData()
 	}
