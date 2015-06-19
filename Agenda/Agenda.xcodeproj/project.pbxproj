@@ -27,6 +27,8 @@
 		153B760F1B28AA1700EC5070 /* OptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153B760E1B28AA1700EC5070 /* OptionsViewController.swift */; };
 		153B76111B28AB0D00EC5070 /* EditarMateriaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153B76101B28AB0D00EC5070 /* EditarMateriaViewController.swift */; };
 		153B76131B28AEFF00EC5070 /* EditarTarefaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153B76121B28AEFF00EC5070 /* EditarTarefaViewController.swift */; };
+		4E1DA84E1B335E39005F6928 /* Atividade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1DA84C1B335E39005F6928 /* Atividade.swift */; };
+		4E1DA84F1B335E39005F6928 /* Materia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1DA84D1B335E39005F6928 /* Materia.swift */; };
 		4E6C9E261B1D03F8000C4CFA /* TarefasCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6C9E251B1D03F8000C4CFA /* TarefasCell.swift */; };
 		4EFFD8131B1E53DF00580BBF /* EventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFFD8121B1E53DF00580BBF /* EventManager.swift */; };
 		EB1BB5B01B31FFE80096F0E4 /* LocalNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1BB5AF1B31FFE80096F0E4 /* LocalNotificationManager.swift */; };
@@ -70,6 +72,8 @@
 		153B760E1B28AA1700EC5070 /* OptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsViewController.swift; sourceTree = "<group>"; };
 		153B76101B28AB0D00EC5070 /* EditarMateriaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditarMateriaViewController.swift; sourceTree = "<group>"; };
 		153B76121B28AEFF00EC5070 /* EditarTarefaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditarTarefaViewController.swift; sourceTree = "<group>"; };
+		4E1DA84C1B335E39005F6928 /* Atividade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Atividade.swift; path = Agenda/Atividade.swift; sourceTree = "<group>"; };
+		4E1DA84D1B335E39005F6928 /* Materia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Materia.swift; path = Agenda/Materia.swift; sourceTree = "<group>"; };
 		4E6C9E251B1D03F8000C4CFA /* TarefasCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TarefasCell.swift; sourceTree = "<group>"; };
 		4EFFD8121B1E53DF00580BBF /* EventManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventManager.swift; sourceTree = "<group>"; };
 		EB1BB5AF1B31FFE80096F0E4 /* LocalNotificationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalNotificationManager.swift; sourceTree = "<group>"; };
@@ -100,6 +104,8 @@
 		153B75861B1CD43C00EC5070 = {
 			isa = PBXGroup;
 			children = (
+				4E1DA84C1B335E39005F6928 /* Atividade.swift */,
+				4E1DA84D1B335E39005F6928 /* Materia.swift */,
 				153B75911B1CD43C00EC5070 /* Agenda */,
 				153B75AA1B1CD43C00EC5070 /* AgendaTests */,
 				153B75901B1CD43C00EC5070 /* Products */,
@@ -167,8 +173,6 @@
 		153B75BB1B1CE61B00EC5070 /* Entidades */ = {
 			isa = PBXGroup;
 			children = (
-				E858C0011B309343004DEB01 /* Atividade.swift */,
-				E858C0021B309343004DEB01 /* Materia.swift */,
 				E81A01DE1B29CA3B00BE17C8 /* Metéria */,
 				E81A01DF1B29CA4600BE17C8 /* Tarefa */,
 				E81A01E01B29CA9100BE17C8 /* Manager */,
@@ -323,7 +327,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E858C0031B309343004DEB01 /* Atividade.swift in Sources */,
+				4E1DA84E1B335E39005F6928 /* Atividade.swift in Sources */,
+				4E1DA84F1B335E39005F6928 /* Materia.swift in Sources */,
 				153B760F1B28AA1700EC5070 /* OptionsViewController.swift in Sources */,
 				EB1BB5B01B31FFE80096F0E4 /* LocalNotificationManager.swift in Sources */,
 				153B75D31B1E77C600EC5070 /* StatusTarefaViewController.swift in Sources */,
@@ -334,7 +339,6 @@
 				153B76111B28AB0D00EC5070 /* EditarMateriaViewController.swift in Sources */,
 				153B75CB1B1E2B9300EC5070 /* AgendaViewController.swift in Sources */,
 				153B76131B28AEFF00EC5070 /* EditarTarefaViewController.swift in Sources */,
-				E858C0041B309343004DEB01 /* Materia.swift in Sources */,
 				153B759A1B1CD43C00EC5070 /* ViewController.swift in Sources */,
 				153B75951B1CD43C00EC5070 /* AppDelegate.swift in Sources */,
 				153B75CF1B1E474400EC5070 /* NotasMateriaViewController.swift in Sources */,

@@ -34,35 +34,96 @@ class TarefaManager: NSObject{
         
     }
     
+//    func criaNotif(newTarefa: Atividade) {
+//        //cria notif
+//        let ud = NSUserDefaults.standardUserDefaults()
+//        if ud.valueForKey("horaAlerta") == nil {
+//            ud.setValue(NSDate(), forKey: "horaAlerta")
+//        }
+//        let comeco : String;
+//        if(newTarefa.tipoAtiv == 0){
+//            comeco = "Realização de prova";
+//        } else {
+//            comeco = "Entrega de trabalho";
+//        }
+//        for i in 0...7 {
+//            //montando o horario correto - favor testar
+//            var dia = newTarefa.dataEntrega
+//            //Se o dia iterado for depois que o horário atual, coloca no calendário
+//            if(dia.dateByAddingTimeInterval((-60)*60*24*Double(i)).timeIntervalSinceDate(NSDate()) > 0){
+//                
+//                
+//                var unitFlags = NSCalendarUnit.CalendarUnitYear | NSCalendarUnit.CalendarUnitMonth |  NSCalendarUnit.CalendarUnitDay
+//                var calendar = NSCalendar.currentCalendar()
+//                var comps = calendar.components(unitFlags, fromDate: dia)
+//                comps.day -= i
+//                comps.hour = calendar.component(NSCalendarUnit.CalendarUnitHour, fromDate: (ud.valueForKey("horaAlerta") as! NSDate))
+//                comps.minute = calendar.component(NSCalendarUnit.CalendarUnitMinute, fromDate: (ud.valueForKey("horaAlerta") as! NSDate))
+//                comps.second = i;
+//                var newDate = calendar.dateFromComponents(comps)
+//
+//                var message:String
+//                
+//                if i == 0 {
+//                    message = "\(comeco) hoje!"//"A data da atividade é hoje!"
+//                }
+//                else if i == 1 {
+//                    message = "\(comeco) daqui um dia."//"Falta um dia para a data d atividade."
+//                }
+//                else{
+//                    message = "\(comeco) daqui \(i) dias."//"Faltam \(i) dias para a data da atividade."
+//                }
+//                
+//                LocalNotificationManager.sharedInstance.scheduleNewNotification(title: "\(newTarefa.disciplina.nomeMateria): \(newTarefa.nomeAtiv)", msg: message, action: "Ok", options: ["\(newTarefa.idCloud.floatValue)": i], toDate: newDate!)
+//            } else {
+//                //Se não, não coloca e sai do for.
+//                break;
+//            }
+//        }
+//    }
+    
     func criaNotif(newTarefa: Atividade) {
-        //cria notif
-        let ud = NSUserDefaults.standardUserDefaults()
-        if ud.valueForKey("horaAlerta") == nil {
-            ud.setValue(NSDate(), forKey: "horaAlerta")
-        }
-        let comeco : String;
-        if(newTarefa.tipoAtiv == 0){
-            comeco = "Realização de prova";
-        } else {
-            comeco = "Entrega de trabalho";
-        }
-        for i in 0...7 {
-            //montando o horario correto - favor testar
-            var dia = newTarefa.dataEntrega
-            //Se o dia iterado for depois que o horário atual, coloca no calendário
-            if(dia.dateByAddingTimeInterval((-60)*60*24*Double(i)).timeIntervalSinceDate(NSDate()) > 0){
-                
-                
+        //Se a entrega for no passado (hue)
+        if(newTarefa.dataEntrega.timeIntervalSinceDate(NSDate()) > 0){
+            let ud = NSUserDefaults.standardUserDefaults()
+            if ud.valueForKey("horaAlerta") == nil {
+                ud.setValue(NSDate(), forKey: "horaAlerta")
+            }
+            let comeco : String;
+            if(newTarefa.tipoAtiv == 0){
+                comeco = "Realização de prova";
+            } else {
+                comeco = "Entrega de trabalho";
+            }
+            
+            //i é a diferença entre a data atual e a entrega (não sendo > 7).
+            var i = daysBetweenDates(NSDate(), toDate: newTarefa.dataEntrega);
+            if(i > 7){
+                i = 7;
+            }
+            for i; i >= 0; i-- {
+                var dia = newTarefa.dataEntrega
+                //Se o dia iterado for depois que o horário atual, coloca no calendário
+                    
+                    
                 var unitFlags = NSCalendarUnit.CalendarUnitYear | NSCalendarUnit.CalendarUnitMonth |  NSCalendarUnit.CalendarUnitDay
                 var calendar = NSCalendar.currentCalendar()
                 var comps = calendar.components(unitFlags, fromDate: dia)
                 comps.day -= i
                 comps.hour = calendar.component(NSCalendarUnit.CalendarUnitHour, fromDate: (ud.valueForKey("horaAlerta") as! NSDate))
                 comps.minute = calendar.component(NSCalendarUnit.CalendarUnitMinute, fromDate: (ud.valueForKey("horaAlerta") as! NSDate))
-                comps.second = 0
+                comps.second = i;
                 var newDate = calendar.dateFromComponents(comps)
-
+                
                 var message:String
+                
+                //Se for o dia da entrega
+                if(i == 0){
+                    //Se o horário da entrega for antes que o horário do disparo, para tudo.
+                    if(newDate!.timeIntervalSinceDate(dia) > 0){
+                        break;
+                    }
+                }
                 
                 if i == 0 {
                     message = "\(comeco) hoje!"//"A data da atividade é hoje!"
@@ -75,11 +136,18 @@ class TarefaManager: NSObject{
                 }
                 
                 LocalNotificationManager.sharedInstance.scheduleNewNotification(title: "\(newTarefa.disciplina.nomeMateria): \(newTarefa.nomeAtiv)", msg: message, action: "Ok", options: ["\(newTarefa.idCloud.floatValue)": i], toDate: newDate!)
-            } else {
-                //Se não, não coloca e sai do for.
-                break;
-            }
-        }
+                
+            }//for
+        }//if passado
+    }
+    
+    private func daysBetweenDates(fromDate: NSDate, toDate: NSDate) -> Int{
+        //DateFormatter MasterRace
+        let dateFormatter = NSDateFormatter();
+        dateFormatter.dateFormat = "dd";
+        let fromDay = dateFormatter.stringFromDate(fromDate);
+        let toDay = dateFormatter.stringFromDate(toDate);
+        return toDay.toInt()! - fromDay.toInt()!;
     }
     
     func atualizaNotif(tarefa:Atividade) {
