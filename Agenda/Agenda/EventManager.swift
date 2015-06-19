@@ -265,6 +265,7 @@ class EventManager {
                 cal.addObject(calendar);
                 break;
             }
+
         }
         
         let pred = eventStore.predicateForEventsWithStartDate(NSDate(), endDate: futuro, calendars: cal as [AnyObject]);

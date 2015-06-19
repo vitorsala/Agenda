@@ -307,6 +307,31 @@ class TarefaManager: NSObject{
 		})
 	}
 
+	func updateInCloud(tarefa: Atividade){
+		let cloud = CloudKitManager.sharedInstance
+
+		cloud.privateDB.fetchRecordWithID(CKRecordID(recordName: tarefa.idCloud), completionHandler: { (record: CKRecord!, error: NSError!) -> Void in
+
+			if error == nil{
+				record.setObject(tarefa.nomeAtiv, forKey: "nomeAtiv")
+				record.setObject(tarefa.avaliado, forKey: "avaliado")
+				record.setObject(tarefa.dataEntrega, forKey: "dataEntrega")
+				record.setObject(tarefa.nota, forKey: "nota")
+				record.setObject(tarefa.tipoAtiv, forKey: "tipoAtiv")
+
+				cloud.privateDB.saveRecord(record, completionHandler: { (record: CKRecord!, error: NSError!) -> Void in
+					if error != nil{
+						println(error.localizedDescription)
+					}
+				})
+			}
+			else{
+				println(error.localizedDescription)
+			}
+
+		})
+	}
+
 	func deleteFromCloud(tarefa: Atividade){
 		let cloud = CloudKitManager.sharedInstance
 

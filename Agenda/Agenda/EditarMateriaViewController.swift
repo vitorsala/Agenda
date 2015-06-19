@@ -39,6 +39,7 @@ class EditarMateriaViewController: UIViewController {
         materia.nomeMateria = textField.text
         
         MateriaManager.sharedInstance.save()
+		MateriaManager.sharedInstance.updateInCloud(materia)
         
         self.navigationController?.popViewControllerAnimated(true)
     }

@@ -139,6 +139,26 @@ class MateriaManager: NSObject{
 		})
 	}
 
+	func updateInCloud(materia: Materia){
+		let cloud = CloudKitManager.sharedInstance
+
+		cloud.privateDB.fetchRecordWithID(CKRecordID(recordName: materia.idCloud), completionHandler: { (record: CKRecord!, error: NSError!) -> Void in
+
+			if error == nil{
+				record.setObject(materia.nomeMateria, forKey: "nomeMateria")
+				cloud.privateDB.saveRecord(record, completionHandler: { (record: CKRecord!, error: NSError!) -> Void in
+					if error != nil{
+						println(error.localizedDescription)
+					}
+				})
+			}
+			else{
+				println(error.localizedDescription)
+			}
+
+		})
+	}
+
 	func deleteFromCloud(materia: Materia){
 		let cloud = CloudKitManager.sharedInstance
 

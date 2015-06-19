@@ -41,6 +41,7 @@ class EditarTarefaViewController: UIViewController {
         tarefa.dataEntrega = datePicker.date
         
         TarefaManager.sharedInstance.save()
+		TarefaManager.sharedInstance.updateInCloud(tarefa)
         
         TarefaManager.sharedInstance.atualizaNotif(tarefa)
         
