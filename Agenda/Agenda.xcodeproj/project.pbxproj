@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1529C1ED1B37637C00D4B3B6 /* ConnectionCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1529C1EC1B37637C00D4B3B6 /* ConnectionCheck.swift */; };
 		153B75951B1CD43C00EC5070 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153B75941B1CD43C00EC5070 /* AppDelegate.swift */; };
 		153B75981B1CD43C00EC5070 /* Agenda.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 153B75961B1CD43C00EC5070 /* Agenda.xcdatamodeld */; };
 		153B759A1B1CD43C00EC5070 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153B75991B1CD43C00EC5070 /* ViewController.swift */; };
@@ -51,6 +52,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1529C1EC1B37637C00D4B3B6 /* ConnectionCheck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionCheck.swift; sourceTree = "<group>"; };
 		153B758F1B1CD43C00EC5070 /* Agenda.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Agenda.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		153B75931B1CD43C00EC5070 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		153B75941B1CD43C00EC5070 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 				EB4573351B290CEF0072912C /* LoadingView.xib */,
 				EB1BB5AF1B31FFE80096F0E4 /* LocalNotificationManager.swift */,
 				EB1BB5C01B34C5CF0096F0E4 /* Util.swift */,
+				1529C1EC1B37637C00D4B3B6 /* ConnectionCheck.swift */,
 			);
 			path = Agenda;
 			sourceTree = "<group>";
@@ -363,6 +366,7 @@
 				153B75CF1B1E474400EC5070 /* NotasMateriaViewController.swift in Sources */,
 				153B75BF1B1CE82900EC5070 /* AddMateriaViewController.swift in Sources */,
 				153B75C71B1CF6A900EC5070 /* AddTarefaViewController.swift in Sources */,
+				1529C1ED1B37637C00D4B3B6 /* ConnectionCheck.swift in Sources */,
 				153B75981B1CD43C00EC5070 /* Agenda.xcdatamodeld in Sources */,
 				4E6C9E261B1D03F8000C4CFA /* TarefasCell.swift in Sources */,
 				153B75BD1B1CE77500EC5070 /* MateriasTableViewController.swift in Sources */,
