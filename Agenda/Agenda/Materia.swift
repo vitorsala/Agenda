@@ -2,7 +2,7 @@
 //  Materia.swift
 //  Agenda
 //
-//  Created by Bruno Omella Mainieri on 6/14/15.
+//  Created by Vitor Kawai Sala on 19/06/15.
 //  Copyright (c) 2015 Melhor Grupo. All rights reserved.
 //
 
@@ -11,8 +11,8 @@ import CoreData
 
 class Materia: NSManagedObject {
 
+    @NSManaged var idCloud: String
     @NSManaged var nomeMateria: String
-    @NSManaged var idCloud: NSNumber
     @NSManaged var atividadesDaMateria: NSSet
 
 }

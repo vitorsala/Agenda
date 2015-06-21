@@ -19,7 +19,11 @@ class TarefaManager: NSObject{
         var coredata = CoreDataStack.sharedInstance;
         return coredata.managedObjectContext!
         }()
-    
+
+
+	func newTarefa() -> Atividade{
+		return NSEntityDescription.insertNewObjectForEntityForName(TarefaManager.entityName, inManagedObjectContext: managedObjectContext) as! Atividade
+	}
     
     //TIPO 0 = PROVA   TIPO 1 = TRABALHO
     func insertNewTarefa(nome:String, disc:Materia, data:NSDate, tipo:Int){
@@ -28,7 +32,7 @@ class TarefaManager: NSObject{
         newTarefa.disciplina = disc
         newTarefa.dataEntrega = data
         newTarefa.tipoAtiv = tipo
-        newTarefa.idCloud = NSDate().timeIntervalSince1970 as Double
+        newTarefa.idCloud = "\(NSDate().timeIntervalSince1970 as Double)"
         self.save()
 
         self.criaNotif(newTarefa)
@@ -168,7 +172,7 @@ class TarefaManager: NSObject{
     
     func deletaNotif(tarefa:Atividade) {
         var notif = LocalNotificationManager.sharedInstance.getNotificationUsingFilter { (notification) -> (Bool) in
-            return notification.userInfo?["\(tarefa.idCloud.floatValue)"] != nil
+            return notification.userInfo?[tarefa.idCloud] != nil
         }
         for eachNotif in notif {
             LocalNotificationManager.sharedInstance.cancelSingleScheduledNotification(eachNotif)
@@ -327,33 +331,33 @@ class TarefaManager: NSObject{
 		}
 	}
 
-	func removeDuplicated(){
-		func removeDuplicated(){
-			var tarefas = self.fetchAllTarefas() // Pega todos as materias existentes
-			tarefas.sort{$0.0.nomeAtiv.compare($0.1.nomeAtiv) == NSComparisonResult.OrderedDescending}
-			while tarefas.count > 1 {
-				if tarefas[0].nomeAtiv == tarefas[1].nomeAtiv {
-					if tarefas[0].idCloud.doubleValue > tarefas[1].idCloud.doubleValue{
-						managedObjectContext.deleteObject(tarefas[1])
-						tarefas.removeAtIndex(1)
-					}
-					else{
-						managedObjectContext.deleteObject(tarefas[0])
-						tarefas.removeAtIndex(0)
-					}
-				}
-				else{
-					tarefas.removeAtIndex(0)
-				}
-			}
-			self.save()
-		}
-	}
+//	func removeDuplicated(){
+//		func removeDuplicated(){
+//			var tarefas = self.fetchAllTarefas() // Pega todos as materias existentes
+//			tarefas.sort{$0.0.nomeAtiv.compare($0.1.nomeAtiv) == NSComparisonResult.OrderedDescending}
+//			while tarefas.count > 1 {
+//				if tarefas[0].nomeAtiv == tarefas[1].nomeAtiv {
+//					if tarefas[0].idCloud.doubleValue > tarefas[1].idCloud.doubleValue{
+//						managedObjectContext.deleteObject(tarefas[1])
+//						tarefas.removeAtIndex(1)
+//					}
+//					else{
+//						managedObjectContext.deleteObject(tarefas[0])
+//						tarefas.removeAtIndex(0)
+//					}
+//				}
+//				else{
+//					tarefas.removeAtIndex(0)
+//				}
+//			}
+//			self.save()
+//		}
+//	}
 
 	func saveInCloud(tarefa: Atividade, inout error err: NSError?){
 		let cloud = CloudKitManager.sharedInstance
 
-		let id = CKRecordID(recordName: "\(tarefa.idCloud)")
+		let id = CKRecordID(recordName: tarefa.idCloud)
 		let record = CKRecord(recordType: TarefaManager.entityName, recordID: id)
 
 		record.setObject(tarefa.nomeAtiv, forKey: "nomeAtiv")
@@ -375,14 +379,40 @@ class TarefaManager: NSObject{
 		})
 	}
 
+	func updateInCloud(tarefa: Atividade){
+		let cloud = CloudKitManager.sharedInstance
+
+		cloud.privateDB.fetchRecordWithID(CKRecordID(recordName: tarefa.idCloud), completionHandler: { (record: CKRecord!, error: NSError!) -> Void in
+
+			if error == nil{
+				record.setObject(tarefa.nomeAtiv, forKey: "nomeAtiv")
+				record.setObject(tarefa.avaliado, forKey: "avaliado")
+				record.setObject(tarefa.dataEntrega, forKey: "dataEntrega")
+				record.setObject(tarefa.nota, forKey: "nota")
+				record.setObject(tarefa.tipoAtiv, forKey: "tipoAtiv")
+
+				cloud.privateDB.saveRecord(record, completionHandler: { (record: CKRecord!, error: NSError!) -> Void in
+					if error != nil{
+						println(error.localizedDescription)
+					}
+				})
+			}
+			else{
+				println(error.localizedDescription)
+			}
+
+		})
+	}
+
 	func deleteFromCloud(tarefa: Atividade){
 		let cloud = CloudKitManager.sharedInstance
 
-		cloud.privateDB.deleteRecordWithID(CKRecordID(recordName: "\(tarefa.idCloud)"), completionHandler: { (record, error) -> Void in
+		cloud.privateDB.deleteRecordWithID(CKRecordID(recordName: tarefa.idCloud), completionHandler: { (record, error) -> Void in
 
 			if error != nil{
 				println(error.localizedDescription)
 			}
 		})
 	}
+
 }

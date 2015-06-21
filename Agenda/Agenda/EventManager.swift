@@ -18,6 +18,7 @@ class EventManager {
     
     private init() {
         eventStore = EKEventStore();
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "syncCalICloud", name: didFinishedSyncWithCloudNotification, object: nil)
     }
     
     func criaCalendario(){
@@ -264,6 +265,7 @@ class EventManager {
                 cal.addObject(calendar);
                 break;
             }
+
         }
         
         let pred = eventStore.predicateForEventsWithStartDate(NSDate(), endDate: futuro, calendars: cal as [AnyObject]);
