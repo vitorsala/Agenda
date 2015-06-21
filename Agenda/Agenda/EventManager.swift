@@ -136,9 +136,9 @@ class EventManager {
             if(evento.title == tarefa.nomeAtiv && evento.startDate == tarefa.dataEntrega){
                 evento.title = nNome;
                 evento.startDate = nData;
-                evento.endDate = evento.startDate.dateByAddingTimeInterval(1 * 60 * 60);
+                evento.endDate = evento.startDate.dateByAddingTimeInterval(60);
                 evento.alarms = nil;
-                evento.addAlarm(EKAlarm(relativeOffset: -60));
+                //evento.addAlarm(EKAlarm(relativeOffset: -60));
                 
                 // Salvando o evento no calendario.
                 var error: NSError?

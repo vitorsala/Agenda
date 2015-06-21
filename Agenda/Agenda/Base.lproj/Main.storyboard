@@ -1031,7 +1031,7 @@
         <!--Agenda-->
         <scene sceneID="2wN-KS-tgF">
             <objects>
-                <viewController title="Agenda" id="ZZ5-EQ-0GH" customClass="AgendaViewController" customModule="Agenda" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="agenda" title="Agenda" id="ZZ5-EQ-0GH" customClass="AgendaViewController" customModule="Agenda" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="79N-b7-QBh"/>
                         <viewControllerLayoutGuide type="bottom" id="We0-fZ-fy1"/>
@@ -1412,7 +1412,7 @@
         <!--Agenda-->
         <scene sceneID="Yss-rM-fmX">
             <objects>
-                <navigationController id="Uva-av-UXh" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="agendaNav" id="Uva-av-UXh" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Agenda" image="Calendar-32" id="S7M-yQ-reh"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="AWe-s4-0wW">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1434,7 +1434,7 @@
         <!--Agenda-->
         <scene sceneID="QrR-hY-jWS">
             <objects>
-                <tabBarController title="Agenda" id="LcT-VO-1xY" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="tabBar" title="Agenda" id="LcT-VO-1xY" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" title="Matérias" id="ah8-jV-WFw"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="Mf1-g1-c7Q">
@@ -1453,7 +1453,7 @@
             </objects>
             <point key="canvasLocation" x="-430" y="-1489"/>
         </scene>
-        <!--Options View Controller-->
+        <!--Configurações-->
         <scene sceneID="VIy-M5-8E0">
             <objects>
                 <tableViewController id="UNr-Ym-acf" customClass="OptionsViewController" customModule="Agenda" customModuleProvider="target" sceneMemberID="viewController">
@@ -1697,7 +1697,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Vx8-Dw-Oi3" id="1Zk-oO-sXy">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <datePicker contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="7IA-CB-bta">
+                                                <datePicker contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="7IA-CB-bta">
                                                     <rect key="frame" x="0.0" y="48" width="600" height="162"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="600" id="EAH-Tp-kpe"/>
@@ -1817,7 +1817,7 @@
                             <outlet property="delegate" destination="UNr-Ym-acf" id="GXD-1j-Zpi"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" systemItem="downloads" id="G28-Zn-jZW"/>
+                    <tabBarItem key="tabBarItem" title="Configurações" image="Settings Filled-32" id="G28-Zn-jZW"/>
                     <connections>
                         <outlet property="alarme" destination="7IA-CB-bta" id="X7W-de-Xeq"/>
                         <outlet property="icloudSwitch" destination="vH2-JS-DxX" id="J2C-6i-tNf"/>
@@ -1840,5 +1840,6 @@
         <image name="Books-32" width="32" height="32"/>
         <image name="Calendar-32" width="32" height="32"/>
         <image name="Report Card-32" width="32" height="32"/>
+        <image name="Settings Filled-32" width="32" height="32"/>
     </resources>
 </document>

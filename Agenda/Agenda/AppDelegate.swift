@@ -58,6 +58,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Saves changes in the application's managed object context before the application terminates.
         CoreDataStack.sharedInstance.saveContext()
     }
+    
+    //Notification
+//    func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
+//        println("ayy local");
+//        let sb = UIStoryboard(name: "Main", bundle: nil);
+//        let agenda = sb.instantiateViewControllerWithIdentifier("tabBar") as! UINavigationController;
+//        self.window?.rootViewController?.presentViewController(agenda, animated: false, completion: nil);
+//    }
+//    
+    
+//    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+//
+//    }
 
 
 }

@@ -34,7 +34,6 @@ class LocalNotificationManager {
 		let settings = UIApplication.sharedApplication().currentUserNotificationSettings()
 
 		if settings.types != UIUserNotificationType.None{	// Verifica se as notificações estão bloqueados
-
 			let localNotification:UILocalNotification = UILocalNotification()
 			// Seta ação, título e mensagem.
 			localNotification.alertAction = action
