@@ -17,7 +17,7 @@ class LocalNotificationManager {
 		let notificationSettings = UIUserNotificationSettings(forTypes: (UIUserNotificationType.Alert | UIUserNotificationType.Badge | UIUserNotificationType.Sound), categories: nil)
 		UIApplication.sharedApplication().registerUserNotificationSettings(notificationSettings)
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "syncNotifICloud", name: didFinishedSyncWithCloudNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "syncNotifICloud:", name: "didFinishedSyncWithCloud", object: nil)
 	}
 
 	/**
@@ -132,7 +132,7 @@ class LocalNotificationManager {
     /**
     Atualiza as notificações locais quando sincronizar com o iCloud
     */
-    @objc func syncNotifICloud(){
+    @objc func syncNotifICloud(notif: NSNotification){
         let tarefas: NSArray = TarefaManager.sharedInstance.fetchTarefasFuturas()
         self.cancelAllScheduledNotification()
         for t in tarefas{

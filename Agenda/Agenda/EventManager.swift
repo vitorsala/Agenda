@@ -18,7 +18,7 @@ class EventManager {
     
     private init() {
         eventStore = EKEventStore();
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "syncCalICloud", name: didFinishedSyncWithCloudNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "syncCalICloud:", name: "didFinishedSyncWithCloud", object: nil)
     }
     
     func criaCalendario(){
@@ -40,10 +40,12 @@ class EventManager {
         } else {
             let calendario = EKCalendar(forEntityType: EKEntityTypeEvent, eventStore: eventStore);
             calendario.title = "AgendApp";
-            for source in eventStore.sources(){
-                //let currentSourceType = source.sourceType as EKSourceType;
-                if (source.sourceType.value == EKSourceTypeLocal.value){
-                    calendario.source = source as! EKSource;
+            if eventStore.sources() != nil {
+                for source in eventStore.sources(){
+                    //let currentSourceType = source.sourceType as EKSourceType;
+                    if (source.sourceType.value == EKSourceTypeLocal.value){
+                        calendario.source = source as! EKSource;
+                    }
                 }
             }
             
@@ -172,6 +174,10 @@ class EventManager {
             }
         }
         
+        if cal.count < 1{
+            return
+        }
+        
         let pred = eventStore.predicateForEventsWithStartDate(NSDate(), endDate: futuro, calendars: cal as [AnyObject]);
         let eventos = NSMutableArray(array: eventStore.eventsMatchingPredicate(pred));
         for evento in eventos{
@@ -185,7 +191,7 @@ class EventManager {
         }
     }
     
-    @objc func syncCalICloud(){
+    @objc func syncCalICloud(notif:NSNotification){
         let tarefas: NSArray = TarefaManager.sharedInstance.fetchTarefasFuturas()
         self.deletaEventosFuturos();
         for t in tarefas{

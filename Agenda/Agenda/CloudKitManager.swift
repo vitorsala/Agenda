@@ -164,6 +164,7 @@ class CloudKitManager{
 							newTarefa.nota = result.objectForKey("nota") as! NSNumber
 							newTarefa.tipoAtiv = result.objectForKey("tipoAtiv") as! NSNumber
 							newTarefa.avaliado = result.objectForKey("avaliado") as! NSNumber
+                            newTarefa.entregue = result.objectForKey("entregue") as! NSNumber
 							newTarefa.disciplina = disciplinas.filter({ (e:AnyObject) -> Bool in
 								if let obj = e as? Materia{
 									return obj.idCloud == (result.objectForKey("disciplina") as! CKReference).recordID.recordName

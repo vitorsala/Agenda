@@ -23,6 +23,7 @@ class TarefaTableViewController: UIViewController, UITableViewDataSource, UITabl
         self.tableView.delegate = self
         self.tableView.dataSource = self
         // Do any additional setup after loading the view.
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -86,7 +87,7 @@ class TarefaTableViewController: UIViewController, UITableViewDataSource, UITabl
             EventManager.sharedInstance.deletaTarefa(self.tarefas.objectAtIndex(indexPath.row) as! Atividade);
             TarefaManager.sharedInstance.deletaNotif(self.tarefas.objectAtIndex(indexPath.row) as! Atividade)
             
-            TarefaManager.sharedInstance.managedObjectContext.deleteObject(self.tarefas.objectAtIndex(indexPath.row) as! NSManagedObject)
+            TarefaManager.sharedInstance.deleteTarefa(tarefa: self.tarefas.objectAtIndex(indexPath.row) as! Atividade)
             self.tarefas.removeObjectAtIndex(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
             

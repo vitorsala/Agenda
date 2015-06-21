@@ -149,7 +149,7 @@ class TarefaManager: NSObject{
                         message = "\(comeco) daqui \(i) dias."//"Faltam \(i) dias para a data da atividade."
                     }
                     
-                    LocalNotificationManager.sharedInstance.scheduleNewNotification(title: "\(newTarefa.disciplina.nomeMateria): \(newTarefa.nomeAtiv)", msg: message, action: "Ok", options: ["\(newTarefa.idCloud.floatValue)": i], toDate: newDate!)
+                    LocalNotificationManager.sharedInstance.scheduleNewNotification(title: "\(newTarefa.disciplina.nomeMateria): \(newTarefa.nomeAtiv)", msg: message, action: "Ok", options: ["\(newTarefa.idCloud)": i], toDate: newDate!)
                 }
                 
             }//for
@@ -365,6 +365,7 @@ class TarefaManager: NSObject{
 		record.setObject(tarefa.dataEntrega, forKey: "dataEntrega")
 		record.setObject(tarefa.nota, forKey: "nota")
 		record.setObject(tarefa.tipoAtiv, forKey: "tipoAtiv")
+        record.setObject(tarefa.entregue, forKey: "entregue")
 
 		let reference = CKReference(recordID: CKRecordID(recordName: "\(tarefa.disciplina.idCloud)"), action: CKReferenceAction.DeleteSelf)
 
@@ -390,6 +391,7 @@ class TarefaManager: NSObject{
 				record.setObject(tarefa.dataEntrega, forKey: "dataEntrega")
 				record.setObject(tarefa.nota, forKey: "nota")
 				record.setObject(tarefa.tipoAtiv, forKey: "tipoAtiv")
+                record.setObject(tarefa.entregue, forKey: "entregue")
 
 				cloud.privateDB.saveRecord(record, completionHandler: { (record: CKRecord!, error: NSError!) -> Void in
 					if error != nil{
