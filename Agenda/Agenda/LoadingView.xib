@@ -11,10 +11,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FtJ-qf-YYH" customClass="InternalLoadingView" customModule="Agenda" customModuleProvider="target">
-                    <rect key="frame" x="100" y="228" width="400" height="120"/>
+                    <rect key="frame" x="20" y="228" width="560" height="120"/>
                     <subviews>
                         <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="s5w-jJ-sOu" customClass="ActivityIndicator" customModule="Agenda" customModuleProvider="target">
-                            <rect key="frame" x="180" y="65" width="40" height="40"/>
+                            <rect key="frame" x="180" y="65" width="20" height="20"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="number" keyPath="scaleMultiplier">
                                     <real key="value" value="2"/>
@@ -28,7 +28,7 @@
                             </variation>
                         </activityIndicatorView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Carregando dados do iCloud" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UBZ-6N-mzt">
-                            <rect key="frame" x="10" y="15" width="380" height="40"/>
+                            <rect key="frame" x="10" y="15" width="540" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="EFA-jK-MyG"/>
                             </constraints>
@@ -72,8 +72,8 @@
             </subviews>
             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstItem="FtJ-qf-YYH" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="100" id="Hlh-Sy-kkx"/>
-                <constraint firstAttribute="trailing" secondItem="FtJ-qf-YYH" secondAttribute="trailing" constant="100" id="XVA-Ed-Luq"/>
+                <constraint firstItem="FtJ-qf-YYH" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="Hlh-Sy-kkx"/>
+                <constraint firstAttribute="trailing" secondItem="FtJ-qf-YYH" secondAttribute="trailing" constant="20" id="XVA-Ed-Luq"/>
                 <constraint firstAttribute="centerY" secondItem="FtJ-qf-YYH" secondAttribute="centerY" constant="12" id="cVz-cv-gIR"/>
             </constraints>
             <connections>

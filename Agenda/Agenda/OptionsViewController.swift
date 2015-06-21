@@ -12,6 +12,8 @@ class OptionsViewController: UITableViewController {
     @IBOutlet weak var icloudSwitch: UISwitch!
     @IBOutlet weak var media: UITextField!
     @IBOutlet weak var alarme: UIDatePicker!
+    
+    var loading:LoadingView!
    
     @IBAction func salvar(sender: AnyObject) {
         let ud = NSUserDefaults.standardUserDefaults();
@@ -35,6 +37,7 @@ class OptionsViewController: UITableViewController {
     }
 
 	override func viewWillAppear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "endSync:", name: didFinishedSyncWithCloudNotification, object: nil)
 		// Verifica se o usuário está logado no iCloud.
 		// Caso positivo, permite a ativação do iCloud no app
 		var error : NSError? = nil
@@ -49,6 +52,9 @@ class OptionsViewController: UITableViewController {
 			icloudSwitch.enabled = false
 		}
 	}
+    override func viewWillDisappear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: didFinishedSyncWithCloudNotification, object: nil)
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -59,11 +65,27 @@ class OptionsViewController: UITableViewController {
     }
 
 	func switchValueChanged(switchState: UISwitch){
-		NSUserDefaults.standardUserDefaults().setBool(switchState.on, forKey: CoreDataStackIcloudFlagForUserDefault)
+        
+		//NSUserDefaults.standardUserDefaults().setBool(switchState.on, forKey: CoreDataStackIcloudFlagForUserDefault)
+        self.loading = NSBundle.mainBundle().loadNibNamed("LoadingView", owner: self, options: nil).first as? LoadingView
+        self.loading.frame = CGRectMake(10, 10, self.view.frame.size.width - 20, self.view.frame.height - 20)
+        self.view.addSubview(self.loading)
+        self.view.userInteractionEnabled = false
+        self.tabBarController!.tabBar.hidden = true
+        
+        CloudKitManager.sharedInstance.rebase()
+        
+        //loading?.removeFromSuperview()
 //		MateriaManager.sharedInstance.removeDuplicated()
 //		TarefaManager.sharedInstance.removeDuplicated()
 
 	}
+    
+    func endSync(notif:NSNotification){
+        self.loading.removeFromSuperview()
+        self.view.userInteractionEnabled = true
+        self.tabBarController!.tabBar.hidden = false
+    }
 
     /*
     // MARK: - Navigation

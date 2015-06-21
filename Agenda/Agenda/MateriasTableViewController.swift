@@ -48,7 +48,7 @@ class MateriasTableViewController: UIViewController, UITableViewDataSource, UITa
         self.tableView.dataSource = self
 
         // Do any additional setup after loading the view.
-        CloudKitManager.sharedInstance.rebase()
+        //CloudKitManager.sharedInstance.rebase()
     }
 
     override func viewWillAppear(animated: Bool) {
