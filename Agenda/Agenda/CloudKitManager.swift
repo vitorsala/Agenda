@@ -85,42 +85,51 @@ class CloudKitManager{
 
 	func askForAuth(#viewController : UIViewController!){
 
-		if NSUserDefaults.standardUserDefaults().objectForKey(CoreDataStackIcloudFlagForUserDefault) == nil{
+        if true{//NSUserDefaults.standardUserDefaults().objectForKey(CoreDataStackIcloudFlagForUserDefault) == nil{
 			var error : NSError? = nil
 
-			CKContainer.defaultContainer().accountStatusWithCompletionHandler { (acc, error) -> Void in
-
-				if error == nil{
-					if acc == CKAccountStatus.Available{
-						println("Vai querer o icloud?")
-						let icloudalert = UIAlertController(title: "iCloud?", message: "Vai usar o iCloud?", preferredStyle: UIAlertControllerStyle.Alert)
-
-						icloudalert.addAction(UIAlertAction(title: "YEAH!", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-
-							NSUserDefaults.standardUserDefaults().setBool(true, forKey: CoreDataStackIcloudFlagForUserDefault)
-
-							// Código para sincronizar os dados
-							self.rebase()
-
-						}))
-
-						icloudalert.addAction(UIAlertAction(title: "NOPE!", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
-
-							NSUserDefaults.standardUserDefaults().setBool(false, forKey: CoreDataStackIcloudFlagForUserDefault)
-
-						}))
-
-						dispatch_async(dispatch_get_main_queue(), { () -> Void in
-							viewController.presentViewController(icloudalert, animated: true, completion: nil)
-						})
-					}
-
-					else{
-						NSUserDefaults.standardUserDefaults().setBool(false, forKey: CoreDataStackIcloudFlagForUserDefault)
-					}
-				}
-			}
-		}
+            if ConnectionCheck.isConnectedToNetwork() == false {
+                NSUserDefaults.standardUserDefaults().setBool(false, forKey: CoreDataStackIcloudFlagForUserDefault)
+                let netAlert = UIAlertController(title: "Sem conexão com a Internet", message: "Iniciando em modo offline. Neste modo, seus dados não serão salvos ou carregados do iCloud.", preferredStyle: UIAlertControllerStyle.Alert)
+                netAlert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
+                }))
+                viewController.presentViewController(netAlert, animated: true, completion: nil)
+            }
+            else{
+                CKContainer.defaultContainer().accountStatusWithCompletionHandler { (acc, error) -> Void in
+                    
+                    if error == nil{
+                        if acc == CKAccountStatus.Available{
+                            println("Vai querer o icloud?")
+                            let icloudalert = UIAlertController(title: "Ativar iCloud?", message: "Em modo offline, seus dados não serão salvos ou carregados do iCloud.", preferredStyle: UIAlertControllerStyle.Alert)
+                            
+                            icloudalert.addAction(UIAlertAction(title: "Online!", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                                
+                                NSUserDefaults.standardUserDefaults().setBool(true, forKey: CoreDataStackIcloudFlagForUserDefault)
+                                
+                                // Código para sincronizar os dados
+                                self.rebase()
+                                
+                            }))
+                            
+                            icloudalert.addAction(UIAlertAction(title: "Offline!", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+                                
+                                NSUserDefaults.standardUserDefaults().setBool(false, forKey: CoreDataStackIcloudFlagForUserDefault)
+                                
+                            }))
+                            
+                            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                                viewController.presentViewController(icloudalert, animated: true, completion: nil)
+                            })
+                        }
+                            
+                        else{
+                            NSUserDefaults.standardUserDefaults().setBool(false, forKey: CoreDataStackIcloudFlagForUserDefault)
+                        }
+                    }
+                }
+            }
+        }
 	}
 
 	/**
