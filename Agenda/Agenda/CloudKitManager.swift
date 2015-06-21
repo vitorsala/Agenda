@@ -107,8 +107,9 @@ class CloudKitManager{
                                 
                                 NSUserDefaults.standardUserDefaults().setBool(true, forKey: CoreDataStackIcloudFlagForUserDefault)
                                 
+                                
                                 // Código para sincronizar os dados
-                                self.rebase()
+                                //self.rebase()
                                 
                             }))
                             

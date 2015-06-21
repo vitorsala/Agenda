@@ -274,6 +274,10 @@ class EventManager {
 
         }
         
+        if cal.count < 1 {
+            return
+        }
+        
         let pred = eventStore.predicateForEventsWithStartDate(NSDate(), endDate: futuro, calendars: cal as [AnyObject]);
         let eventos = NSMutableArray(array: eventStore.eventsMatchingPredicate(pred));
         for e in eventos{
