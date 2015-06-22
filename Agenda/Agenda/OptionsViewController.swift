@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CloudKit
 
 class OptionsViewController: UITableViewController {
     @IBOutlet weak var icloudSwitch: UISwitch!
@@ -64,7 +65,7 @@ class OptionsViewController: UITableViewController {
         self.media.resignFirstResponder()
     }
 
-	func switchValueChanged(switchState: UISwitch){
+    @IBAction func sincronizar(sender: AnyObject) {
         if ConnectionCheck.isConnectedToNetwork() == false {
             let netAlert = UIAlertController(title: "Sem conexão com a Internet", message: "Impossível sincronizar com iCloud.", preferredStyle: UIAlertControllerStyle.Alert)
             netAlert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
@@ -89,6 +90,27 @@ class OptionsViewController: UITableViewController {
                 }))
                 self.presentViewController(icloudalert, animated: true, completion: nil)
             }
+        }
+    }
+    
+	func switchValueChanged(switchState: UISwitch){
+        if switchState.on {
+            if ConnectionCheck.isConnectedToNetwork() == false {
+                NSUserDefaults.standardUserDefaults().setBool(false, forKey: CoreDataStackIcloudFlagForUserDefault)
+                let netAlert = UIAlertController(title: "Sem conexão com a Internet", message: "Impossivel habilitar iCloud.", preferredStyle: UIAlertControllerStyle.Alert)
+                netAlert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
+                }))
+                self.presentViewController(netAlert, animated: true, completion: nil)
+            }
+            if CloudKitManager.sharedInstance.accountStatus == AccountStatus.Available {
+                NSUserDefaults.standardUserDefaults().setBool(true, forKey: CoreDataStackIcloudFlagForUserDefault)
+            }
+            else{
+                
+            }
+        }
+        else{
+            NSUserDefaults.standardUserDefaults().setBool(false, forKey: CoreDataStackIcloudFlagForUserDefault)
         }
         
         //loading?.removeFromSuperview()

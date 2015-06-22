@@ -26,7 +26,7 @@ class CloudKitManager{
 	internal let privateDB : CKDatabase
 	internal let publicDB : CKDatabase
 
-	internal var accountStatus : AccountStatus = AccountStatus.CouldNotDetermine
+	var accountStatus : AccountStatus = AccountStatus.CouldNotDetermine
 
 	private var timer : NSTimer?
 
@@ -84,18 +84,20 @@ class CloudKitManager{
 	}
 
 	func askForAuth(#viewController : UIViewController!){
+        
+        if ConnectionCheck.isConnectedToNetwork() == false {
+            NSUserDefaults.standardUserDefaults().setBool(false, forKey: CoreDataStackIcloudFlagForUserDefault)
+            let netAlert = UIAlertController(title: "Sem conexão com a Internet", message: "Iniciando em modo offline. Neste modo, seus dados não serão salvos ou carregados do iCloud.", preferredStyle: UIAlertControllerStyle.Alert)
+            netAlert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
+            }))
+            viewController.presentViewController(netAlert, animated: true, completion: nil)
+        }
+        else{
 
-        if true{//NSUserDefaults.standardUserDefaults().objectForKey(CoreDataStackIcloudFlagForUserDefault) == nil{
-			var error : NSError? = nil
-
-            if ConnectionCheck.isConnectedToNetwork() == false {
-                NSUserDefaults.standardUserDefaults().setBool(false, forKey: CoreDataStackIcloudFlagForUserDefault)
-                let netAlert = UIAlertController(title: "Sem conexão com a Internet", message: "Iniciando em modo offline. Neste modo, seus dados não serão salvos ou carregados do iCloud.", preferredStyle: UIAlertControllerStyle.Alert)
-                netAlert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
-                }))
-                viewController.presentViewController(netAlert, animated: true, completion: nil)
-            }
-            else{
+            if NSUserDefaults.standardUserDefaults().objectForKey(CoreDataStackIcloudFlagForUserDefault) == nil{
+                var error : NSError? = nil
+                
+                
                 CKContainer.defaultContainer().accountStatusWithCompletionHandler { (acc, error) -> Void in
                     
                     if error == nil{
@@ -130,7 +132,7 @@ class CloudKitManager{
                 }
             }
         }
-	}
+    }
 
 	/**
 		Deleta tudo do storage local, e atualiza com tudo que está na nuvem
