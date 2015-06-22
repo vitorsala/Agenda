@@ -120,9 +120,12 @@ class OptionsViewController: UITableViewController {
 	}
     
     func endSync(notif:NSNotification){
-        self.loading.removeFromSuperview()
-        self.view.userInteractionEnabled = true
-        self.tabBarController!.tabBar.hidden = false
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            self.loading.removeFromSuperview()
+            self.view.userInteractionEnabled = true
+            self.tabBarController!.tabBar.hidden = false
+            
+        })
     }
 
     /*
