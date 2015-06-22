@@ -32,6 +32,9 @@ class OptionsViewController: UITableViewController {
         if(ud.valueForKey("media") != nil){
             media.text = ud.valueForKey("media") as! String;
         }
+
+		let gesture = UITapGestureRecognizer(target: self, action: "touchesAction")
+		self.view.addGestureRecognizer(gesture)
         //alarme.datePickerMode = UIDatePicker.UIDatePickerModeTime;
         // Do any additional setup after loading the view.
 
@@ -61,7 +64,7 @@ class OptionsViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+    func touchesAction() {
         self.media.resignFirstResponder()
     }
 
@@ -120,9 +123,12 @@ class OptionsViewController: UITableViewController {
 	}
     
     func endSync(notif:NSNotification){
-        self.loading.removeFromSuperview()
-        self.view.userInteractionEnabled = true
-        self.tabBarController!.tabBar.hidden = false
+		dispatch_async(dispatch_get_main_queue(), { () -> Void in
+			self.loading.removeFromSuperview()
+			self.view.userInteractionEnabled = true
+			self.tabBarController!.tabBar.hidden = false
+
+		})
     }
 
     /*
