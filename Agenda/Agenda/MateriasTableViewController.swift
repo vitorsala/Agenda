@@ -51,6 +51,15 @@ class MateriasTableViewController: UIViewController, UITableViewDataSource, UITa
         //CloudKitManager.sharedInstance.rebase()
     }
 
+	func endSync(notif:NSNotification){
+		dispatch_async(dispatch_get_main_queue(), { () -> Void in
+			self.navigationController?.navigationBarHidden = false
+			self.view.userInteractionEnabled = true
+			self.tabBarController!.tabBar.hidden = false
+			self.tableView.reloadData()
+		})
+	}
+	
     override func viewWillAppear(animated: Bool) {
         self.editando = false
         self.editButton.title = "Editar"

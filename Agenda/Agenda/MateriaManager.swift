@@ -28,6 +28,7 @@ class MateriaManager: NSObject{
         let newMateria = NSEntityDescription.insertNewObjectForEntityForName(MateriaManager.entityName, inManagedObjectContext: managedObjectContext) as! Materia
         newMateria.nomeMateria = nome
         newMateria.idCloud = "\(NSDate().timeIntervalSince1970 as Double)"
+		newMateria.ultimaAtualizacao = NSDate()
         self.save()
 
 		if CloudKitManager.sharedInstance.icloudEnabled{

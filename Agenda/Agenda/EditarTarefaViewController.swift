@@ -43,7 +43,7 @@ class EditarTarefaViewController: UIViewController {
 			EventManager.sharedInstance.editaEvento(textField.text, nData: datePicker.date, tarefa: tarefa);
 			tarefa.nomeAtiv = textField.text
 			tarefa.dataEntrega = datePicker.date
-			
+			tarefa.ultimaAtualizacao = NSDate()
 			TarefaManager.sharedInstance.save()
 			TarefaManager.sharedInstance.updateInCloud(tarefa)
 			

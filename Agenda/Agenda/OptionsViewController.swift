@@ -69,31 +69,37 @@ class OptionsViewController: UITableViewController {
     }
 
     @IBAction func sincronizar(sender: AnyObject) {
-        if ConnectionCheck.isConnectedToNetwork() == false {
-            let netAlert = UIAlertController(title: "Sem conexão com a Internet", message: "Impossível sincronizar com iCloud.", preferredStyle: UIAlertControllerStyle.Alert)
-            netAlert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
-            }))
-            self.presentViewController(netAlert, animated: true, completion: nil)
-        }
-        else{
+
             
-            //NSUserDefaults.standardUserDefaults().setBool(switchState.on, forKey: CoreDataStackIcloudFlagForUserDefault)
-            if (NSUserDefaults.standardUserDefaults().objectForKey(CoreDataStackIcloudFlagForUserDefault) as! Bool) == true {
-                self.loading = NSBundle.mainBundle().loadNibNamed("LoadingView", owner: self, options: nil).first as? LoadingView
-                self.loading.frame = CGRectMake(10, 10, self.view.frame.size.width - 20, self.view.frame.height - 20)
-                self.view.addSubview(self.loading)
-                self.view.userInteractionEnabled = false
-                self.tabBarController!.tabBar.hidden = true
-                
-                CloudKitManager.sharedInstance.rebase()
-            }
-            else{
-                let icloudalert = UIAlertController(title: "iCloud está desativado", message: "Em modo offline, seus dados não podem ser salvos ou carregados do iCloud.", preferredStyle: UIAlertControllerStyle.Alert)
-                icloudalert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
-                }))
-                self.presentViewController(icloudalert, animated: true, completion: nil)
-            }
-        }
+		//NSUserDefaults.standardUserDefaults().setBool(switchState.on, forKey: CoreDataStackIcloudFlagForUserDefault)
+		if (NSUserDefaults.standardUserDefaults().objectForKey(CoreDataStackIcloudFlagForUserDefault) as! Bool) == true {
+
+			self.loading = NSBundle.mainBundle().loadNibNamed("LoadingView", owner: self, options: nil).first as? LoadingView
+			self.loading.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.height)
+			self.view.addSubview(self.loading)
+			self.view.userInteractionEnabled = false
+			self.tabBarController!.tabBar.hidden = true
+
+			if ConnectionCheck.isConnectedToNetwork() == false {
+				let netAlert = UIAlertController(title: "Sem conexão com a Internet", message: "Impossível sincronizar com iCloud.", preferredStyle: UIAlertControllerStyle.Alert)
+				netAlert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
+				}))
+				self.presentViewController(netAlert, animated: true, completion: { () -> Void in
+					self.loading.removeFromSuperview()
+					self.view.userInteractionEnabled = true
+					self.tabBarController!.tabBar.hidden = false
+				})
+			}
+			else{
+				CloudKitManager.sharedInstance.rebase()
+			}
+		}
+		else{
+			let icloudalert = UIAlertController(title: "iCloud está desativado", message: "Em modo offline, seus dados não podem ser salvos ou carregados do iCloud.", preferredStyle: UIAlertControllerStyle.Alert)
+			icloudalert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
+			}))
+			self.presentViewController(icloudalert, animated: true, completion: nil)
+		}
     }
     
 	func switchValueChanged(switchState: UISwitch){
@@ -124,10 +130,8 @@ class OptionsViewController: UITableViewController {
     
     func endSync(notif:NSNotification){
 		dispatch_async(dispatch_get_main_queue(), { () -> Void in
-			self.loading.removeFromSuperview()
 			self.view.userInteractionEnabled = true
 			self.tabBarController!.tabBar.hidden = false
-
 		})
     }
 

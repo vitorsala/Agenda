@@ -31,7 +31,8 @@ class TarefaManager: NSObject{
         newTarefa.nomeAtiv = nome
         newTarefa.disciplina = disc
         newTarefa.dataEntrega = data
-        newTarefa.tipoAtiv = tipo
+		newTarefa.tipoAtiv = tipo
+		newTarefa.ultimaAtualizacao = NSDate()
         newTarefa.idCloud = "\(NSDate().timeIntervalSince1970 as Double)"
         self.save()
 

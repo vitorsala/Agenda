@@ -105,21 +105,33 @@ class CloudKitManager{
                             println("Vai querer o icloud?")
                             let icloudalert = UIAlertController(title: "Ativar iCloud?", message: "Em modo offline, seus dados não serão salvos ou carregados do iCloud.", preferredStyle: UIAlertControllerStyle.Alert)
                             
-                            icloudalert.addAction(UIAlertAction(title: "Online!", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
-                                
-                                NSUserDefaults.standardUserDefaults().setBool(true, forKey: CoreDataStackIcloudFlagForUserDefault)
-                                
-                                // Código para sincronizar os dados
-                                //self.rebase()
-                                
-                            }))
-                            
+
                             icloudalert.addAction(UIAlertAction(title: "Offline!", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                                 
                                 NSUserDefaults.standardUserDefaults().setBool(false, forKey: CoreDataStackIcloudFlagForUserDefault)
                                 
                             }))
-                            
+
+							icloudalert.addAction(UIAlertAction(title: "Online!", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+
+								NSUserDefaults.standardUserDefaults().setBool(true, forKey: CoreDataStackIcloudFlagForUserDefault)
+
+								// Código para sincronizar os dados
+								let loading = (NSBundle.mainBundle().loadNibNamed("LoadingView", owner: viewController, options: [:]).first as! LoadingView)
+
+								loading.frame = UIScreen.mainScreen().bounds
+
+								viewController.view.addSubview(loading)
+								NSNotificationCenter.defaultCenter().addObserver(viewController, selector: "endSync:", name: didFinishedSyncWithCloudNotification, object: nil)
+
+								viewController.navigationController?.navigationBarHidden = true
+								viewController.view.userInteractionEnabled = false
+								viewController.tabBarController!.tabBar.hidden = true
+
+								self.rebase()
+
+							}))
+
                             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                                 viewController.presentViewController(icloudalert, animated: true, completion: nil)
                             })
@@ -195,6 +207,5 @@ class CloudKitManager{
 
 			}
 		}
-
 	}
 }

@@ -39,7 +39,7 @@ class EditarMateriaViewController: UIViewController {
 			EventManager.sharedInstance.editaMateria(materia.nomeMateria, nomeNovo: textField.text);
 			
 			materia.nomeMateria = textField.text
-			
+			materia.ultimaAtualizacao = NSDate()
 			MateriaManager.sharedInstance.save()
 			MateriaManager.sharedInstance.updateInCloud(materia)
 			
