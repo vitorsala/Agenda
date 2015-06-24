@@ -323,27 +323,29 @@ class TarefaManager: NSObject{
 		self.save()
 	}
 
-//	func removeDuplicated(){
-//		func removeDuplicated(){
-//			var tarefas = self.fetchAllTarefas() // Pega todos as materias existentes
-//			tarefas.sort{$0.0.nomeAtiv.compare($0.1.nomeAtiv) == NSComparisonResult.OrderedDescending}
-//			while tarefas.count > 1 {
-//				if tarefas[0].nomeAtiv == tarefas[1].nomeAtiv {
-//					if tarefas[0].idCloud.doubleValue > tarefas[1].idCloud.doubleValue{
-//						managedObjectContext.deleteObject(tarefas[1])
-//						tarefas.removeAtIndex(1)
-//					}
-//					else{
-//						managedObjectContext.deleteObject(tarefas[0])
-//						tarefas.removeAtIndex(0)
-//					}
-//				}
-//				else{
-//					tarefas.removeAtIndex(0)
-//				}
-//			}
-//			self.save()
-//		}
-//	}
+	func removeDuplicated(){
+		func removeDuplicated(){
+			var tarefas = self.fetchAllTarefas() // Pega todos as materias existentes
+			tarefas.sort{$0.0.nomeAtiv.compare($0.1.nomeAtiv) == NSComparisonResult.OrderedDescending}
+			while tarefas.count > 1 {
+				if tarefas[0].nomeAtiv == tarefas[1].nomeAtiv {
+					if tarefas[0].ultimaAtualizacao.compare(tarefas[1].ultimaAtualizacao) == NSComparisonResult.OrderedDescending{
+						managedObjectContext.deleteObject(tarefas[1])
+						deletaNotif(tarefas[1])
+						tarefas.removeAtIndex(1)
+					}
+					else{
+						managedObjectContext.deleteObject(tarefas[0])
+						deletaNotif(tarefas[0])
+						tarefas.removeAtIndex(0)
+					}
+				}
+				else{
+					tarefas.removeAtIndex(0)
+				}
+			}
+			self.save()
+		}
+	}
 
 }

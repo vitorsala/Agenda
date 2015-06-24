@@ -38,6 +38,7 @@
 		EBD1E6E61B38AF0700CBAAB2 /* Atividade.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD1E6E51B38AF0700CBAAB2 /* Atividade.swift */; };
 		EBD1E6E81B38AF0800CBAAB2 /* Materia.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD1E6E71B38AF0800CBAAB2 /* Materia.swift */; };
 		EBD661111B3B1A4F00254AD2 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD661101B3B1A4F00254AD2 /* MainViewController.swift */; };
+		EBD661131B3B2A0F00254AD2 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EBD661121B3B2A0F00254AD2 /* Settings.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +87,7 @@
 		EBD1E6E51B38AF0700CBAAB2 /* Atividade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Atividade.swift; sourceTree = "<group>"; };
 		EBD1E6E71B38AF0800CBAAB2 /* Materia.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Materia.swift; sourceTree = "<group>"; };
 		EBD661101B3B1A4F00254AD2 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		EBD661121B3B2A0F00254AD2 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		EBDF21861B1E0DFF0087166F /* Agenda.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Agenda.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -110,6 +112,7 @@
 		153B75861B1CD43C00EC5070 = {
 			isa = PBXGroup;
 			children = (
+				EBD661121B3B2A0F00254AD2 /* Settings.bundle */,
 				153B75911B1CD43C00EC5070 /* Agenda */,
 				153B75AA1B1CD43C00EC5070 /* AgendaTests */,
 				153B75901B1CD43C00EC5070 /* Products */,
@@ -318,6 +321,7 @@
 			files = (
 				153B759D1B1CD43C00EC5070 /* Main.storyboard in Resources */,
 				EB4573361B290CEF0072912C /* LoadingView.xib in Resources */,
+				EBD661131B3B2A0F00254AD2 /* Settings.bundle in Resources */,
 				153B75A21B1CD43C00EC5070 /* LaunchScreen.xib in Resources */,
 				153B759F1B1CD43C00EC5070 /* Images.xcassets in Resources */,
 			);

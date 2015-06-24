@@ -18,7 +18,7 @@ class EventManager {
     
     private init() {
         eventStore = EKEventStore();
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "syncCalICloud:", name: "didFinishedSyncWithCloud", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "syncCalICloud:", name: CoreDataStackIcloudFlagForUserDefault, object: nil)
     }
     
     func criaCalendario(){
@@ -186,7 +186,7 @@ class EventManager {
             if(error != nil){
                 println("nem apago");
             } else {
-                println("porra apago");
+                println("apago");
             }
         }
     }

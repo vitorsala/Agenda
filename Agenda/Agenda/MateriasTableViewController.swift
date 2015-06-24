@@ -49,15 +49,6 @@ class MateriasTableViewController: UIViewController, UITableViewDataSource, UITa
         //CloudKitManager.sharedInstance.rebase()
     }
 
-	func endSync(notif:NSNotification){
-		dispatch_async(dispatch_get_main_queue(), { () -> Void in
-			self.navigationController?.navigationBarHidden = false
-			self.view.userInteractionEnabled = true
-			self.tabBarController!.tabBar.hidden = false
-			self.tableView.reloadData()
-		})
-	}
-	
     override func viewWillAppear(animated: Bool) {
         self.editando = false
         self.editButton.title = "Editar"
@@ -72,7 +63,7 @@ class MateriasTableViewController: UIViewController, UITableViewDataSource, UITa
 		MateriaManager.sharedInstance.save()
     }
     
-    func refreshData(notification : NSNotification?){
+    @objc func refreshData(notification : NSNotification?){
 		arrayMaterias = NSMutableArray(array: MateriaManager.sharedInstance.fetchAllMaterias())
 		self.tableView.reloadData()
 	}
@@ -131,13 +122,15 @@ class MateriasTableViewController: UIViewController, UITableViewDataSource, UITa
     
 
     @IBAction func editButton(sender: AnyObject) {
-        self.editando = !self.editando
+		self.editando = !self.editando
+		self.tableView.setEditing(self.editando, animated: true)
         if self.editando{
             editButton.title = "OK"
         }
         else{
             editButton.title = "Editar"
         }
+
     }
     /*
     // MARK: - Navigation

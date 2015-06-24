@@ -79,27 +79,26 @@ class MateriaManager: NSObject{
 		self.save()
     }
 
-//	func removeDuplicated(){
-//		var materias = self.fetchAllMaterias() // Pega todos as materias existentes
-//
-//		materias.sort{$0.0.nomeMateria.compare($0.1.nomeMateria) == NSComparisonResult.OrderedDescending}
-//		while materias.count > 1 {
-//			if materias[0].nomeMateria == materias[1].nomeMateria {
-//				if materias[0].idCloud.doubleValue > materias[1].idCloud.doubleValue{
-//					managedObjectContext.deleteObject(materias[1])
-//					materias.removeAtIndex(1)
-//				}
-//				else{
-//					managedObjectContext.deleteObject(materias[0])
-//					materias.removeAtIndex(0)
-//				}
-//			}
-//			else{
-//				materias.removeAtIndex(0)
-//			}
-//		}
-//		self.save()
-//	}
+	func removeDuplicated(){
+		var materias = self.fetchAllMaterias() // Pega todos as materias existentes
+		materias.sort{$0.0.nomeMateria.compare($0.1.nomeMateria) == NSComparisonResult.OrderedDescending}
+		while materias.count > 1 {
+			if materias[0].nomeMateria == materias[1].nomeMateria {
+				if materias[0].ultimaAtualizacao.compare(materias[1].ultimaAtualizacao) == NSComparisonResult.OrderedDescending {
+					managedObjectContext.deleteObject(materias[1])
+					materias.removeAtIndex(1)
+				}
+				else{
+					managedObjectContext.deleteObject(materias[0])
+					materias.removeAtIndex(0)
+				}
+			}
+			else{
+				materias.removeAtIndex(0)
+			}
+		}
+		self.save()
+	}
 
     func deletaNotifsMateria(materia:Materia){
         let tarefas = TarefaManager.sharedInstance.fetchTarefasForMateria(materia)
