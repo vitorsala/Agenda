@@ -15,7 +15,7 @@ class MainViewController : UIViewController{
 		
 		if ConnectionCheck.isConnectedToNetwork() == false {
 			NSUserDefaults.standardUserDefaults().setBool(false, forKey: CoreDataStackIcloudFlagForUserDefault)
-			let netAlert = UIAlertController(title: "Sem conexão com a Internet", message: "Iniciando em modo offline. Neste modo, seus dados não serão salvos ou carregados do iCloud.", preferredStyle: UIAlertControllerStyle.Alert)
+			let netAlert = UIAlertController(title: "Sem conexão com a Internet", message: "Não foi possível conectar com o iCloud.\nA sincronização com iCloud foi desativada neste aplicativo pois não foi encontrada uma conexão com a internet.", preferredStyle: UIAlertControllerStyle.Alert)
 			netAlert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
 			}))
 			self.presentViewController(netAlert, animated: true, completion: nil)
@@ -23,12 +23,10 @@ class MainViewController : UIViewController{
 		else{
 
 			if NSUserDefaults.standardUserDefaults().objectForKey(CoreDataStackIcloudFlagForUserDefault) == nil{
-
-
 				if CoreDataStack.isLoggedInIcloud() {
 
 					println("Vai querer o icloud?")
-					let icloudalert = UIAlertController(title: "Ativar iCloud?", message: "Em modo offline, seus dados não serão salvos ou carregados do iCloud.", preferredStyle: UIAlertControllerStyle.Alert)
+					let icloudalert = UIAlertController(title: "Ativar iCloud?", message: "Em modo offline, seus dados não serão salvos ou carregados do iCloud.\nEsta configuração pode ser modificada posteriormente nas configurações do aplicativo, localizado nas configurações do dispositivo.", preferredStyle: UIAlertControllerStyle.Alert)
 
 
 					icloudalert.addAction(UIAlertAction(title: "Offline!", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
@@ -58,11 +56,29 @@ class MainViewController : UIViewController{
 				}
 
 				else{
+					let icloudalert = UIAlertController(title: "iCloud", message: "Este aplicativo utiliza o iCloud para sincronizar dados.\nPara utilizar o iCloud, associe uma conta com este aparelho pelo menu Opções do dispositivo.", preferredStyle: UIAlertControllerStyle.Alert)
+
+
+					icloudalert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+						self.performSegueWithIdentifier("startAppSegue", sender: nil)
+					}))
+					self.presentViewController(icloudalert, animated: true, completion: nil)
+
 					NSUserDefaults.standardUserDefaults().setBool(false, forKey: CoreDataStackIcloudFlagForUserDefault)
 					CoreDataStack.sharedInstance
-					
-					performSegueWithIdentifier("startAppSegue", sender: nil)
+
 				}
+			}
+			else if (NSUserDefaults.standardUserDefaults().boolForKey(CoreDataStackIcloudFlagForUserDefault) == true && CoreDataStack.isLoggedInIcloud() == false){
+				let icloudalert = UIAlertController(title: "iCloud", message: "Não foi possível conectar com o iCloud.\nA sincronização com iCloud foi desativada neste aplicativo pois não foi encontrada uma conta associada com o dispositivo.", preferredStyle: UIAlertControllerStyle.Alert)
+
+
+				icloudalert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+					self.performSegueWithIdentifier("startAppSegue", sender: nil)
+				}))
+				self.presentViewController(icloudalert, animated: true, completion: nil)
+
+				NSUserDefaults.standardUserDefaults().setBool(false, forKey: CoreDataStackIcloudFlagForUserDefault)
 			}
 			else{
 				CoreDataStack.sharedInstance
@@ -73,12 +89,10 @@ class MainViewController : UIViewController{
 	}
 
 	@objc func endSync(notification: NSNotification){
+		NSNotificationCenter.defaultCenter().removeObserver(self)
 		loading?.removeFromSuperview()
 		performSegueWithIdentifier("startAppSegue", sender: nil)
+
 	}
 
-	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-		if segue.identifier == "startAppSegue"{
-		}
-	}
 }

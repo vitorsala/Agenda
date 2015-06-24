@@ -12,6 +12,7 @@ import CoreData
 let CoreDataStackDidChangeNotification = "didUpdatedFromIcloud"
 let CoreDataStackDidImportedNotification = "didImportFromIcloud"
 let CoreDataStackIcloudFlagForUserDefault = "icloudAllowed"
+let CoreDataStackIcloudFlagDidChangeOnBackground = "icloudFlagDidChangeOnBackground"
 
 class CoreDataStack {
 	static let sharedInstance = CoreDataStack()
@@ -147,6 +148,10 @@ class CoreDataStack {
 		// Faz o merge de dados
 		managedObjectContext?.mergeChangesFromContextDidSaveNotification(notification)
 
+
+		MateriaManager.sharedInstance.removeDuplicated()
+		TarefaManager.sharedInstance.removeDuplicated()
+		
 		// Notifica as outras classes que ouve merge
 		NSNotificationCenter.defaultCenter().postNotificationName(CoreDataStackDidImportedNotification, object: nil, userInfo: notification.userInfo)
 	}
