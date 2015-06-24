@@ -38,12 +38,6 @@ class TarefaManager: NSObject{
 
         self.criaNotif(newTarefa)
 
-		if CloudKitManager.sharedInstance.icloudEnabled{
-
-			var error : NSError? = nil
-			self.saveInCloud(newTarefa, error: &error)
-		}
-        
     }
     
 //    func criaNotif(newTarefa: Atividade) {
@@ -326,10 +320,7 @@ class TarefaManager: NSObject{
 
 	func deleteTarefa(#tarefa: Atividade){
 		managedObjectContext.deleteObject(tarefa)
-
-		if CloudKitManager.sharedInstance.icloudEnabled{
-			self.deleteFromCloud(tarefa)
-		}
+		self.save()
 	}
 
 //	func removeDuplicated(){
@@ -354,68 +345,5 @@ class TarefaManager: NSObject{
 //			self.save()
 //		}
 //	}
-
-	func saveInCloud(tarefa: Atividade, inout error err: NSError?){
-		let cloud = CloudKitManager.sharedInstance
-
-		let id = CKRecordID(recordName: tarefa.idCloud)
-		let record = CKRecord(recordType: TarefaManager.entityName, recordID: id)
-
-		record.setObject(tarefa.nomeAtiv, forKey: "nomeAtiv")
-		record.setObject(tarefa.avaliado, forKey: "avaliado")
-		record.setObject(tarefa.dataEntrega, forKey: "dataEntrega")
-		record.setObject(tarefa.nota, forKey: "nota")
-		record.setObject(tarefa.tipoAtiv, forKey: "tipoAtiv")
-        record.setObject(tarefa.entregue, forKey: "entregue")
-
-		let reference = CKReference(recordID: CKRecordID(recordName: "\(tarefa.disciplina.idCloud)"), action: CKReferenceAction.DeleteSelf)
-
-		record.setObject(reference, forKey: "disciplina")
-
-		cloud.privateDB.saveRecord(record, completionHandler: { (savedRecord, error) -> Void in
-
-			if error != nil{
-				println(error.localizedDescription)
-			}
-			err = error
-		})
-	}
-
-	func updateInCloud(tarefa: Atividade){
-		let cloud = CloudKitManager.sharedInstance
-
-		cloud.privateDB.fetchRecordWithID(CKRecordID(recordName: tarefa.idCloud), completionHandler: { (record: CKRecord!, error: NSError!) -> Void in
-
-			if error == nil{
-				record.setObject(tarefa.nomeAtiv, forKey: "nomeAtiv")
-				record.setObject(tarefa.avaliado, forKey: "avaliado")
-				record.setObject(tarefa.dataEntrega, forKey: "dataEntrega")
-				record.setObject(tarefa.nota, forKey: "nota")
-				record.setObject(tarefa.tipoAtiv, forKey: "tipoAtiv")
-                record.setObject(tarefa.entregue, forKey: "entregue")
-
-				cloud.privateDB.saveRecord(record, completionHandler: { (record: CKRecord!, error: NSError!) -> Void in
-					if error != nil{
-						println(error.localizedDescription)
-					}
-				})
-			}
-			else{
-				println(error.localizedDescription)
-			}
-
-		})
-	}
-
-	func deleteFromCloud(tarefa: Atividade){
-		let cloud = CloudKitManager.sharedInstance
-
-		cloud.privateDB.deleteRecordWithID(CKRecordID(recordName: tarefa.idCloud), completionHandler: { (record, error) -> Void in
-
-			if error != nil{
-				println(error.localizedDescription)
-			}
-		})
-	}
 
 }

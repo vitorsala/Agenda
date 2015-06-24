@@ -20,8 +20,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let event = EventManager.sharedInstance
         let notif = LocalNotificationManager.sharedInstance
 
-		CloudKitManager.sharedInstance
-
 //        UIApplication.sharedApplication().statusBarStyle = .LightContent
         
      

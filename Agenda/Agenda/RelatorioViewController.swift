@@ -26,11 +26,11 @@ class RelatorioViewController: UIViewController, UITableViewDataSource, UITableV
     override func viewWillAppear(animated: Bool) {
         refreshData(nil)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshData:", name: didFinishedSyncWithCloudNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshData:", name: CoreDataStackDidImportedNotification, object: nil)
     }
     
     override func viewWillDisappear(animated: Bool) {
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: didFinishedSyncWithCloudNotification, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: CoreDataStackDidImportedNotification, object: nil)
     }
     
     func refreshData(notification : NSNotification?){

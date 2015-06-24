@@ -13,11 +13,6 @@ class LoadingView : UIView{
 	@IBOutlet weak var activityIndicator: ActivityIndicator!
 	override func awakeFromNib() {
 		activityIndicator.startAnimating()
-		NSNotificationCenter.defaultCenter().addObserverForName(didFinishedSyncWithCloudNotification, object: nil, queue: NSOperationQueue.mainQueue()) { (notification: NSNotification!) -> Void in
-
-			NSNotificationCenter.defaultCenter().removeObserver(self)
-			self.removeFromSuperview()
-		}
 	}
 }
 

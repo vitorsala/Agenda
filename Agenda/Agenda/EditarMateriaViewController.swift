@@ -41,8 +41,7 @@ class EditarMateriaViewController: UIViewController {
 			materia.nomeMateria = textField.text
 			materia.ultimaAtualizacao = NSDate()
 			MateriaManager.sharedInstance.save()
-			MateriaManager.sharedInstance.updateInCloud(materia)
-			
+
 			self.navigationController?.popViewControllerAnimated(true)
 		}
 		else{

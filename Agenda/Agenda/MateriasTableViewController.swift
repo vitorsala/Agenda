@@ -42,8 +42,6 @@ class MateriasTableViewController: UIViewController, UITableViewDataSource, UITa
                 })
         }
 
-		CloudKitManager.sharedInstance.askForAuth(viewController: self)
-
         self.tableView.delegate = self
         self.tableView.dataSource = self
 
@@ -66,11 +64,12 @@ class MateriasTableViewController: UIViewController, UITableViewDataSource, UITa
         
         refreshData(nil)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshData:", name: didFinishedSyncWithCloudNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshData:", name: CoreDataStackDidImportedNotification, object: nil)
     }
     
     override func viewWillDisappear(animated: Bool) {
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: didFinishedSyncWithCloudNotification, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: CoreDataStackDidImportedNotification, object: nil)
+		MateriaManager.sharedInstance.save()
     }
     
     func refreshData(notification : NSNotification?){

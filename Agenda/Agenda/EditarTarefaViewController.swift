@@ -45,8 +45,7 @@ class EditarTarefaViewController: UIViewController {
 			tarefa.dataEntrega = datePicker.date
 			tarefa.ultimaAtualizacao = NSDate()
 			TarefaManager.sharedInstance.save()
-			TarefaManager.sharedInstance.updateInCloud(tarefa)
-			
+
 			TarefaManager.sharedInstance.atualizaNotif(tarefa)
 			
 			self.navigationController?.popViewControllerAnimated(true)
